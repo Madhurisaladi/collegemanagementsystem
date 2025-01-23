@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,6 +10,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -100,6 +102,17 @@ const Register = () => {
                 </button>
               </form>
               {error && <p className="text-danger mt-3">{error}</p>}
+              <div className="text-center mt-3">
+                <p>
+                  Already have an account?{" "}
+                  <button
+                    className="btn btn-link"
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </button>
+                </p>
+              </div>
             </div>
           </div>
         </div>

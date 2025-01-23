@@ -3,23 +3,29 @@ import { auth } from "../firebase"; // Adjust the path to your firebase.js file
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [resetMessage, setResetMessage] = useState("");
+  const [isAnimating, setIsAnimating] = useState({ login: false, forgot: false });
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error
-    setResetMessage(""); // Reset reset message
+    setError("");
+    setResetMessage("");
+    setIsAnimating({ ...isAnimating, login: true });
+
+    setTimeout(() => setIsAnimating({ ...isAnimating, login: false }), 1000); // Reset animation
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/home"); // Redirect to home page
     } catch (err) {
-      setError(err.message); // Display error
+      setError(err.message);
     }
   };
 
@@ -28,12 +34,16 @@ const Login = () => {
       setError("Please enter your email to reset the password.");
       return;
     }
-    setError(""); // Reset error
+    setError("");
+    setIsAnimating({ ...isAnimating, forgot: true });
+
+    setTimeout(() => setIsAnimating({ ...isAnimating, forgot: false }), 1000); // Reset animation
+
     try {
       await sendPasswordResetEmail(auth, email);
       setResetMessage("Password reset email sent! Please check your inbox.");
     } catch (err) {
-      setError(err.message); // Display error
+      setError(err.message);
     }
   };
 
@@ -71,7 +81,12 @@ const Login = () => {
           {error && <p className="text-danger text-center">{error}</p>}
           {resetMessage && <p className="text-success text-center">{resetMessage}</p>}
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className={`btn btn-primary ${
+                isAnimating.login ? "animate__animated animate__pulse" : ""
+              }`}
+            >
               Login
             </button>
           </div>
@@ -79,7 +94,9 @@ const Login = () => {
         <div className="d-grid mb-3">
           <button
             type="button"
-            className="btn btn-link"
+            className={`btn btn-link ${
+              isAnimating.forgot ? "animate__animated animate__pulse" : ""
+            }`}
             style={{ textDecoration: "none" }}
             onClick={handleForgotPassword}
           >
