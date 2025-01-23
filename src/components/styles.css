@@ -1,0 +1,112 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  /* Header */
+  header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+  }
+  
+  nav .logo h1 {
+    font-size: 24px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: white;
+    font-size: 18px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(45deg, #4e73df, #1cc88a);
+    color: white;
+    padding: 80px 50px;
+    text-align: center;
+  }
+  
+  .hero h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .cta-button {
+    background-color: #ff5c8d;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+  }
+  
+  /* Features Section */
+  .features {
+    padding: 50px 30px;
+    text-align: center;
+  }
+  
+  .features h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  .feature-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    width: 30%;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-item p {
+    font-size: 16px;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 50px;
+  }
+  
