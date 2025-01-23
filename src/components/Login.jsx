@@ -50,6 +50,15 @@ const Login = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+        {/* Add Logo Above Title */}
+        <div className="text-center mb-4">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" // Your logo URL
+            alt="Logo"
+            style={{ maxWidth: "100px", marginBottom: "20px" }} 
+          />
+        </div>
+
         <h2 className="text-center mb-4">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
@@ -83,9 +92,7 @@ const Login = () => {
           <div className="d-grid mb-3">
             <button
               type="submit"
-              className={`btn btn-primary ${
-                isAnimating.login ? "animate__animated animate__pulse" : ""
-              }`}
+              className={`btn btn-primary ${isAnimating.login ? "animate__animated animate__pulse" : ""}`}
             >
               Login
             </button>
@@ -94,9 +101,7 @@ const Login = () => {
         <div className="d-grid mb-3">
           <button
             type="button"
-            className={`btn btn-link ${
-              isAnimating.forgot ? "animate__animated animate__pulse" : ""
-            }`}
+            className={`btn btn-link ${isAnimating.forgot ? "animate__animated animate__pulse" : ""}`}
             style={{ textDecoration: "none" }}
             onClick={handleForgotPassword}
           >
