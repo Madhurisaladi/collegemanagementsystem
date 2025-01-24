@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login"; // Adjust path to your Login component
 import Home from "./components/Home"; // Create a Home component for after login
 import Register from "./components/register"; //register page
-import StudentDashboard from "./src/Student/StudentDashboard.js";
+import StudentDashboard from "./Dashboard/Student/StudentDashboard.js";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard.js";
-import AdminDashboard from ".\src\Admin\AdminDashboard.js"; 
+import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js"; 
 function App() {
   return (
     <Router>

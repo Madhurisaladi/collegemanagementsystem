@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../firebase"; // Adjust the path to your firebase.js file
+import { auth, db } from "../firebase.js";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";

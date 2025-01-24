@@ -1,121 +1,186 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { auth, db } from "../firebase"; // Ensure Firebase is initialized correctly
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore"; // Firestore to set role
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  // State variables for the form
+  const [role, setRole] = useState("");  // Role selected (student, faculty, admin)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [facultyId, setFacultyId] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [success, setSuccess] = useState("");
 
+  // Handle role selection change
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);  // Update the selected role
+    // Reset other fields when the role changes
+    setStudentId("");
+    setFacultyId("");
+    setDepartment("");
+  };
+
+  // Handle registration logic
   const handleRegister = async (e) => {
     e.preventDefault();
-    const auth = getAuth();
-    const db = getFirestore();
+    setError("");
+    setSuccess("");
 
     try {
-      // Register the user with Firebase Authentication
+      // Step 1: Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Update the user profile with additional details
-      await updateProfile(user, {
-        displayName: `${firstName} ${lastName}`,
-      });
-
-      // Save additional details in Firestore
+      // Step 2: Set user data in Firestore with selected role
       await setDoc(doc(db, "users", user.uid), {
-        firstName,
-        lastName,
-        email,
-        uid: user.uid,
+        name: name,
+        email: email,
+        role: role, // Set the role (admin, faculty, student)
+        department: department,
+        studentId: role === "student" ? studentId : "",  // Only add for student
+        facultyId: role === "faculty" ? facultyId : "",  // Only add for faculty
+        timestamp: new Date(),
       });
 
-      alert("User registered successfully!");
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      setError(error.message);
+      setSuccess("User registered successfully!");
+    } catch (err) {
+      setError(err.message);
     }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="card-title text-center">Register</h2>
-              <form onSubmit={handleRegister}>
-                <div className="mb-3">
-                  <label className="form-label">First Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter first name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Last Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter last name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Register
-                </button>
-              </form>
-              {error && <p className="text-danger mt-3">{error}</p>}
-              <div className="text-center mt-3">
-                <p>
-                  Already have an account?{" "}
-                  <button
-                    className="btn btn-link"
-                    onClick={() => navigate("/login")}
-                  >
-                    Login
-                  </button>
-                </p>
-              </div>
-            </div>
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="card shadow p-4" style={{ maxWidth: "500px", width: "100%" }}>
+        <h2 className="text-center mb-4">Register</h2>
+
+        <form onSubmit={handleRegister}>
+          {/* Select Role */}
+          <div className="mb-3">
+            <label htmlFor="role" className="form-label">Register as</label>
+            <select
+              id="role"
+              className="form-select"
+              value={role}
+              onChange={handleRoleChange} // Update role on change
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="student">Student</option>
+              <option value="faculty">Faculty</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
-        </div>
+
+          {/* Name */}
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Name</label>
+            <input
+              type="text"
+              id="name"
+              className="form-control"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Role-based Fields */}
+          {role === "student" && (
+            <>
+              {/* Student ID */}
+              <div className="mb-3">
+                <label htmlFor="studentId" className="form-label">Student ID</label>
+                <input
+                  type="text"
+                  id="studentId"
+                  className="form-control"
+                  placeholder="Enter your student ID"
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
+                  required
+                />
+              </div>
+            </>
+          )}
+
+          {role === "faculty" && (
+            <>
+              {/* Faculty ID */}
+              <div className="mb-3">
+                <label htmlFor="facultyId" className="form-label">Faculty ID</label>
+                <input
+                  type="text"
+                  id="facultyId"
+                  className="form-control"
+                  placeholder="Enter your faculty ID"
+                  value={facultyId}
+                  onChange={(e) => setFacultyId(e.target.value)}
+                  required
+                />
+              </div>
+            </>
+          )}
+
+          {/* Department */}
+          {(role === "student" || role === "faculty") && (
+            <div className="mb-3">
+              <label htmlFor="department" className="form-label">Department</label>
+              <input
+                type="text"
+                id="department"
+                className="form-control"
+                placeholder="Enter your department"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                required
+              />
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <div className="d-grid mb-3">
+            <button type="submit" className="btn btn-primary">
+              Register
+            </button>
+          </div>
+
+          {/* Error and Success Messages */}
+          {error && <p className="text-danger text-center">{error}</p>}
+          {success && <p className="text-success text-center">{success}</p>}
+        </form>
       </div>
     </div>
   );
