@@ -15,6 +15,17 @@ const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Department options with full forms
+  const departments = [
+    { code: "CSE", name: "Computer Science and Engineering" },
+    { code: "EEE", name: "Electrical and Electronics Engineering" },
+    { code: "ECE", name: "Electronics and Communication Engineering" },
+    { code: "MECH", name: "Mechanical Engineering" },
+    { code: "CIVIL", name: "Civil Engineering" },
+    { code: "IT", name: "Information Technology" },
+    { code: "CHEM", name: "Chemical Engineering" },
+  ];
+
   // Handle role selection change
   const handleRoleChange = (e) => {
     setRole(e.target.value);  // Update the selected role
@@ -154,19 +165,24 @@ const Register = () => {
             </>
           )}
 
-          {/* Department */}
+          {/* Department Dropdown */}
           {(role === "student" || role === "faculty") && (
             <div className="mb-3">
               <label htmlFor="department" className="form-label">Department</label>
-              <input
-                type="text"
+              <select
                 id="department"
-                className="form-control"
-                placeholder="Enter your department"
+                className="form-select"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 required
-              />
+              >
+                <option value="">Select Department</option>
+                {departments.map((dept) => (
+                  <option key={dept.code} value={dept.code}>
+                    {dept.name} ({dept.code})
+                  </option>
+                ))}
+              </select>
             </div>
           )}
 
