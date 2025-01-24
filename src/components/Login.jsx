@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { auth } from "../firebase"; // Adjust the path to your firebase.js file
+import React, { useState, useEffect } from "react";
+import { auth, db } from "../firebase"; // Adjust the path to your firebase.js file
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
 
@@ -13,6 +14,12 @@ const Login = () => {
   const [isAnimating, setIsAnimating] = useState({ login: false, forgot: false });
   const navigate = useNavigate();
 
+  // Clear credentials on component mount
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -22,10 +29,30 @@ const Login = () => {
     setTimeout(() => setIsAnimating({ ...isAnimating, login: false }), 1000); // Reset animation
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/home"); // Redirect to home page
+      // Step 1: Sign in with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+      // Step 2: Get the user role from Firestore
+      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      
+      if (userDoc.exists()) {
+        const userRole = userDoc.data().role;  // Get the role from Firestore
+        
+        // Step 3: Navigate based on the role
+        if (userRole === "admin") {
+          navigate("/admin-dashboard");
+        } else if (userRole === "teacher") {
+          navigate("/faculty-dashboard");
+        } else if (userRole === "student") {
+          navigate("/student-dashboard");
+        } else {
+          setError("Invalid role assigned to user");
+        }
+      } else {
+        setError("User data not found in Firestore.");
+      }
     } catch (err) {
-      setError(err.message);
+      setError(err.message); // Handle authentication errors
     }
   };
 
@@ -60,7 +87,7 @@ const Login = () => {
         </div>
 
         <h2 className="text-center mb-4">Login</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} autoComplete="off">
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -72,6 +99,7 @@ const Login = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off" // Disable autocomplete for this field
             />
           </div>
           <div className="mb-3">
@@ -85,6 +113,7 @@ const Login = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off" // Disable autocomplete for this field
             />
           </div>
           {error && <p className="text-danger text-center">{error}</p>}
