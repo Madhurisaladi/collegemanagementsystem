@@ -1,5 +1,6 @@
 import './styles.css';
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 function HomePage() {
   return (
@@ -11,11 +12,26 @@ function HomePage() {
             <h1>College Management System</h1>
           </div>
           <ul className="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="https://lbce.edu.in/" target="_blank" rel="noopener noreferrer">About Us</a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#">Admission</a></li>
-            <li><a href="#">Contact</a></li>
+            <li>
+              <Link to="/login">Login</Link> {/* Add Login button */}
+            </li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <a href="https://lbce.edu.in/" target="_blank" rel="noopener noreferrer">
+                About Us
+              </a>
+            </li>
+            <li>
+              <Link to="/courses">Courses</Link>
+            </li>
+            <li>
+              <Link to="/admission">Admission</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
           </ul>
         </nav>
       </header>

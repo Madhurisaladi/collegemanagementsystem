@@ -52,10 +52,10 @@ const Login = () => {
       <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
         {/* Add Logo Above Title */}
         <div className="text-center mb-4">
-          <img 
+          <img
             src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" // Your logo URL
             alt="Logo"
-            style={{ maxWidth: "100px", marginBottom: "20px" }} 
+            style={{ maxWidth: "100px", marginBottom: "20px" }}
           />
         </div>
 
@@ -107,11 +107,6 @@ const Login = () => {
           >
             Forgot Password?
           </button>
-        </div>
-        <div className="mt-3 text-center">
-          <small>
-            Don't have an account? <a href="/register">Sign up</a>
-          </small>
         </div>
       </div>
     </div>
