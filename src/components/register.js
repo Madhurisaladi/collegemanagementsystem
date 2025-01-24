@@ -57,6 +57,15 @@ const Register = () => {
         timestamp: new Date(),
       });
 
+      // Step 3: Reset the form for new registration
+      setEmail("");
+      setPassword("");
+      setName("");
+      setRole("");
+      setDepartment("");
+      setStudentId("");
+      setFacultyId("");
+
       setSuccess("User registered successfully!");
     } catch (err) {
       setError(err.message);

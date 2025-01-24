@@ -41,7 +41,7 @@ const Login = () => {
         // Step 3: Navigate based on the role
         if (userRole === "admin") {
           navigate("/admin-dashboard");
-        } else if (userRole === "teacher") {
+        } else if (userRole === "faculty") {
           navigate("/faculty-dashboard");
         } else if (userRole === "student") {
           navigate("/student-dashboard");
