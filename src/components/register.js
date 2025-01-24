@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth, db } from "../firebase"; // Ensure Firebase is initialized correctly
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore"; // Firestore to set role
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 const Register = () => {
   // State variables for the form
@@ -25,6 +26,8 @@ const Register = () => {
     { code: "IT", name: "Information Technology" },
     { code: "CHEM", name: "Chemical Engineering" },
   ];
+
+  const navigate = useNavigate(); // Initialize navigate function
 
   // Handle role selection change
   const handleRoleChange = (e) => {
@@ -206,6 +209,22 @@ const Register = () => {
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
         </form>
+
+        {/* Login Button - positioned at the bottom  */}
+        <div className="d-grid mb-3" style={{ position: "relative" }}>
+          <button
+            className="btn btn-secondary"
+            style={{
+              position: "below",
+              right: "190px",
+              bottom: "-30px",
+              padding: "5px 15px",
+            }}
+            onClick={() => navigate("/login")}  // Navigate to login page
+          >
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );
