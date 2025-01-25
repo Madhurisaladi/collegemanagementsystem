@@ -27,6 +27,15 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-container">
+      {/* Logo */}
+      <div className="logo-container">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+          alt="DLBC Logo"
+          className="logo"
+        />
+      </div>
+
       {/* Title */}
       <div className="dashboard-header">
         <h1>DLBC EduBridge</h1>
@@ -66,3 +75,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
