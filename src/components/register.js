@@ -78,6 +78,15 @@ const Register = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow p-4" style={{ maxWidth: "500px", width: "100%" }}>
+        {/* Logo */}
+        <div className="text-center mb-4">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+            alt="Bullayya College Logo"
+            style={{ width: "150px", height: "auto" }}
+          />
+        </div>
+
         <h2 className="text-center mb-4">Register</h2>
 
         <form onSubmit={handleRegister}>
