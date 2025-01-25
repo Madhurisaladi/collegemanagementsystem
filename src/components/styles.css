@@ -19,20 +19,33 @@ a {
 ul {
   list-style-type: none;
 }
+.page-title {
+  text-align: center;  /* Center the title */
+  font-size: 3rem;  /* Set a large font size */
+  color: #ffffff;  /* Change the text color to white */
+  font-family: 'Montserrat', sans-serif; /* Set a custom font */
+  background-color: #00008b; /* Set a background color for the title */
+  padding: 20px 0;  /* Add some padding around the text for better spacing */
+  margin-top: 30px;  /* Space it from the top of the page */
+  margin-bottom: 20px; /* Space between the title and header */
+  text-transform: uppercase;  /* Make the text uppercase */
+  letter-spacing: 2px;  /* Add space between letters */
+}
 
 /* Header Styles */
 header {
   width: 100%;
-  height: 150px; /* Adjust the height of the header */
-  background-color: rgba(44, 62, 80, 0.8); /* Dark overlay for better visibility */
+  height: 175px; /* Adjust the height of the header */
+  background-color: #00008b; /* Dark blue background */
   display: flex;
-  justify-content: space-between; /* Space out the logo and auth links */
+  justify-content: flex-start; /* Space out the logo and auth links */
   align-items: center;
   padding: 0 20px;
 }
 
+
 .logo img {
-  width: 575px; /* Increased size of the logo */
+  width: 600px; /* Increased size of the logo */
   height: auto;
   display: block;
 }

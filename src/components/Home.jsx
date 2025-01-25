@@ -35,6 +35,9 @@ function HomePage() {
         </div>
       </header>
 
+      {/* Add title below the header */}
+      <h1 className="page-title">DLBC EduBridge</h1>
+
       {/* Image Slideshow Section */}
       <section className="slideshow">
         <div className="slide-container">
