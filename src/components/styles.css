@@ -3,116 +3,211 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f3f4f6; /* Subtle light gray background */
+  line-height: 1.6; /* Improve text readability */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  margin: 0;
 }
 
+/* Links Styling */
 a {
   text-decoration: none;
-  color: inherit;
+  color: inherit; /* Inherit color from parent element */
 }
 
-ul {
-  list-style-type: none;
+a:hover {
+  color: #3498db; /* Hover color for links */
+  text-decoration: underline; /* Underline text on hover */
+  transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth transition */
 }
-.page-title {
-  text-align: center;  /* Center the title */
-  font-size: 3rem;  /* Set a large font size */
-  color: #ffffff;  /* Change the text color to white */
-  font-family: 'Montserrat', sans-serif; /* Set a custom font */
-  background-color: #00008b; /* Set a background color for the title */
-  padding: 20px 0;  /* Add some padding around the text for better spacing */
-  margin-top: 30px;  /* Space it from the top of the page */
-  margin-bottom: 20px; /* Space between the title and header */
-  text-transform: uppercase;  /* Make the text uppercase */
-  letter-spacing: 2px;  /* Add space between letters */
+
+a:focus {
+  outline: none; /* Remove default focus outline for custom styles */
 }
 
 /* Header Styles */
-header {
-  width: 100%;
-  height: 175px; /* Adjust the height of the header */
-  background-color: #00008b; /* Dark blue background */
+.header {
   display: flex;
-  justify-content: flex-start; /* Space out the logo and auth links */
+  justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 20px 40px; /* Increased padding for a more spacious layout */
+  background-color: #00008b; /* Navy blue */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-
-.logo img {
-  width: 600px; /* Increased size of the logo */
+.logo-image {
+  width: 250px; /* Adjusted size for better fit */
   height: auto;
-  display: block;
 }
 
 .auth-links {
   display: flex;
-  justify-content: flex-end;
+  gap: 15px;
 }
 
 .auth-button {
-  padding: 10px 20px;
-  background-color: #2980b9; /* Professional blue color for the button */
+  padding: 10px 15px;
+  background-color: #2980b9; /* Primary button color */
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 5px;
-  margin: 0 15px;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .auth-button:hover {
-  background-color: #3498db; /* Light blue on hover */
+  background-color: #3498db; /* Hover effect color */
+  transform: scale(1.05); /* Slight zoom on hover */
 }
 
-/* Slideshow Section */
+/* Page Title Styles */
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: white;
+  background-color: #00008b;
+  padding: 25px 0;
+  margin: 30px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+/* Slideshow Styles */
 .slideshow {
-  max-width: 100%;
   margin: 40px auto;
   text-align: center;
-  background-color: black; /* Black background for slides */
-  padding: 20px;
+  background-color: #000;
+  padding: 15px;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
 .slide-container {
   position: relative;
-  width: 50%; /* Reduced the width to 50% */
+  width: 70%;
   margin: auto;
   overflow: hidden;
-}
-
-.slide {
-  display: block; /* Ensure each slide is shown when it's active */
-  position: relative;
-  width: 100%; /* Ensures the slides are 50% of the container width */
-  height: auto;
+  border-radius: 8px;
 }
 
 .slide img {
-  width: 100%; /* Set image size to 100% of the slide container */
+  width: 50%;
   height: auto;
-  border-radius: 8px;
-  margin: 0 auto;
-  transition: opacity 1s ease-in-out; /* Smooth transition for slide change */
+  transition: opacity 1s ease-in-out; /* Smooth transition for image change */
+  border-radius: 15px;
 }
 
 /* Footer Styles */
 footer {
-  background-color: #2c3e50;
-  padding: 10px;
-  text-align: center;
+  background-color: #2c3e50; /* Dark gray-blue */
   color: white;
+  text-align: center;
+  padding: 30px 20px; /* Increased padding for better spacing */
   margin-top: 40px;
+  border-top: 2px solid #fff;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-footer p {
-  font-size: 16px;
+footer a {
+  color: #3498db; /* Blue links in footer */
+  text-decoration: none;
 }
 
+footer a:hover {
+  text-decoration: underline; /* Underline effect when hovering over footer links */
+}
 
+/* Footer Content Layout */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
+.footer-section {
+  flex: 1;
+  margin: 10px;
+  min-width: 250px;
+}
+
+.footer-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Map Styling */
+.footer-section.map iframe {
+  border-radius: 8px;
+  border: 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #ffffff;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 30px; /* Adjust padding for smaller screens */
+  }
+
+  .logo-image {
+    width: 200px; /* Adjust logo size */
+  }
+
+  .auth-links {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .page-title {
+    font-size: 2rem; /* Reduce title size for mobile */
+    padding: 20px 0;
+  }
+
+  .slideshow {
+    width: 90%; /* Adjust slideshow width */
+  }
+
+  .footer {
+    padding: 20px;
+    font-size: 12px; /* Smaller font size for mobile */
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin: 10px 0;
+    width: 100%; /* Make sections full width on mobile */
+  }
+
+  .footer-section.map iframe {
+    height: 200px; /* Adjust map height for smaller screens */
+  }
+}
