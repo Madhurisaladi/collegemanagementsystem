@@ -39,7 +39,7 @@ const AdminDashboard = () => {
       {/* Title */}
       <div className="dashboard-header">
         <h1>DLBC EduBridge</h1>
-        <p>Admin Dashboard - Manage Users, Notifications, and Feedback</p>
+        <p>Admin Dashboard </p>
       </div>
 
       {/* Popup Toast */}

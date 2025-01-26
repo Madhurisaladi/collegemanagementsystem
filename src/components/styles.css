@@ -1,118 +1,131 @@
-/* Global Styles */
+/* Reset margins and paddings */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* General styling for the body */
 body {
-  color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style-type: none;
-}
-.page-title {
-  text-align: center;  /* Center the title */
-  font-size: 3rem;  /* Set a large font size */
-  color: #ffffff;  /* Change the text color to white */
-  font-family: 'Montserrat', sans-serif; /* Set a custom font */
-  background-color: #00008b; /* Set a background color for the title */
-  padding: 20px 0;  /* Add some padding around the text for better spacing */
-  margin-top: 30px;  /* Space it from the top of the page */
-  margin-bottom: 20px; /* Space between the title and header */
-  text-transform: uppercase;  /* Make the text uppercase */
-  letter-spacing: 2px;  /* Add space between letters */
-}
-
-/* Header Styles */
-header {
-  width: 100%;
-  height: 175px; /* Adjust the height of the header */
-  background-color: #00008b; /* Dark blue background */
-  display: flex;
-  justify-content: flex-start; /* Space out the logo and auth links */
-  align-items: center;
-  padding: 0 20px;
-}
-
-
-.logo img {
-  width: 600px; /* Increased size of the logo */
-  height: auto;
-  display: block;
-}
-
-.auth-links {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.auth-button {
-  padding: 10px 20px;
-  background-color: #2980b9; /* Professional blue color for the button */
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  margin: 0 15px;
-  transition: background-color 0.3s ease;
-}
-
-.auth-button:hover {
-  background-color: #3498db; /* Light blue on hover */
-}
-
-/* Slideshow Section */
-.slideshow {
-  max-width: 100%;
-  margin: 40px auto;
-  text-align: center;
-  background-color: black; /* Black background for slides */
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.slide-container {
-  position: relative;
-  width: 50%; /* Reduced the width to 50% */
-  margin: auto;
-  overflow: hidden;
-}
-
-.slide {
-  display: block; /* Ensure each slide is shown when it's active */
-  position: relative;
-  width: 100%; /* Ensures the slides are 50% of the container width */
-  height: auto;
-}
-
-.slide img {
-  width: 100%; /* Set image size to 100% of the slide container */
-  height: auto;
-  border-radius: 8px;
+/* Wrapper for content */
+.wrapper { 
+  width: 1170px;
   margin: 0 auto;
-  transition: opacity 1s ease-in-out; /* Smooth transition for slide change */
 }
 
-/* Footer Styles */
-footer {
-  background-color: #2c3e50;
-  padding: 10px;
+/* Logo styles */
+.logo {
+  text-align: center; /* Centers the logo horizontally */
+  display: flex;
+  justify-content: center; /* Ensures the logo is centered in the flex container */
+  align-items: center; /* Vertically aligns the logo */
+  height: 100px; /* Adjusts height to match the logo size */
+}
+
+/* Style the logo */
+.college-logo {
+  max-width: 300px;  /* Adjust the size of the logo */
+  height: auto;
+  margin-right: 15px; /* Space between logo and text */
+  vertical-align: middle; /* Align image vertically with the text */
+}
+
+
+/* Navigation container */
+.navigation {
+  display: flex;
+  justify-content: space-between; /* Space between the logo (centered) and the "Login" link */
+  align-items: center; /* Vertically center items */
+  height: 60px;
+}
+
+/* Navigation link styles */
+nav {
+  text-align: right; /* Aligns login link to the right */
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+/* Banner Area */
+.banner-area {
+  animation-name: animate;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  height: 100vh;
+}
+
+/* Text area styling */
+.text-area {
   text-align: center;
-  color: white;
-  margin-top: 40px;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.text-area h2 {
+  font-size: 75px;
+  color: #fff;
+  margin-top: 10%; /* Adds space from the top */
+}
+
+.text-area h3 {
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+  font-size: 35px;
+}
+
+.text-area a {
+  text-decoration: none;
+  background: #262626;
+  color: #fff;
+  padding: 15px 60px;
+  font-size: 18px;
+  display: inline-block;
+  margin-top: 5%;
+  border-radius: 50px;
+}
+
+.text-area p {
+  font-size: 18px;
+  color: #fff;
+  width: 70%;
+  margin: 0 auto;
+  line-height: 1.9;
+}
+
+/* Keyframe animation for background */
+@keyframes animate {
+  0% {
+    background: #4cb66a;
+  }
+  25% {
+    background: #e60084;
+  }
+  50% {
+    background: #ad7c66;
+  }
+  75% {
+    background: #005762;
+  }
+  100% {
+    background: #4c9ab6;
+  }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
 }
 
 footer p {
-  font-size: 16px;
+  color: #7f8c8d;
 }
-
-
-

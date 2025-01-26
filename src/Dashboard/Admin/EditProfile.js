@@ -5,13 +5,17 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     name: '',
-    email: ''
+    email: '',
+    password: ''
   });
 
   useEffect(() => {
-    // You might want to fetch the admin's existing profile info here
-    // Example:
-    // fetch('/api/admin-profile').then(response => response.json()).then(data => setProfileData(data));
+    // Fetch the existing profile data (Example)
+    setProfileData({
+      name: "John Doe",
+      email: "john.doe@example.com",
+      password: ""
+    });
   }, []);
 
   const handleInputChange = (e) => {
@@ -23,41 +27,50 @@ const EditProfile = () => {
   };
 
   const handleSave = () => {
-    // You would likely make an API call here to save the updated profile
-    // Example:
-    // fetch('/api/admin-profile', {
-    //   method: 'PUT',
-    //   body: JSON.stringify(profileData),
-    //   headers: { 'Content-Type': 'application/json' }
-    // });
-    navigate("/admin-dashboard"); // After saving, navigate back to the dashboard
+    // You would typically call your API here to save the updated profile data
+    navigate("/admin-dashboard");
   };
 
   return (
     <div className="edit-profile-container">
       <h1>Edit Profile</h1>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label>
-          Name:
+      <form onSubmit={(e) => e.preventDefault()} className="profile-form">
+        <div className="form-group">
+          <label>Name:</label>
           <input
             type="text"
             name="name"
             value={profileData.name}
             onChange={handleInputChange}
+            className="form-input"
           />
-        </label>
-        <br />
-        <label>
-          Email:
+        </div>
+
+        <div className="form-group">
+          <label>Email:</label>
           <input
             type="email"
             name="email"
             value={profileData.email}
             onChange={handleInputChange}
+            className="form-input"
           />
-        </label>
-        <br />
-        <button onClick={handleSave}>Save Changes</button>
+        </div>
+
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={profileData.password}
+            onChange={handleInputChange}
+            className="form-input"
+          />
+        </div>
+
+        <button type="button" onClick={handleSave} className="save-button">
+          Save Changes
+        </button>
       </form>
     </div>
   );

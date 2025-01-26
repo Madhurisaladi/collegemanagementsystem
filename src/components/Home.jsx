@@ -1,52 +1,43 @@
-import React, { useEffect, useState } from 'react'; // Correct import of React and hooks
+import React from 'react';
 import './styles.css';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link } from 'react-router-dom';
 
 function HomePage() {
-  const [slideIndex, setSlideIndex] = useState(0); // State for current slide index
-
-  // Array of slide images
-  const slideImages = [
-    "https://images.hindustantimes.com/rf/image_size_640x362/HT/p2/2016/08/04/Pictures/hindu-debate_77ddff76-5a1a-11e6-8ec9-11a86e94b7e9.jpg",
-    "https://www.aesahd.edu.in/img/institutions/colleges/agteachers/agteachers-2.jpg",
-    "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2016/05/college-1462989841.jpg",
-    "https://english.varthabharati.in/storage/uploads/india/Exam_students_PTI-compressed_vb_52.jpeg"
-  ];
-
-  useEffect(() => {
-    // Function to change slides every 5 seconds
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) => (prevIndex + 1) % slideImages.length); // Loop through images
-    }, 5000); // Change every 5 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [slideImages.length]);
-
   return (
     <div>
-      {/* Header with Logo and Auth Links */}
-      <header className="header">
-        <div className="logo">
-          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXo8SHwPF1dQm5-RusN6pSD-8yfqrkXgAONzgCzeYKV5HtYN9z5kAgu5oel2q39t74Tb2sEf-qI-J2v8mVZ-a5trGEoY-LJaP11XgHK05k8DpbDKqfxHwltDs7lnx_YN0aP87bLeccDw/s1600/z31.png" alt="DLBCE EduBridge Logo" />
-        </div>
-        <div className="auth-links">
-          <Link to="/login" className="auth-button">Login</Link>
-          <a href="https://lbce.edu.in/" target="_blank" rel="noopener noreferrer" className="auth-button">About Us</a>
-        </div>
-      </header>
+      {/* Banner Area */}
+      <div className="banner-area">
+        <div className="wrapper">
+          <div className="navigation">
+            <h1 className="logo">
+              {/* No logo here anymore */}
+            </h1>
+            <nav>
+              {/* Change Login link to Home and navigate to https://bullayyacollege.org/ */}
+              <a href="https://bullayyacollege.org/" target="_blank" rel="noopener noreferrer">Home</a>
+            </nav>
+          </div>
 
-      {/* Add title below the header */}
-      <h1 className="page-title">DLBC EduBridge</h1>
-
-      {/* Image Slideshow Section */}
-      <section className="slideshow">
-        <div className="slide-container">
-          {/* Render the slides dynamically based on the slideIndex */}
-          <div className="slide">
-            <img src={slideImages[slideIndex]} alt={`College Image ${slideIndex + 1}`} />
+          {/* Text area below the logo */}
+          <div className="banner-text">
+            <div className="text-area">
+              {/* New Image inside the <h2> */}
+              <h2>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+                  alt="New College Logo"
+                  className="college-logo"
+                />
+              </h2>
+              <h3>DLBC EduBridge</h3>
+              <h4>Where Knowledge Meets Excellence</h4>
+              <p>"A Place Where Curiosity is Sparked, Ideas Flourish, and Dreams Take Shape." </p>
+              {/* Replaced "Contact Me" with "Login" */}
+              <Link to="/login" className="login-button">Login</Link>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Footer */}
       <footer>

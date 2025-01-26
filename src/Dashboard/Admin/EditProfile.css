@@ -1,0 +1,83 @@
+/* General styling for the page */
+.edit-profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #2c3e50; /* Updated title color */
+    font-family: 'Arial', sans-serif; /* Updated font family */
+}
+
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: #fff;
+    transition: border 0.3s ease-in-out;
+  }
+  
+  .form-input:focus {
+    border: 1px solid #00008b;
+    outline: none;
+  }
+  
+  .save-button {
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #00008b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .save-button:hover {
+    background-color: #3b64b4;
+  }
+  
+  .save-button:focus {
+    outline: none;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
+  .success-message {
+    color: green;
+    text-align: center;
+  }
+  
+  
+  
+  
