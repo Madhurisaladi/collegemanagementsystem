@@ -5,24 +5,29 @@ import "./AdminDashboard.css";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
-  const [userName, setUserName] = useState("John Doe"); // Placeholder name, can be updated dynamically
+  const [userName, setUserName] = useState("John Doe");
 
   // Navigation handlers
   const handleRegister = () => {
-    navigate("/register"); // Navigate to the Register page
-    setShowToast(true); // Show the toast popup when user is registered
+    navigate("/register");
+    setShowToast(true);
   };
 
   const handleProfile = () => {
-    navigate("/edit-profile"); // Navigate to the Profile Edit page
+    navigate("/edit-profile");
   };
 
   const handleNotifications = () => {
-    navigate("/notifications"); // Navigate to Notifications page
+    navigate("/notifications");
   };
 
   const handleFeedback = () => {
-    navigate("/feedback"); // Navigate to Feedback page
+    navigate("/feedback");
+  };
+
+  const handleLogout = () => {
+    // Redirect to home page (typically "/")
+    navigate("/");
   };
 
   return (
@@ -39,7 +44,7 @@ const AdminDashboard = () => {
       {/* Title */}
       <div className="dashboard-header">
         <h1>DLBC EduBridge</h1>
-        <p>Admin Dashboard </p>
+        <p>Admin Dashboard</p>
       </div>
 
       {/* Popup Toast */}
@@ -49,23 +54,22 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* Logout Button at top-right */}
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+
+      {/* Dashboard Buttons */}
       <div className="dashboard-buttons">
-        {/* Register New User Button */}
         <button className="dashboard-btn register-btn" onClick={handleRegister}>
           <i className="fas fa-user-plus"></i> Register New User
         </button>
-
-        {/* Profile Management Button */}
         <button className="dashboard-btn profile-btn" onClick={handleProfile}>
           <i className="fas fa-user-circle"></i> Profile
         </button>
-
-        {/* Edit Notifications Button */}
         <button className="dashboard-btn notifications-btn" onClick={handleNotifications}>
           <i className="fas fa-bell"></i> Edit Notifications
         </button>
-
-        {/* Feedback Management Button */}
         <button className="dashboard-btn feedback-btn" onClick={handleFeedback}>
           <i className="fas fa-comment-dots"></i> Feedback
         </button>
@@ -75,4 +79,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
