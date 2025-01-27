@@ -1,213 +1,131 @@
-/* Global Styles */
+/* Reset margins and paddings */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
+/* General styling for the body */
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-  background-color: #f3f4f6; /* Subtle light gray background */
-  line-height: 1.6; /* Improve text readability */
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Links Styling */
-a {
-  text-decoration: none;
-  color: inherit; /* Inherit color from parent element */
-}
-
-a:hover {
-  color: #3498db; /* Hover color for links */
-  text-decoration: underline; /* Underline text on hover */
-  transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth transition */
-}
-
-a:focus {
-  outline: none; /* Remove default focus outline for custom styles */
-}
-
-/* Header Styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px; /* Increased padding for a more spacious layout */
-  background-color: #00008b; /* Navy blue */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-.logo-image {
-  width: 250px; /* Adjusted size for better fit */
-  height: auto;
-}
-
-.auth-links {
-  display: flex;
-  gap: 15px;
-}
-
-.auth-button {
-  padding: 10px 15px;
-  background-color: #2980b9; /* Primary button color */
-  color: white;
-  font-size: 15px;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.auth-button:hover {
-  background-color: #3498db; /* Hover effect color */
-  transform: scale(1.05); /* Slight zoom on hover */
-}
-
-/* Page Title Styles */
-.page-title {
-  text-align: center;
-  font-size: 2.5rem;
-  color: white;
-  background-color: #00008b;
-  padding: 25px 0;
-  margin: 30px 0;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 2px solid #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-}
-
-/* Slideshow Styles */
-.slideshow {
-  margin: 40px auto;
-  text-align: center;
-  background-color: #000;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-}
-
-.slide-container {
-  position: relative;
-  width: 70%;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.slide img {
-  width: 50%;
-  height: auto;
-  transition: opacity 1s ease-in-out; /* Smooth transition for image change */
-  border-radius: 15px;
-}
-
-/* Footer Styles */
-footer {
-  background-color: #2c3e50; /* Dark gray-blue */
-  color: white;
-  text-align: center;
-  padding: 30px 20px; /* Increased padding for better spacing */
-  margin-top: 40px;
-  border-top: 2px solid #fff;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-footer a {
-  color: #3498db; /* Blue links in footer */
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline; /* Underline effect when hovering over footer links */
-}
-
-/* Footer Content Layout */
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 1200px;
+/* Wrapper for content */
+.wrapper { 
+  width: 1170px;
   margin: 0 auto;
 }
 
-.footer-section {
-  flex: 1;
-  margin: 10px;
-  min-width: 250px;
+/* Logo styles */
+.logo {
+  text-align: center; /* Centers the logo horizontally */
+  display: flex;
+  justify-content: center; /* Ensures the logo is centered in the flex container */
+  align-items: center; /* Vertically aligns the logo */
+  height: 100px; /* Adjusts height to match the logo size */
 }
 
-.footer-section h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
+/* Style the logo */
+.college-logo {
+  max-width: 300px;  /* Adjust the size of the logo */
+  height: auto;
+  margin-right: 15px; /* Space between logo and text */
+  vertical-align: middle; /* Align image vertically with the text */
 }
 
-.footer-section p {
-  font-size: 14px;
-  line-height: 1.6;
+
+/* Navigation container */
+.navigation {
+  display: flex;
+  justify-content: space-between; /* Space between the logo (centered) and the "Login" link */
+  align-items: center; /* Vertically center items */
+  height: 60px;
 }
 
-/* Map Styling */
-.footer-section.map iframe {
-  border-radius: 8px;
-  border: 0;
+/* Navigation link styles */
+nav {
+  text-align: right; /* Aligns login link to the right */
 }
 
-.footer-bottom {
+nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+/* Banner Area */
+.banner-area {
+  animation-name: animate;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  height: 100vh;
+}
+
+/* Text area styling */
+.text-area {
   text-align: center;
-  padding: 10px;
-  border-top: 1px solid #ffffff;
-  font-size: 14px;
-  margin-top: 20px;
+  width: 75%;
+  margin: 0 auto;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 30px; /* Adjust padding for smaller screens */
-  }
+.text-area h2 {
+  font-size: 75px;
+  color: #fff;
+  margin-top: 10%; /* Adds space from the top */
+}
 
-  .logo-image {
-    width: 200px; /* Adjust logo size */
-  }
+.text-area h3 {
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+  font-size: 35px;
+}
 
-  .auth-links {
-    justify-content: center;
-    margin-top: 10px;
-  }
+.text-area a {
+  text-decoration: none;
+  background: #262626;
+  color: #fff;
+  padding: 15px 60px;
+  font-size: 18px;
+  display: inline-block;
+  margin-top: 5%;
+  border-radius: 50px;
+}
 
-  .page-title {
-    font-size: 2rem; /* Reduce title size for mobile */
-    padding: 20px 0;
-  }
+.text-area p {
+  font-size: 18px;
+  color: #fff;
+  width: 70%;
+  margin: 0 auto;
+  line-height: 1.9;
+}
 
-  .slideshow {
-    width: 90%; /* Adjust slideshow width */
+/* Keyframe animation for background */
+@keyframes animate {
+  0% {
+    background: #4cb66a;
   }
+  25% {
+    background: #e60084;
+  }
+  50% {
+    background: #ad7c66;
+  }
+  75% {
+    background: #005762;
+  }
+  100% {
+    background: #4c9ab6;
+  }
+}
 
-  .footer {
-    padding: 20px;
-    font-size: 12px; /* Smaller font size for mobile */
-  }
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+}
 
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-section {
-    margin: 10px 0;
-    width: 100%; /* Make sections full width on mobile */
-  }
-
-  .footer-section.map iframe {
-    height: 200px; /* Adjust map height for smaller screens */
-  }
+footer p {
+  color: #7f8c8d;
 }

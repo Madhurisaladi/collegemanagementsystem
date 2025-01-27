@@ -1,29 +1,27 @@
-// Import the functions you need from the SDKs you need
+// src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";  // Import getAuth for Firebase Authentication
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore"; 
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; // Import Firebase Storage
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAMXrMouOMfUK1GTE9-7I2FCyeSpr1zop4",
   authDomain: "college-management-proje-70ee7.firebaseapp.com",
   projectId: "college-management-proje-70ee7",
-  storageBucket: "college-management-proje-70ee7.firebasestorage.app",
+  storageBucket: "college-management-proje-70ee7.appspot.com", // Corrected storage bucket URL
   messagingSenderId: "677615855448",
   appId: "1:677615855448:web:e5ebc76ed272a27417a72d",
   measurementId: "G-XZKHQQ83WJ"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
+// Initialize Firebase Authentication, Firestore, and Storage
 const auth = getAuth(app);
-const db = getFirestore(app); // Initialize Firestore
+const db = getFirestore(app);
+const storage = getStorage(app); // Initialize Firebase Storage
 
-// Export both auth and db
-export { auth, db };
+// Export auth, db, and storage
+export { auth, db, storage };
