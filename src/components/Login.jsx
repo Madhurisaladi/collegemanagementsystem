@@ -82,7 +82,7 @@ const Login = () => {
           <img
             src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" // Your logo URL
             alt="Logo"
-            style={{ maxWidth: "200px", marginBottom: "20px" }}
+            style={{ maxWidth: "100px", marginBottom: "20px" }}
           />
         </div>
 
