@@ -3,21 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust the path based on your project structure
 import { getAuth } from "firebase/auth";
+import "./EditProfile.css";
+
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const auth = getAuth(); // Firebase Authentication
-  const user = auth.currentUser; // Get the currently logged-in user
+  const auth = getAuth();
+  const user = auth.currentUser;
   const [name, setName] = useState("");
 
   useEffect(() => {
     // Fetch the current user's profile data from Firestore
     const fetchProfile = async () => {
       try {
-        const userDocRef = doc(db, "users", user.uid); // Assume the user's data is stored in a "users" collection
+        const userDocRef = doc(db, "users", user.uid); // Reference to user's Firestore document
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          setName(userDoc.data().name); // Set the current name from Firestore
+          setName(userDoc.data().name); // Set the current name
         } else {
           console.error("User profile not found in Firestore.");
         }
@@ -43,6 +45,16 @@ const EditProfile = () => {
 
   return (
     <div className="edit-profile-container">
+      {/* Logo */}
+      <div className="logo-container">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+          alt="College Logo"
+          className="logo"
+        />
+      </div>
+
+      {/* Edit Profile Header */}
       <h1>Edit Profile</h1>
       <form onSubmit={(e) => e.preventDefault()} className="profile-form">
         <div className="form-group">
@@ -65,4 +77,5 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+
 
