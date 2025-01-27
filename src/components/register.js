@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for redire
 
 const Register = () => {
   // State variables for the form
-  const [role, setRole] = useState("");  // Role selected (student, faculty, admin)
+  const [role, setRole] = useState(""); // Role selected (student, faculty, admin)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -16,7 +16,6 @@ const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Department options with full forms
   const departments = [
     { code: "CSE", name: "Computer Science and Engineering" },
     { code: "EEE", name: "Electrical and Electronics Engineering" },
@@ -29,38 +28,32 @@ const Register = () => {
 
   const navigate = useNavigate(); // Initialize navigate function
 
-  // Handle role selection change
   const handleRoleChange = (e) => {
-    setRole(e.target.value);  // Update the selected role
-    // Reset other fields when the role changes
+    setRole(e.target.value);
     setStudentId("");
     setFacultyId("");
     setDepartment("");
   };
 
-  // Handle registration logic
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
 
     try {
-      // Step 1: Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Step 2: Set user data in Firestore with selected role
       await setDoc(doc(db, "users", user.uid), {
         name: name,
         email: email,
-        role: role, // Set the role (admin, faculty, student)
+        role: role,
         department: department,
-        studentId: role === "student" ? studentId : "",  // Only add for student
-        facultyId: role === "faculty" ? facultyId : "",  // Only add for faculty
+        studentId: role === "student" ? studentId : "",
+        facultyId: role === "faculty" ? facultyId : "",
         timestamp: new Date(),
       });
 
-      // Step 3: Reset the form for new registration
       setEmail("");
       setPassword("");
       setName("");
@@ -68,7 +61,6 @@ const Register = () => {
       setDepartment("");
       setStudentId("");
       setFacultyId("");
-
       setSuccess("User registered successfully!");
     } catch (err) {
       setError(err.message);
@@ -78,17 +70,25 @@ const Register = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow p-4" style={{ maxWidth: "500px", width: "100%" }}>
+        {/* Logo */}
+        <div className="text-center mb-4">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+            alt="College Logo"
+            style={{ width: "120px", height: "120px", borderRadius: "50%" }}
+          />
+        </div>
+
         <h2 className="text-center mb-4">Register</h2>
 
         <form onSubmit={handleRegister}>
-          {/* Select Role */}
           <div className="mb-3">
             <label htmlFor="role" className="form-label">Register as</label>
             <select
               id="role"
               className="form-select"
               value={role}
-              onChange={handleRoleChange} // Update role on change
+              onChange={handleRoleChange}
               required
             >
               <option value="">Select Role</option>
@@ -98,7 +98,6 @@ const Register = () => {
             </select>
           </div>
 
-          {/* Name */}
           <div className="mb-3">
             <label htmlFor="name" className="form-label">Name</label>
             <input
@@ -112,7 +111,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Email */}
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -126,7 +124,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-3">
             <label htmlFor="password" className="form-label">Password</label>
             <input
@@ -140,44 +137,36 @@ const Register = () => {
             />
           </div>
 
-          {/* Role-based Fields */}
           {role === "student" && (
-            <>
-              {/* Student ID */}
-              <div className="mb-3">
-                <label htmlFor="studentId" className="form-label">Student ID</label>
-                <input
-                  type="text"
-                  id="studentId"
-                  className="form-control"
-                  placeholder="Enter your student ID"
-                  value={studentId}
-                  onChange={(e) => setStudentId(e.target.value)}
-                  required
-                />
-              </div>
-            </>
+            <div className="mb-3">
+              <label htmlFor="studentId" className="form-label">Student ID</label>
+              <input
+                type="text"
+                id="studentId"
+                className="form-control"
+                placeholder="Enter your student ID"
+                value={studentId}
+                onChange={(e) => setStudentId(e.target.value)}
+                required
+              />
+            </div>
           )}
 
           {role === "faculty" && (
-            <>
-              {/* Faculty ID */}
-              <div className="mb-3">
-                <label htmlFor="facultyId" className="form-label">Faculty ID</label>
-                <input
-                  type="text"
-                  id="facultyId"
-                  className="form-control"
-                  placeholder="Enter your faculty ID"
-                  value={facultyId}
-                  onChange={(e) => setFacultyId(e.target.value)}
-                  required
-                />
-              </div>
-            </>
+            <div className="mb-3">
+              <label htmlFor="facultyId" className="form-label">Faculty ID</label>
+              <input
+                type="text"
+                id="facultyId"
+                className="form-control"
+                placeholder="Enter your faculty ID"
+                value={facultyId}
+                onChange={(e) => setFacultyId(e.target.value)}
+                required
+              />
+            </div>
           )}
 
-          {/* Department Dropdown */}
           {(role === "student" || role === "faculty") && (
             <div className="mb-3">
               <label htmlFor="department" className="form-label">Department</label>
@@ -198,30 +187,18 @@ const Register = () => {
             </div>
           )}
 
-          {/* Submit Button */}
           <div className="d-grid mb-3">
             <button type="submit" className="btn btn-primary">
               Register
             </button>
           </div>
 
-          {/* Error and Success Messages */}
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
         </form>
 
-        {/* Login Button - positioned at the bottom  */}
-        <div className="d-grid mb-3" style={{ position: "relative" }}>
-          <button
-            className="btn btn-secondary"
-            style={{
-              position: "below",
-              right: "190px",
-              bottom: "-30px",
-              padding: "5px 15px",
-            }}
-            onClick={() => navigate("/login")}  // Navigate to login page
-          >
+        <div className="d-grid">
+          <button className="btn btn-secondary" onClick={() => navigate("/login")}>
             Login
           </button>
         </div>

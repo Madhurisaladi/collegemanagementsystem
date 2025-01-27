@@ -9,7 +9,8 @@ import Register from "./components/register"; // Corrected Register import to lo
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
 import AdminDashboard from "./Dashboard/Admin/AdminDashboard"; 
-import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component
+import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
+import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         
         {/* Admin Profile Edit Route */}
         <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
+        
+        {/* Faculty Profile Route */}
+        <Route path="/faculty-profile" element={<FacultyProfile />} /> {/* Faculty Profile Route */}
       </Routes>
     </Router>
   );

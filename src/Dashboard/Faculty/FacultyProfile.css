@@ -1,0 +1,64 @@
+/* Faculty Profile Container */
+.faculty-profile-container {
+    padding: 20px;
+    background-color: #e0f7fa; /* Light cyan background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Logo Styles */
+  .logo-container {
+    margin-bottom: 20px; /* Space below the logo */
+  }
+  
+  .logo {
+    max-width: 150px; /* Adjust size of the logo */
+    height: auto;
+    display: block;
+  }
+  
+  /* Form Styles */
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .form-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .save-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .save-button:hover {
+    background-color: #00574b;
+  }
+  
