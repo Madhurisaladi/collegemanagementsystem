@@ -10,6 +10,7 @@ import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
 import AdminDashboard from "./Dashboard/Admin/AdminDashboard"; 
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
+import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
 import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
 
 function App() {
@@ -25,14 +26,16 @@ function App() {
         <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         
+        {/* Profile Routes */}
+        <Route path="/faculty-profile" element={<FacultyProfile />} /> {/* Faculty Profile Route */}
+        <Route path="/student-profile" element={<StudentProfile />} /> {/* Student Profile Route */}
+        
         {/* Admin Profile Edit Route */}
         <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
-        
-        {/* Faculty Profile Route */}
-        <Route path="/faculty-profile" element={<FacultyProfile />} /> {/* Faculty Profile Route */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

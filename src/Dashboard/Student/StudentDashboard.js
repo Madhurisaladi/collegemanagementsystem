@@ -30,10 +30,19 @@ const StudentDashboard = () => {
 
       {/* Buttons Section */}
       <div className="dashboard-buttons">
-        <button className="dashboard-btn attendence-btn" onClick={() => navigate("/view-attendence")}>View Attendance</button>
-        <button className="dashboard-btn profile-btn" onClick={() => navigate("/profile")}>Profile</button>
-        <button className="dashboard-btn notifications-btn" onClick={() => navigate("/notifications")}>Notifications</button>
-        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/feedback")}>Feedback</button>
+        <button className="dashboard-btn attendence-btn" onClick={() => navigate("/view-attendance")}>
+          View Attendance
+        </button>
+        {/* Modified Profile button */}
+        <button className="dashboard-btn profile-btn" onClick={() => navigate("/student-profile")}>
+          Profile
+        </button>
+        <button className="dashboard-btn notifications-btn" onClick={() => navigate("/notifications")}>
+          Notifications
+        </button>
+        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/feedback")}>
+          Feedback
+        </button>
       </div>
 
       {/* Logout Button */}
@@ -43,4 +52,3 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
-
