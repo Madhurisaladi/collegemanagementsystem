@@ -1,0 +1,165 @@
+/* Notification Page Styling */
+.notification-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align elements from the top */
+    min-height: 80vh; /* Ensure the page has a minimum height to push the button down */
+  }
+  
+  /* Header and Form Styling */
+  h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  select,
+  input[type="text"],
+  input[type="file"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  textarea:focus,
+  input[type="text"]:focus,
+  select:focus {
+    border-color: #2980b9;
+    outline: none;
+  }
+  
+  /* Button Styling (Send Notification) */
+  button {
+    padding: 10px 20px;
+    background-color: #2980b9;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make the button take full width */
+    max-width: 200px; /* Limit the width for better button appearance */
+    margin: 0 auto; /* Center the button */
+    margin-top: auto; /* Push the button to the bottom of the page */
+  }
+  
+  button:hover {
+    background-color: #3498db;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Success/Error Messages */
+  .success-message {
+    color: green;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  /* Toast Message (for successful actions) */
+  .toast-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    z-index: 9999;
+    animation: slideIn 0.5s ease-out, fadeOut 2s 2s forwards;
+  }
+  
+  /* Animation for Toast */
+  @keyframes slideIn {
+    0% {
+      top: -50px;
+      opacity: 0;
+    }
+    100% {
+      top: 20px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      top: -50px;
+    }
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .notification-page {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    label {
+      font-size: 14px;
+    }
+  
+    select,
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      font-size: 14px;
+    }
+  
+    button {
+      font-size: 14px;
+    }
+  
+    .success-message,
+    .error-message {
+      font-size: 14px;
+    }
+  }
+  
