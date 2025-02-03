@@ -8,7 +8,8 @@ import Home from "./components/Home"; // Create a Home component for after login
 import Register from "./components/register"; // Corrected Register import to lowercase "register"
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-import AdminDashboard from "./Dashboard/Admin/Admindashboard"; 
+import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  // Correct
+ 
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
 import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
 import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
