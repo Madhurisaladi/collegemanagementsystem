@@ -6,17 +6,15 @@ const FacultyDashboard = () => {
   const navigate = useNavigate();
 
   const [showAttendance, setShowAttendance] = useState(false);
-  const [showGradeManagement, setShowGradeManagement] = useState(false);
-  const [showCommunication, setShowCommunication] = useState(false);
-  const [showProfileManagement, setShowProfileManagement] = useState(false);
-  const [showSupport, setShowSupport] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   // Toggle dropdown visibility
   const toggleAttendance = () => setShowAttendance(!showAttendance);
-  const toggleGradeManagement = () => setShowGradeManagement(!showGradeManagement);
-  const toggleCommunication = () => setShowCommunication(!showCommunication);
-  const toggleProfileManagement = () => setShowProfileManagement(!showProfileManagement);
-  const toggleSupport = () => setShowSupport(!showSupport);
+  const toggleNotifications = () => setShowNotifications(!showNotifications);
+  const toggleFeedback = () => setShowFeedback(!showFeedback);
+  const toggleProfile = () => setShowProfile(!showProfile);
 
   return (
     <div className="dashboard-container">
@@ -57,50 +55,30 @@ const FacultyDashboard = () => {
         {showAttendance && (
           <div className="dropdown-content">
             <button className="dropdown-btn" onClick={() => alert("Mark Attendance")}>Mark Attendance</button>
-            <button className="dropdown-btn" onClick={() => alert("Update Attendance")}>Update Attendance</button>
-            <button className="dropdown-btn" onClick={() => alert("View Records")}>View Records</button>
           </div>
         )}
 
-        <button className="dashboard-btn grade-btn" onClick={toggleGradeManagement}>
-          Grade Management
+        <button className="dashboard-btn notifications-btn" onClick={toggleNotifications}>
+          Notifications
         </button>
-        {showGradeManagement && (
+        {showNotifications && (
           <div className="dropdown-content">
-            <button className="dropdown-btn" onClick={() => alert("Upload Grades")}>Upload Grades</button>
-            <button className="dropdown-btn" onClick={() => alert("View Gradebook")}>View Gradebook</button>
+            <button className="dropdown-btn" onClick={() => alert("Send Notifications")}>Send Notifications</button>
           </div>
         )}
 
-        <button className="dashboard-btn communication-btn" onClick={toggleCommunication}>
-          Communication
+        <button className="dashboard-btn feedback-btn" onClick={toggleFeedback}>
+          Feedback
         </button>
-        {showCommunication && (
+        {showFeedback && (
           <div className="dropdown-content">
-            <button className="dropdown-btn" onClick={() => alert("Send Notification")}>Send Notification</button>
             <button className="dropdown-btn" onClick={() => alert("View Feedback")}>View Feedback</button>
           </div>
         )}
 
-        <button className="dashboard-btn profile-btn" onClick={toggleProfileManagement}>
-          Profile Management
-        </button>
-        {showProfileManagement && (
-          <div className="dropdown-content">
-            <button className="dropdown-btn" onClick={() => alert("Edit Profile")}>Edit Profile</button>
-            <button className="dropdown-btn" onClick={() => alert("Change Password")}>Change Password</button>
-          </div>
-        )}
-
-        <button className="dashboard-btn support-btn" onClick={toggleSupport}>
-          Support
-        </button>
-        {showSupport && (
-          <div className="dropdown-content">
-            <button className="dropdown-btn" onClick={() => alert("Help Center")}>Help Center</button>
-            <button className="dropdown-btn" onClick={() => alert("Raise a Query")}>Raise a Query</button>
-          </div>
-        )}
+<button className="dashboard-btn profile-btn" onClick={() => navigate("/faculty-profile")}>
+  Profile
+</button>
       </div>
     </div>
   );
