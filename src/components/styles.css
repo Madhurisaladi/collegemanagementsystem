@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /* General styling for the body */
@@ -10,46 +11,55 @@ body {
 }
 
 /* Wrapper for content */
-.wrapper { 
-  width: 1170px;
+.wrapper {
+  width: 100%;
+  max-width: 1170px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 /* Logo styles */
 .logo {
-  text-align: center; /* Centers the logo horizontally */
+  text-align: center;
   display: flex;
-  justify-content: center; /* Ensures the logo is centered in the flex container */
-  align-items: center; /* Vertically aligns the logo */
-  height: 100px; /* Adjusts height to match the logo size */
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 }
 
 /* Style the logo */
 .college-logo {
-  max-width: 300px;  /* Adjust the size of the logo */
+  max-width: 250px;
   height: auto;
-  margin-right: 15px; /* Space between logo and text */
-  vertical-align: middle; /* Align image vertically with the text */
+  margin-right: 15px;
+  vertical-align: middle;
 }
-
 
 /* Navigation container */
 .navigation {
   display: flex;
-  justify-content: space-between; /* Space between the logo (centered) and the "Login" link */
-  align-items: center; /* Vertically center items */
+  justify-content: center; /* Centering items */
+  align-items: center;
   height: 60px;
+  padding: 10px 20px;
 }
 
-/* Navigation link styles */
-nav {
-  text-align: right; /* Aligns login link to the right */
-}
-
-nav a {
+/* Home button styling */
+.home-button {
   text-decoration: none;
+  background: #068000;
   color: #fff;
-  padding: 15px 20px;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 50px;
+  transition: 0.3s;
+  border: black;
+  cursor: pointer;
+  text-align: center;
+}
+
+.home-button:hover {
+  background: #003366;
 }
 
 /* Banner Area */
@@ -59,45 +69,94 @@ nav a {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
 }
 
 /* Text area styling */
 .text-area {
   text-align: center;
-  width: 75%;
+  width: 90%;
+  max-width: 750px;
   margin: 0 auto;
 }
 
-.text-area h2 {
-  font-size: 75px;
-  color: #fff;
-  margin-top: 10%; /* Adds space from the top */
+.text-area h2 img {
+  max-width: 180px;
+  height: auto;
 }
 
 .text-area h3 {
   color: #fff;
   text-transform: uppercase;
-  margin: 0 0 15px;
-  font-size: 35px;
+  margin: 10px 0;
+  font-size: 28px;
 }
 
-.text-area a {
-  text-decoration: none;
-  background: #262626;
+.text-area h4 {
   color: #fff;
-  padding: 15px 60px;
-  font-size: 18px;
-  display: inline-block;
-  margin-top: 5%;
-  border-radius: 50px;
+  font-size: 22px;
 }
 
 .text-area p {
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
-  line-height: 1.9;
+  line-height: 1.7;
+}
+
+/* Login Button */
+.login-button {
+  text-decoration: none;
+  background: #262626;
+  color: #fff;
+  padding: 12px 40px;
+  font-size: 16px;
+  display: inline-block;
+  margin-top: 20px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background: #444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text-area {
+    width: 100%;
+  }
+
+  .text-area h2 img {
+    max-width: 140px;
+  }
+
+  .text-area h3 {
+    font-size: 22px;
+  }
+
+  .text-area h4 {
+    font-size: 18px;
+  }
+
+  .text-area p {
+    font-size: 14px;
+  }
+
+  .login-button {
+    padding: 10px 30px;
+    font-size: 14px;
+  }
+
+  .home-button {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
 }
 
 /* Keyframe animation for background */
@@ -124,8 +183,17 @@ footer {
   text-align: center;
   padding: 20px;
   background-color: #f1f1f1;
+  margin-top: 20px;
 }
 
 footer p {
   color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* Make footer responsive */
+@media (max-width: 768px) {
+  footer {
+    padding: 15px;
+  }
 }
