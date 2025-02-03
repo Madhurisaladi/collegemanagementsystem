@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   };
 
   const handleNotifications = () => {
-    navigate("/notifications");
+    navigate("/notification"); // Ensure the route matches your routing setup
   };
 
   const handleFeedback = () => {
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
         <button className="dashboard-btn profile-btn" onClick={handleProfile}>
           <i className="fas fa-user-circle"></i> Profile
         </button>
-        <button className="dashboard-btn notifications-btn" onClick={handleNotifications}>
+        <button className="dashboard-btn notification-btn" onClick={handleNotifications}>
           <i className="fas fa-bell"></i> Edit Notifications
         </button>
         <button className="dashboard-btn feedback-btn" onClick={handleFeedback}>

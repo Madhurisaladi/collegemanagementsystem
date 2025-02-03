@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
     "firebase": "^11.1.0",
     "framer-motion": "^12.0.1",
+    "nodemailer": "^6.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
