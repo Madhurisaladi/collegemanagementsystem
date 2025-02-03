@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   };
 
   const handleNotifications = () => {
-    navigate("/notification"); // Ensure the route matches your routing setup
+    navigate("/notification"); 
   };
 
   const handleFeedback = () => {

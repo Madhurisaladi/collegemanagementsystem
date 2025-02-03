@@ -8,7 +8,7 @@ import Home from "./components/Home"; // Create a Home component for after login
 import Register from "./components/register"; // Corrected Register import to lowercase "register"
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-import AdminDashboard from "./Dashboard/Admin/AdminDashboard"; 
+import AdminDashboard from "./Dashboard/Admin/Admindashboard"; 
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
 import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
 import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
@@ -29,7 +29,7 @@ function App() {
         {/* Profile Routes */}
         <Route path="/faculty-profile" element={<FacultyProfile />} /> {/* Faculty Profile Route */}
         <Route path="/student-profile" element={<StudentProfile />} /> {/* Student Profile Route */}
-        <Route path="/notification" element={<NotificationPage />} />
+        
         {/* Admin Profile Edit Route */}
         <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
       </Routes>
