@@ -3,16 +3,18 @@ import "animate.css"; // For animations
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Importing components
-import Login from "./components/Login"; // Adjust path to your Login component
-import Home from "./components/Home"; // Create a Home component for after login
-import Register from "./components/register"; // Corrected Register import to lowercase "register"
+import Login from "./components/Login"; 
+import Home from "./components/Home"; 
+import Register from "./components/register"; 
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  // Correct
- 
-import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
-import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
-import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
+import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  
+import FacultyProfile from "./Dashboard/Faculty/FacultyProfile";
+import StudentProfile from "./Dashboard/Student/StudentProfile"; 
+import EditProfile from "./Dashboard/Admin/EditProfile"; 
+import StudentFeedback from "./Dashboard/Student/StudentFeedback"; 
+import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback"; 
+import AdminFeedback from "./Dashboard/Admin/AdminFeedback"; // ✅ Import AdminFeedback
 
 function App() {
   return (
@@ -28,15 +30,19 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         
         {/* Profile Routes */}
-        <Route path="/faculty-profile" element={<FacultyProfile />} /> {/* Faculty Profile Route */}
-        <Route path="/student-profile" element={<StudentProfile />} /> {/* Student Profile Route */}
+        <Route path="/faculty-profile" element={<FacultyProfile />} />
+        <Route path="/student-profile" element={<StudentProfile />} />
         
         {/* Admin Profile Edit Route */}
-        <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
+        <Route path="/edit-profile" element={<EditProfile />} />
+
+        {/* Feedback Pages */}
+        <Route path="/student-feedback" element={<StudentFeedback />} />
+        <Route path="/faculty-feedback" element={<FacultyFeedback />} />
+        <Route path="/admin-feedback" element={<AdminFeedback />} /> {/* ✅ Added Admin Feedback Route */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
