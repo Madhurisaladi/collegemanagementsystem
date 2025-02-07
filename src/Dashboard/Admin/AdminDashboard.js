@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [showToast, setShowToast] = useState(false);
-  const [userName, setUserName] = useState("John Doe");
 
   // Navigation handlers
   const handleRegister = () => {
     navigate("/register");
-    setShowToast(true);
   };
 
   const handleProfile = () => {
@@ -18,15 +15,14 @@ const AdminDashboard = () => {
   };
 
   const handleNotifications = () => {
-    navigate("/notification"); 
+    navigate("/notification");
   };
 
   const handleFeedback = () => {
-    navigate("/feedback");
+    navigate("/admin-feedback"); // Navigate to Admin Feedback Page
   };
 
   const handleLogout = () => {
-    // Redirect to home page (typically "/")
     navigate("/");
   };
 
@@ -47,14 +43,7 @@ const AdminDashboard = () => {
         <p>Admin Dashboard</p>
       </div>
 
-      {/* Popup Toast */}
-      {showToast && (
-        <div className="toast-message">
-          <p>Hi {userName}, you are now registered!</p>
-        </div>
-      )}
-
-      {/* Logout Button at top-right */}
+      {/* Logout Button */}
       <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
@@ -71,7 +60,7 @@ const AdminDashboard = () => {
           <i className="fas fa-bell"></i> Push Notifications
         </button>
         <button className="dashboard-btn feedback-btn" onClick={handleFeedback}>
-          <i className="fas fa-comment-dots"></i> Feedback
+          <i className="fas fa-comment-dots"></i> View Feedback
         </button>
       </div>
     </div>

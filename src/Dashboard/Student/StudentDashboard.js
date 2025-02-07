@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import StudentFeedback from "./StudentFeedback"; // Import Feedback Component
 import "./StudentDashboard.css";
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
+  const [showFeedback, setShowFeedback] = useState(false); // State to show/hide feedback
 
   const handleLogout = () => {
-    // Clear user session or authentication here
     alert("Logged out successfully!");
     navigate("/login");
   };
@@ -33,17 +34,20 @@ const StudentDashboard = () => {
         <button className="dashboard-btn attendence-btn" onClick={() => navigate("/view-attendance")}>
           View Attendance
         </button>
-        {/* Modified Profile button */}
         <button className="dashboard-btn profile-btn" onClick={() => navigate("/student-profile")}>
           Profile
         </button>
         <button className="dashboard-btn notifications-btn" onClick={() => navigate("/StudentNotification.js")}>
           Notifications
         </button>
-        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/feedback")}>
-          Feedback
-        </button>
+        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/student-feedback")}>
+  Give Feedback
+</button>
+
       </div>
+
+      {/* Feedback Form (Toggles On/Off) */}
+      {showFeedback && <StudentFeedback />}
 
       {/* Logout Button */}
       <button className="logout-btn" onClick={handleLogout}>Logout</button>

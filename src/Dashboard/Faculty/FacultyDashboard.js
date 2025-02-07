@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FacultyFeedback from "./FacultyFeedback"; // Import the Feedback Component
 import "./FacultyDashboard.css";
 
 const FacultyDashboard = () => {
@@ -67,18 +68,16 @@ const FacultyDashboard = () => {
           </div>
         )}
 
-        <button className="dashboard-btn feedback-btn" onClick={toggleFeedback}>
-          Feedback
-        </button>
-        {showFeedback && (
-          <div className="dropdown-content">
-            <button className="dropdown-btn" onClick={() => alert("View Feedback")}>View Feedback</button>
-          </div>
-        )}
-
-<button className="dashboard-btn profile-btn" onClick={() => navigate("/faculty-profile")}>
-  Profile
+        {/* Feedback Section */}
+        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/faculty-feedback")}>
+  Feedback
 </button>
+
+        {showFeedback && <FacultyFeedback />} {/* Show feedback list */}
+
+        <button className="dashboard-btn profile-btn" onClick={() => navigate("/faculty-profile")}>
+          Profile
+        </button>
       </div>
     </div>
   );
