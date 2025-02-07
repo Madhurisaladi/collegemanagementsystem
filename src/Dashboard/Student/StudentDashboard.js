@@ -37,7 +37,7 @@ const StudentDashboard = () => {
         <button className="dashboard-btn profile-btn" onClick={() => navigate("/student-profile")}>
           Profile
         </button>
-        <button className="dashboard-btn notifications-btn" onClick={() => navigate("/notifications")}>
+        <button className="dashboard-btn notifications-btn" onClick={() => navigate("/StudentNotification.js")}>
           Notifications
         </button>
         <button className="dashboard-btn feedback-btn" onClick={() => navigate("/feedback")}>

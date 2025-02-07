@@ -68,7 +68,7 @@ const AdminDashboard = () => {
           <i className="fas fa-user-circle"></i> Profile
         </button>
         <button className="dashboard-btn notification-btn" onClick={handleNotifications}>
-          <i className="fas fa-bell"></i> Edit Notifications
+          <i className="fas fa-bell"></i> Push Notifications
         </button>
         <button className="dashboard-btn feedback-btn" onClick={handleFeedback}>
           <i className="fas fa-comment-dots"></i> Feedback
