@@ -13,6 +13,8 @@ import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  // Correct
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
 import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
 import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
+import Notification from './Dashboard/Admin/notification'; // Make sure the path is correct
+import StudentNotification from "./Dashboard/Student/StudentNotification.js"; // Correct import, no duplication
 
 function App() {
   return (
@@ -33,10 +35,11 @@ function App() {
         
         {/* Admin Profile Edit Route */}
         <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/StudentNotifications" element={<StudentNotification />} /> {/* Correct path for Student Notifications */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
