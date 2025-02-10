@@ -23,6 +23,10 @@ module.exports = {
       },
       rules: {},
     },
+    {
+      "extends": ["react-app", "react-app/jest"]
+    }
+    
   ],
   globals: {},
 };

@@ -8,15 +8,6 @@ import Home from "./components/Home";
 import Register from "./components/register"; 
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-<<<<<<< HEAD
-import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  // Correct
- 
-import FacultyProfile from "./Dashboard/Faculty/FacultyProfile"; // Updated to FacultyProfile
-import StudentProfile from "./Dashboard/Student/StudentProfile"; // Added StudentProfile
-import EditProfile from "./Dashboard/Admin/EditProfile"; // Import the Profile Edit Component for Admin
-import Notification from './Dashboard/Admin/notification'; // Make sure the path is correct
-import StudentNotification from "./Dashboard/Student/StudentNotification.js"; // Correct import, no duplication
-=======
 import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile";
 import StudentProfile from "./Dashboard/Student/StudentProfile"; 
@@ -24,7 +15,9 @@ import EditProfile from "./Dashboard/Admin/EditProfile";
 import StudentFeedback from "./Dashboard/Student/StudentFeedback"; 
 import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback"; 
 import AdminFeedback from "./Dashboard/Admin/AdminFeedback"; // ✅ Import AdminFeedback
->>>>>>> 42290b8b38b463bf0802edbb03cf5dd032c005d5
+import StudentNotification from "./Dashboard/Student/StudentNotification";
+import AdminNotification from"./Dashboard/Admin/AdminNotification";
+import { Component } from "react";
 
 function App() {
   return (
@@ -44,18 +37,14 @@ function App() {
         <Route path="/student-profile" element={<StudentProfile />} />
         
         {/* Admin Profile Edit Route */}
-<<<<<<< HEAD
         <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/StudentNotifications" element={<StudentNotification />} /> {/* Correct path for Student Notifications */}
-=======
-        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/AdminNotification" element={<AdminNotification />} />
+        <Route path="/StudentNotification" element={<StudentNotification />} /> {/* Correct path for Student Notifications */}
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />
         <Route path="/faculty-feedback" element={<FacultyFeedback />} />
         <Route path="/admin-feedback" element={<AdminFeedback />} /> {/* ✅ Added Admin Feedback Route */}
->>>>>>> 42290b8b38b463bf0802edbb03cf5dd032c005d5
       </Routes>
     </Router>
   );

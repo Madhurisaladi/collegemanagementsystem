@@ -5,32 +5,34 @@
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "cra-template": "1.2.0",
-    "firebase": "^11.1.0",
-    "firebase-admin": "^13.0.2",
-    "framer-motion": "^12.0.1",
+    "express": "^4.21.2",
+    "firebase": "^11.3.0",
+    "firebase-admin": "^13.1.0",
+    "framer-motion": "^12.4.1",
     "nodemailer": "^6.10.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "^5.0.1",
     "react-toastify": "^11.0.3",
     "react-transition-group": "^4.4.5",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.0.5",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -47,6 +49,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "eslint": "^8.57.1"
-  }
+    "eslint": "^9.20.0",
+    "eslint-config-react-app": "^7.0.1"
+  },
+  "proxy": "http://localhost:5000"
 }

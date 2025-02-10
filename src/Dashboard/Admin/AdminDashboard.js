@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   };
 
   const handleNotifications = () => {
-    navigate("/notification");
+    navigate("/AdminNotification");
   };
 
   const handleFeedback = () => {
