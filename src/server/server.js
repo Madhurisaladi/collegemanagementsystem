@@ -7,27 +7,35 @@ const { GoogleAuth } = require("google-auth-library");
 // Load Firebase Service Account JSON
 const serviceAccount = require(__dirname + "/serviceaccount.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// Prevent multiple Firebase initializations
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 const db = admin.firestore();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Function to get OAuth token for FCM v1 API
+// ✅ Function to get OAuth token for FCM v1 API
 async function getAccessToken() {
-  const auth = new GoogleAuth({
-    scopes: ["https://www.googleapis.com/auth/cloud-platform"],
-    keyFilename: __dirname + "/serviceaccount.json",
-  });
-  const client = await auth.getClient();
-  const token = await client.getAccessToken();
-  return token.token;
+  try {
+    const auth = new GoogleAuth({
+      scopes: ["https://www.googleapis.com/auth/firebase.messaging"], // ✅ Correct FCM scope
+      keyFilename: __dirname + "/serviceaccount.json",
+    });
+    const client = await auth.getClient();
+    const token = await client.getAccessToken();
+    return token.token;
+  } catch (error) {
+    console.error("Error fetching OAuth token:", error.message);
+    throw new Error("Failed to fetch OAuth token");
+  }
 }
 
-// ✅ Corrected API route
+// ✅ API to Send Admin Notifications
 app.post("/AdminNotification", async (req, res) => {
   const { title, message } = req.body;
 
@@ -49,6 +57,7 @@ app.post("/AdminNotification", async (req, res) => {
       },
     };
 
+    // ✅ Send FCM Notification
     const response = await axios.post(
       `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`,
       payload,
@@ -60,7 +69,7 @@ app.post("/AdminNotification", async (req, res) => {
       }
     );
 
-    // Store notification in Firestore
+    // ✅ Store notification in Firestore
     await db.collection("notifications").add({
       title,
       message,
@@ -74,11 +83,20 @@ app.post("/AdminNotification", async (req, res) => {
   }
 });
 
-// ✅ Corrected API route
-app.get("/StudentNotifications", async (req, res) => {
+// ✅ API to Fetch Student Notifications
+app.get("/StudentNotification", async (req, res) => {
   try {
     const snapshot = await db.collection("notifications").orderBy("timestamp", "desc").get();
-    const notifications = snapshot.docs.map((doc) => doc.data());
+    
+    if (snapshot.empty) {
+      return res.json({ notifications: [] });
+    }
+
+    const notifications = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
     res.json({ notifications });
   } catch (error) {
     console.error("Error fetching notifications:", error);
@@ -86,8 +104,8 @@ app.get("/StudentNotifications", async (req, res) => {
   }
 });
 
-// ✅ Server now runs on PORT 5000
+// ✅ Server runs on PORT 5000
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

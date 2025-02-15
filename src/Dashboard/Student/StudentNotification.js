@@ -1,49 +1,81 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 
-const StudentDashboard = () => {
+const StudentNotifications = ({ department, year, section, semester }) => {
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchNotifications();
-  }, []);
-
-  const fetchNotifications = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/StudentNotifications");
-      setNotifications(response.data.notifications || []);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-      alert("Failed to fetch notifications!");
+    if (!department || !year || !section || !semester) {
+      console.error("Missing student profile data!", { department, year, section, semester });
+      setLoading(false);
+      return;
     }
-  };
+
+    const fetchNotifications = async () => {
+      setLoading(true);
+      try {
+        console.log("Fetching notifications for:", { department, year, section, semester });
+
+        const q = query(
+          collection(db, "notifications"),
+          where("department", "==", department),
+          where("year", "==", year),
+          where("section", "==", section),
+          where("semester", "==", semester), // Add semester filter
+          orderBy("timestamp", "desc")
+        );
+
+        const querySnapshot = await getDocs(q);
+        const fetchedNotifications = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setNotifications(fetchedNotifications);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, [department, year, section, semester]); // Add semester to dependency array
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h2>Student Dashboard</h2>
-      <h3>Notifications</h3>
-      {notifications.length === 0 ? (
-        <p>No notifications available</p>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Notifications</h2>
+
+      {loading ? (
+        <p className="text-center">Loading notifications...</p>
+      ) : notifications.length === 0 ? (
+        <p className="text-center">No notifications available.</p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {notifications.map((notification, index) => (
-            <li
-              key={index}
-              style={{
-                border: "1px solid #ccc",
-                padding: "10px",
-                margin: "10px",
-                borderRadius: "5px",
-              }}
-            >
-              <strong>{notification.title}</strong>
-              <p>{notification.message}</p>
-            </li>
+        <div className="list-group">
+          {notifications.map((notification) => (
+            <div key={notification.id} className="list-group-item list-group-item-action shadow-sm mb-3">
+              <h5 className="mb-2">{notification.subject}</h5>
+              <p>{notification.info}</p>
+              
+              {notification.fileURL && notification.fileURL.trim() !== "" && (
+                <a href={notification.fileURL} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary">
+                  View Attachment
+                </a>
+              )}
+              
+              <p className="text-muted small mt-2">
+                {notification.timestamp?.seconds
+                  ? new Date(notification.timestamp.seconds * 1000).toLocaleString()
+                  : "No timestamp available"}
+              </p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
 };
 
-export default StudentDashboard;
+export default StudentNotifications;
