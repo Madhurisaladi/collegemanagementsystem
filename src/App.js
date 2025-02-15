@@ -18,10 +18,6 @@ import AdminFeedback from "./Dashboard/Admin/AdminFeedback";
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
 
-// Import Document Components
-import FacultyDocument from "./Dashboard/Faculty/FacultyDocument"; 
-import StudentDocument from "./Dashboard/Student/StudentDocument"; 
-
 function App() {
   return (
     <Router>
@@ -48,10 +44,6 @@ function App() {
         <Route path="/student-feedback" element={<StudentFeedback />} />
         <Route path="/faculty-feedback" element={<FacultyFeedback />} />
         <Route path="/admin-feedback" element={<AdminFeedback />} /> 
-
-        {/* Document Management */}
-        <Route path="/faculty-documents" element={<FacultyDocument />} /> {/* Faculty Uploads Docs */}
-        <Route path="/student-documents" element={<StudentDocument />} /> {/* Students View Docs */}
       </Routes>
     </Router>
   );
