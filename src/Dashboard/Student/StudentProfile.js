@@ -2,61 +2,75 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust the path based on your project structure
-import { getAuth } from "firebase/auth"; // Import Firebase Authentication
+import { useAuth } from "../../auth/AuthContext"; // Import the useAuth hook
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
   const navigate = useNavigate();
-  const auth = getAuth(); // Initialize Firebase Authentication
-  const user = auth.currentUser; // Get the current authenticated user
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [studentId, setStudentId] = useState("");
-  const [department, setDepartment] = useState("");
+  const { user } = useAuth(); // Get user from AuthContext
+
+  const [studentData, setStudentData] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchProfile = async () => {
       if (user) {
         try {
-          const userDocRef = doc(db, "users", user.uid); // Reference to user's Firestore document
+          const userDocRef = doc(db, "students", user.uid);
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setName(userData.name); // Set name
-            setEmail(userData.email); // Set email
-            setStudentId(userData.studentId); // Set student ID
-            setDepartment(userData.department); // Set department
+            setStudentData(userDoc.data());
           } else {
-            setError("User profile not found in Firestore.");
+            setError("Student profile not found.");
           }
         } catch (error) {
           setError("Error fetching profile data.");
+          console.error("Error:", error);
+        } finally {
+          setLoading(false);
         }
       } else {
         setError("No user is logged in.");
+        setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [user]); // Re-fetch if user changes
+  }, [user]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setStudentData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSave = async () => {
+    if (!user) {
+      setError("User not authenticated.");
+      return;
+    }
+
     try {
-      const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
-      await updateDoc(userDocRef, {
-        name,
-        email,
-        studentId,
-        department,
-      }); // Update all editable fields in Firestore
+      const userDocRef = doc(db, "students", user.uid);
+
+      // Only update editable fields (avoid overwriting timestamp)
+      const { name, department, studentId, year, section, semester } = studentData;
+      await updateDoc(userDocRef, { name, department, studentId, year, section, semester });
+
+      setIsEditing(false);
       alert("Profile updated successfully!");
-      navigate("/student-dashboard"); // Navigate back to Student Dashboard after save
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Failed to update profile. Please try again.");
     }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <div className="student-profile-container">
@@ -69,60 +83,46 @@ const StudentProfile = () => {
         />
       </div>
 
-      {/* Edit Profile Header */}
-      <h1>Student Profile</h1>
-      <form onSubmit={(e) => e.preventDefault()} className="profile-form">
-        {error && <p className="error-message">{error}</p>} {/* Show error message if any */}
-
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-input"
-            disabled // Email is typically non-editable, but you can allow it if needed
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Student ID:</label>
-          <input
-            type="text"
-            name="studentId"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Department:</label>
-          <input
-            type="text"
-            name="department"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <button type="button" onClick={handleSave} className="save-button">
-          Save Changes
+      <div className="profile-header">
+        <h1>Student Profile</h1>
+        <button
+          className={`edit-button ${isEditing ? "save" : "edit"}`}
+          onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+        >
+          {isEditing ? "Save Changes" : "Edit Profile"}
         </button>
-      </form>
+      </div>
+
+      <div className="profile-content">
+        {["name", "email", "role", "studentId", "department", "year", "section", "semester"].map((field) => (
+          <div key={field} className="form-group">
+            <label>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
+            {isEditing && field !== "email" && field !== "role" ? (
+              <input
+                type="text"
+                name={field}
+                value={studentData[field]}
+                onChange={handleInputChange}
+                className="form-input"
+              />
+            ) : (
+              <p className="info-text">{studentData[field]}</p>
+            )}
+          </div>
+        ))}
+
+        {/* Registration Date (Read-only) */}
+        <div className="form-group">
+          <label>Registration Date:</label>
+          <p className="info-text">
+            {studentData.timestamp ? studentData.timestamp.toDate().toLocaleString() : "N/A"}
+          </p>
+        </div>
+      </div>
+
+      <button className="back-button" onClick={() => navigate("/student-dashboard")}>
+        Back to Dashboard
+      </button>
     </div>
   );
 };

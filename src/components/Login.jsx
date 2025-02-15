@@ -26,8 +26,6 @@ const Login = () => {
     setResetMessage("");
     setIsAnimating({ ...isAnimating, login: true });
 
-    setTimeout(() => setIsAnimating({ ...isAnimating, login: false }), 1000); // Reset animation
-
     try {
       // Step 1: Sign in with Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -36,15 +34,48 @@ const Login = () => {
       const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
       
       if (userDoc.exists()) {
-        const userRole = userDoc.data().role;  // Get the role from Firestore
+        const userRole = userDoc.data().role;
         
-        // Step 3: Navigate based on the role
-        if (userRole === "admin") {
-          navigate("/admin-dashboard");
+        // Step 3: Get complete profile based on role
+        if (userRole === "student") {
+          const studentDoc = await getDoc(doc(db, "students", userCredential.user.uid));
+          if (studentDoc.exists()) {
+            const studentData = studentDoc.data();
+            localStorage.setItem('userProfile', JSON.stringify({
+              ...studentData,
+              role: userRole,
+              uid: userCredential.user.uid
+            }));
+            navigate("/student-dashboard");
+          } else {
+            setError("Student profile not found.");
+          }
         } else if (userRole === "faculty") {
-          navigate("/faculty-dashboard");
-        } else if (userRole === "student") {
-          navigate("/student-dashboard");
+          const facultyDoc = await getDoc(doc(db, "faculty", userCredential.user.uid));
+          if (facultyDoc.exists()) {
+            const facultyData = facultyDoc.data();
+            localStorage.setItem('userProfile', JSON.stringify({
+              ...facultyData,
+              role: userRole,
+              uid: userCredential.user.uid
+            }));
+            navigate("/faculty-dashboard");
+          } else {
+            setError("Faculty profile not found.");
+          }
+        } else if (userRole === "admin") {
+          const adminDoc = await getDoc(doc(db, "admins", userCredential.user.uid));
+          if (adminDoc.exists()) {
+            const adminData = adminDoc.data();
+            localStorage.setItem('userProfile', JSON.stringify({
+              ...adminData,
+              role: userRole,
+              uid: userCredential.user.uid
+            }));
+            navigate("/admin-dashboard");
+          } else {
+            setError("Admin profile not found.");
+          }
         } else {
           setError("Invalid role assigned to user");
         }
@@ -52,7 +83,10 @@ const Login = () => {
         setError("User data not found in Firestore.");
       }
     } catch (err) {
-      setError(err.message); // Handle authentication errors
+      console.error("Login error:", err);
+      setError(err.message);
+    } finally {
+      setIsAnimating({ ...isAnimating, login: false });
     }
   };
 

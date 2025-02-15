@@ -261,6 +261,13 @@ const Register = () => {
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
         </form>
+
+        {/* Button to return to admin dashboard */}
+        <div className="d-grid">
+          <button className="btn btn-secondary" onClick={() => navigate("/admin-dashboard")}>
+            Return to Admin Dashboard
+          </button>
+        </div>
       </div>
     </div>
   );
