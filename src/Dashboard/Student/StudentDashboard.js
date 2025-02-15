@@ -41,9 +41,11 @@ const StudentDashboard = () => {
           Notifications
         </button>
         <button className="dashboard-btn feedback-btn" onClick={() => navigate("/student-feedback")}>
-  Give Feedback
-</button>
-
+          Give Feedback
+        </button>
+        <button className="dashboard-btn documents-btn" onClick={() => navigate("/student-documents")}>
+          View Documents
+        </button>
       </div>
 
       {/* Feedback Form (Toggles On/Off) */}

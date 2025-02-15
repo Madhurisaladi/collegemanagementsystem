@@ -70,13 +70,18 @@ const FacultyDashboard = () => {
 
         {/* Feedback Section */}
         <button className="dashboard-btn feedback-btn" onClick={() => navigate("/faculty-feedback")}>
-  Feedback
-</button>
+          Feedback
+        </button>
 
         {showFeedback && <FacultyFeedback />} {/* Show feedback list */}
 
         <button className="dashboard-btn profile-btn" onClick={() => navigate("/faculty-profile")}>
           Profile
+        </button>
+
+        {/* Documents Section */}
+        <button className="dashboard-btn documents-btn" onClick={() => navigate("/faculty-documents")}>
+          Documents
         </button>
       </div>
     </div>

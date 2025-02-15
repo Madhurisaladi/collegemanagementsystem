@@ -14,10 +14,13 @@ import StudentProfile from "./Dashboard/Student/StudentProfile";
 import EditProfile from "./Dashboard/Admin/EditProfile"; 
 import StudentFeedback from "./Dashboard/Student/StudentFeedback"; 
 import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback"; 
-import AdminFeedback from "./Dashboard/Admin/AdminFeedback"; // ✅ Import AdminFeedback
+import AdminFeedback from "./Dashboard/Admin/AdminFeedback";  
 import StudentNotification from "./Dashboard/Student/StudentNotification";
-import AdminNotification from"./Dashboard/Admin/AdminNotification";
-import { Component } from "react";
+import AdminNotification from "./Dashboard/Admin/AdminNotification";
+
+// Import Document Components
+import FacultyDocument from "./Dashboard/Faculty/FacultyDocument"; 
+import StudentDocument from "./Dashboard/Student/StudentDocument"; 
 
 function App() {
   return (
@@ -37,14 +40,18 @@ function App() {
         <Route path="/student-profile" element={<StudentProfile />} />
         
         {/* Admin Profile Edit Route */}
-        <Route path="/edit-profile" element={<EditProfile />} /> {/* New Route for Profile Editing */}
+        <Route path="/edit-profile" element={<EditProfile />} /> 
         <Route path="/AdminNotification" element={<AdminNotification />} />
-        <Route path="/StudentNotification" element={<StudentNotification />} /> {/* Correct path for Student Notifications */}
+        <Route path="/StudentNotification" element={<StudentNotification />} /> 
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />
         <Route path="/faculty-feedback" element={<FacultyFeedback />} />
-        <Route path="/admin-feedback" element={<AdminFeedback />} /> {/* ✅ Added Admin Feedback Route */}
+        <Route path="/admin-feedback" element={<AdminFeedback />} /> 
+
+        {/* Document Management */}
+        <Route path="/faculty-documents" element={<FacultyDocument />} /> {/* Faculty Uploads Docs */}
+        <Route path="/student-documents" element={<StudentDocument />} /> {/* Students View Docs */}
       </Routes>
     </Router>
   );
