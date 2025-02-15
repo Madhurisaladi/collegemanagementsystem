@@ -13,6 +13,9 @@ const Register = () => {
   const [department, setDepartment] = useState("");
   const [studentId, setStudentId] = useState("");
   const [facultyId, setFacultyId] = useState("");
+  const [year, setYear] = useState(""); // Year state
+  const [section, setSection] = useState(""); // Section state
+  const [semester, setSemester] = useState(""); // Semester state
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -26,6 +29,10 @@ const Register = () => {
     { code: "CHEM", name: "Chemical Engineering" },
   ];
 
+  const years = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+  const sections = ["A", "B"];
+  const semesters = ["1st Semester", "2nd Semester"]; // Semester options
+
   const navigate = useNavigate(); // Initialize navigate function
 
   const handleRoleChange = (e) => {
@@ -33,6 +40,9 @@ const Register = () => {
     setStudentId("");
     setFacultyId("");
     setDepartment("");
+    setYear("");
+    setSection("");
+    setSemester(""); // Reset semester when role changes
   };
 
   const handleRegister = async (e) => {
@@ -51,6 +61,9 @@ const Register = () => {
         department: department,
         studentId: role === "student" ? studentId : "",
         facultyId: role === "faculty" ? facultyId : "",
+        year: role === "student" ? year : "",
+        section: role === "student" ? section : "",
+        semester: role === "student" ? semester : "", // Add semester to Firestore
         timestamp: new Date(),
       });
 
@@ -61,6 +74,9 @@ const Register = () => {
       setDepartment("");
       setStudentId("");
       setFacultyId("");
+      setYear("");
+      setSection("");
+      setSemester("");
       setSuccess("User registered successfully!");
     } catch (err) {
       setError(err.message);
@@ -138,18 +154,69 @@ const Register = () => {
           </div>
 
           {role === "student" && (
-            <div className="mb-3">
-              <label htmlFor="studentId" className="form-label">Student ID</label>
-              <input
-                type="text"
-                id="studentId"
-                className="form-control"
-                placeholder="Enter your student ID"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
-                required
-              />
-            </div>
+            <>
+              <div className="mb-3">
+                <label htmlFor="studentId" className="form-label">Student ID</label>
+                <input
+                  type="text"
+                  id="studentId"
+                  className="form-control"
+                  placeholder="Enter your student ID"
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="year" className="form-label">Year</label>
+                <select
+                  id="year"
+                  className="form-select"
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                  required
+                >
+                  <option value="">Select Year</option>
+                  {years.map((yr) => (
+                    <option key={yr} value={yr}>{yr}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="section" className="form-label">Section</label>
+                <select
+                  id="section"
+                  className="form-select"
+                  value={section}
+                  onChange={(e) => setSection(e.target.value)}
+                  required
+                >
+                  <option value="">Select Section</option>
+                  {sections.map((sec) => (
+                    <option key={sec} value={sec}>{sec}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Semester Dropdown */}
+              <div className="mb-3">
+                <label htmlFor="semester" className="form-label">Semester</label>
+                <select
+                  id="semester"
+                  className="form-select"
+                  value={semester}
+                  onChange={(e) => setSemester(e.target.value)}
+                  required
+                >
+                  <option value="">Select Semester</option>
+                  {semesters.map((sem) => (
+                    <option key={sem} value={sem}>{sem}</option>
+                  ))}
+                </select>
+              </div>
+            </>
           )}
 
           {role === "faculty" && (
@@ -188,20 +255,12 @@ const Register = () => {
           )}
 
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
+            <button type="submit" className="btn btn-primary">Register</button>
           </div>
 
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
         </form>
-
-        <div className="d-grid">
-          <button className="btn btn-secondary" onClick={() => navigate("/login")}>
-            Login
-          </button>
-        </div>
       </div>
     </div>
   );
