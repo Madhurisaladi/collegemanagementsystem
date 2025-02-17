@@ -1,48 +1,35 @@
 import React from 'react';
-import './styles.css';
 import { Link } from 'react-router-dom';
+import './styles.css';
 
 function HomePage() {
   return (
-    <div>
-      {/* Banner Area */}
-      <div className="banner-area">
-        <div className="wrapper">
-          <div className="navigation">
-            <h1 className="logo">
-              {/* No logo here anymore */}
-            </h1>
-            <nav>
-              {/* Change Login link to Home and navigate to https://bullayyacollege.org/ */}
-              <a href="https://bullayyacollege.org/" target="_blank" rel="noopener noreferrer">Home</a>
-            </nav>
-          </div>
+    <div className="home-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/accommodation">Accommodation</Link></li>
+          <li><Link to="/food">Food</Link></li>
+          <li><a href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" target="_blank" rel="noopener noreferrer">Fees Payment</a></li>
+        </ul>
+      </nav>
 
-          {/* Text area below the logo */}
-          <div className="banner-text">
-            <div className="text-area">
-              {/* New Image inside the <h2> */}
-              <h2>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-                  alt="New College Logo"
-                  className="college-logo"
-                />
-              </h2>
-              <h3>DLBC EduBridge</h3>
-              <h4>Where Knowledge Meets Excellence</h4>
-              <p>"A Place Where Curiosity is Sparked, Ideas Flourish, and Dreams Take Shape." </p>
-              {/* Replaced "Contact Me" with "Login" */}
-              <Link to="/login" className="login-button">Login</Link>
-            </div>
-          </div>
+      {/* Main Content */}
+      <div className="content">
+        <div className="logo">
+          <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" alt="Bullayya College Logo" />
+        </div>
+
+        <h1>Welcome to DLBC</h1>
+        <p className="black-text">Join us at Dr. Lankapalli Bullayya College of Engineering to gain the skills and knowledge that shape future leaders and problem-solvers.</p>
+
+        <div className="buttons">
+          <Link to="/login" className="btn btn-login">Login</Link>
+          <Link to="https://bullayyacollege.org/" className="btn btn-learn">Learn More</Link>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer>
-        <p>&copy; 2025 DLBCE EduBridge. All rights reserved.</p>
-      </footer>
     </div>
   );
 }

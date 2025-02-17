@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Importing components
 import Login from "./components/Login"; 
 import Home from "./components/Home"; 
-import Register from "./components/register"; 
+import Register from "./components/register";  // Register path fixed
+import AboutPage from "./components/AboutPage"; // About Page
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
 import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  
@@ -26,6 +27,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
+        {/* About Page Route */}
+        <Route path="/about" element={<AboutPage />} />
+        
         {/* Role-Based Dashboard Routes */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
@@ -36,9 +40,11 @@ function App() {
         <Route path="/student-profile" element={<StudentProfile />} />
         
         {/* Admin Profile Edit Route */}
-        <Route path="/edit-profile" element={<EditProfile />} /> 
-        <Route path="/AdminNotification" element={<AdminNotification />} />
-        <Route path="/StudentNotification" element={<StudentNotification />} /> 
+        <Route path="/edit-profile" element={<EditProfile />} />
+        
+        {/* Notification Routes */}
+        <Route path="/admin-notification" element={<AdminNotification />} />
+        <Route path="/student-notification" element={<StudentNotification />} />
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />

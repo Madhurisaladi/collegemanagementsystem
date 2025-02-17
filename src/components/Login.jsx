@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase.js";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
+import "../components/styles.css"; // Adjust the path if needed
+ // Import the updated CSS file
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [resetMessage, setResetMessage] = useState("");
-  const [isAnimating, setIsAnimating] = useState({ login: false, forgot: false });
   const navigate = useNavigate();
 
-  // Clear credentials on component mount
   useEffect(() => {
     setEmail("");
     setPassword("");
@@ -24,21 +24,13 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setResetMessage("");
-    setIsAnimating({ ...isAnimating, login: true });
-
-    setTimeout(() => setIsAnimating({ ...isAnimating, login: false }), 1000); // Reset animation
 
     try {
-      // Step 1: Sign in with Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-      // Step 2: Get the user role from Firestore
       const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
-      
+
       if (userDoc.exists()) {
-        const userRole = userDoc.data().role;  // Get the role from Firestore
-        
-        // Step 3: Navigate based on the role
+        const userRole = userDoc.data().role;
         if (userRole === "admin") {
           navigate("/admin-dashboard");
         } else if (userRole === "faculty") {
@@ -52,7 +44,7 @@ const Login = () => {
         setError("User data not found in Firestore.");
       }
     } catch (err) {
-      setError(err.message); // Handle authentication errors
+      setError(err.message);
     }
   };
 
@@ -62,9 +54,6 @@ const Login = () => {
       return;
     }
     setError("");
-    setIsAnimating({ ...isAnimating, forgot: true });
-
-    setTimeout(() => setIsAnimating({ ...isAnimating, forgot: false }), 1000); // Reset animation
 
     try {
       await sendPasswordResetEmail(auth, email);
@@ -75,68 +64,78 @@ const Login = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
-        {/* Add Logo Above Title */}
-        <div className="text-center mb-4">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" // Your logo URL
-            alt="Logo"
-            style={{ maxWidth: "200px", marginBottom: "10px" }}
-          />
+    <div>
+      {/* Navigation Bar */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container">
+          <ul className="navbar-nav mx-auto">
+            <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/accommodation">Accommodation</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/food">Food</Link></li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Fees Payment
+              </a>
+            </li>
+          </ul>
         </div>
+      </nav>
 
-        <h2 className="text-center mb-4">Login</h2>
-        <form onSubmit={handleLogin} autoComplete="off">
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="form-control"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="off" // Disable autocomplete for this field
+      {/* Login Section */}
+      <div className="login-container">
+        <div className="login-box">
+          <div className="text-center mb-4">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+              alt="Logo"
+              className="login-logo"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="off" // Disable autocomplete for this field
-            />
-          </div>
-          {error && <p className="text-danger text-center">{error}</p>}
-          {resetMessage && <p className="text-success text-center">{resetMessage}</p>}
-        
+
+          <h2 className="text-center mb-4">Login</h2>
+          <form onSubmit={handleLogin} autoComplete="off">
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            {error && <p className="text-danger text-center">{error}</p>}
+            {resetMessage && <p className="text-success text-center">{resetMessage}</p>}
+          
+            <div className="d-grid mb-3">
+              <button type="submit" className="btn btn-primary">Login</button>
+            </div>
+          </form>
           <div className="d-grid mb-3">
-            <button
-              type="submit"
-              className={`btn btn-primary ${isAnimating.login ? "animate__animated animate__pulse" : ""}`}
-            >
-              Login
+            <button type="button" className="btn btn-link" onClick={handleForgotPassword}>
+              Forgot Password?
             </button>
           </div>
-        </form>
-        <div className="d-grid mb-3">
-          <button
-            type="button"
-            className={`btn btn-link ${isAnimating.forgot ? "animate__animated animate__pulse" : ""}`}
-            style={{ textDecoration: "none" }}
-            onClick={handleForgotPassword}
-          >
-            Forgot Password?
-          </button>
         </div>
       </div>
     </div>
