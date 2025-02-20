@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Importing components
 import Login from "./components/Login"; 
 import Home from "./components/Home"; 
-import Register from "./components/register";  // Register path fixed
-import AboutPage from "./components/AboutPage"; // About Page
+import Register from "./components/register";  
+import AboutPage from "./components/AboutPage"; 
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
 import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  
@@ -18,6 +18,7 @@ import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback";
 import AdminFeedback from "./Dashboard/Admin/AdminFeedback";  
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
+import Contact from "./components/Contact"; // Fixed import path
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
         
         {/* About Page Route */}
         <Route path="/about" element={<AboutPage />} />
-        
+        <Route path="/contact" element={<Contact />} />
+
         {/* Role-Based Dashboard Routes */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/faculty-dashboard" element={<FacultyDashboard />} />

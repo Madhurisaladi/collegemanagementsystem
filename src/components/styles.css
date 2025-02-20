@@ -182,6 +182,7 @@ body {
   }
 }
 /* Centering the entire login container */
+/* General Login Container */
 .login-container {
   display: flex;
   justify-content: center;
@@ -190,52 +191,95 @@ body {
   width: 100%;
   min-height: 100vh;
   padding: 20px;
+  background-color: #f0f8ff; /* Soft blue background */
 }
 
 /* Styled login box similar to about page */
 .login-box {
   width: 90%;
-  max-width: 1200px; /* Increase the max width to make it even wider */
-  background-color: rgba(173, 216, 230, 0.9); /* Light blue with transparency */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  text-align: left;
+  max-width: 600px; /* Adjusted for better responsiveness */
+  background-color: rgba(173, 216, 230, 0.95); /* Light blue with better contrast */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 35px;
+  text-align: center;
 }
 
 /* Center the logo */
 .login-logo {
-  max-width: 180px;
+  max-width: 150px;
   display: block;
-  margin: 0 auto 10px;
+  margin: 0 auto 15px;
 }
 
 /* Form inputs */
 .form-control {
-  border-radius: 6px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
 }
 
 /* Buttons */
 .btn-primary {
   font-size: 16px;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .btn-link {
   text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
 }
 
 /* Navbar adjustments */
 .navbar {
   margin-bottom: 20px;
+  white-space: nowrap; /* Prevents line breaks */
+  
+  
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .login-box {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
     width: 95%;
     padding: 20px;
+  }
+
+  .login-logo {
+    max-width: 130px;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-link {
+    font-size: 12px;
   }
 }

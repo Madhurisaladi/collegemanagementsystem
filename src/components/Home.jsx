@@ -12,6 +12,8 @@ function HomePage() {
           <li><Link to="/about">About</Link></li>
           <li><Link to="/accommodation">Accommodation</Link></li>
           <li><Link to="/food">Food</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+
           <li><a href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" target="_blank" rel="noopener noreferrer">Fees Payment</a></li>
         </ul>
       </nav>

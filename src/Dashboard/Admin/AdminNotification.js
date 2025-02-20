@@ -2,6 +2,8 @@ import { useState } from "react";
 import { storage, db } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import "./AdminNotification.css";
+
 
 const AdminNotification = () => {
   const [subject, setSubject] = useState("");
@@ -9,7 +11,8 @@ const AdminNotification = () => {
   const [department, setDepartment] = useState("");
   const [year, setYear] = useState("");
   const [section, setSection] = useState("");
-  const [semester, setSemester] = useState(""); // Semester state
+  const [semester, setSemester] = useState("");
+  const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -18,28 +21,29 @@ const AdminNotification = () => {
   const departments = ["CSE", "ECE", "MECH", "CIVIL"];
   const years = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
   const sections = ["A", "B"];
-  const semesters = ["1st Semester", "2nd Semester"]; // Semester options
+  const semesters = ["1st Semester", "2nd Semester"];
+  const categories = ["General", "Events", "Results", "Attendance Reports"];
 
   const handleUpload = async () => {
-    if (!subject || !info || !department || !year || !section || !semester) {
+    if (!subject || !info || !department || !year || !section || !semester || !category) {
       alert("All fields are required except file!");
       return;
     }
 
     setLoading(true);
     setSuccess(false);
-    setProgress(0); // Reset progress bar
+    setProgress(0);
 
     let fileURL = "";
     if (file) {
-      const fileRef = ref(storage, `notifications/${department}/${year}/${section}/${file.name}`);
+      const fileRef = ref(storage, `notifications/${department}/${year}/${section}/${semester}/${category}/${file.name}`);
       const uploadTask = uploadBytesResumable(fileRef, file);
 
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const progressPercent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(progressPercent); // Update progress bar
+          setProgress(progressPercent);
         },
         (error) => {
           console.error("Upload error:", error);
@@ -63,7 +67,8 @@ const AdminNotification = () => {
       department,
       year,
       section,
-      semester, // Include semester in Firestore document
+      semester,
+      category,
       fileURL,
       timestamp: serverTimestamp(),
     });
@@ -75,7 +80,8 @@ const AdminNotification = () => {
     setDepartment("");
     setYear("");
     setSection("");
-    setSemester(""); // Reset semester
+    setSemester("");
+    setCategory("");
     setFile(null);
     setProgress(0);
   };
@@ -117,13 +123,22 @@ const AdminNotification = () => {
           </select>
         </div>
 
-        {/* Semester Dropdown */}
         <div className="mb-3">
           <label className="form-label">Semester</label>
           <select className="form-control" value={semester} onChange={(e) => setSemester(e.target.value)}>
             <option value="">Select Semester</option>
             {semesters.map((sem) => (
               <option key={sem} value={sem}>{sem}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Notification Type</label>
+          <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="">Select Type</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
         </div>
