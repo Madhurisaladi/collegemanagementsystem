@@ -1,8 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './styles.css';
 
 function HomePage() {
+  const navigate = useNavigate();
+
+  const handleNavigation = (query) => {
+    window.location.href = `https://www.google.com/search?q=${query}`;
+  };
+
   return (
     <div className="home-container">
       {/* Navigation Bar */}
@@ -10,9 +16,30 @@ function HomePage() {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/accommodation">Accommodation</Link></li>
-          <li><Link to="/food">Food</Link></li>
-          <li><a href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" target="_blank" rel="noopener noreferrer">Fees Payment</a></li>
+          <li>
+            <button 
+              onClick={() => handleNavigation('nearby+pg+hostels+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
+              className="nav-link"
+            >
+              Accommodation
+            </button>
+          </li>
+          <li>
+            <span 
+              onClick={() => handleNavigation('nearby+restaurants+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
+              className="nav-link"
+            >
+              Food
+            </span>
+          </li>
+          <li>
+            <a 
+              href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" 
+              rel="noopener noreferrer"
+            >
+              Fees Payment
+            </a>
+          </li>
         </ul>
       </nav>
 
@@ -27,7 +54,13 @@ function HomePage() {
 
         <div className="buttons">
           <Link to="/login" className="btn btn-login">Login</Link>
-          <Link to="https://bullayyacollege.org/" className="btn btn-learn">Learn More</Link>
+          <a 
+            href="https://bullayyacollege.org/" 
+            rel="noopener noreferrer" 
+            className="btn btn-learn"
+          >
+            Learn More
+          </a>
         </div>
       </div>
     </div>

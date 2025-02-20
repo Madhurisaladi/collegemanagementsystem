@@ -6,7 +6,6 @@ import { doc, getDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
 import "../components/styles.css"; // Adjust the path if needed
- // Import the updated CSS file
 
 const Login = () => {
   const [email, setEmail] = useState("");
