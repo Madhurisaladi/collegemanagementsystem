@@ -175,6 +175,7 @@ body {
 }
 
 /* Centering the entire login container */
+/* General Login Container */
 .login-container {
   display: flex;
   justify-content: center;
@@ -185,7 +186,8 @@ body {
   height: auto;
   min-width: 300px;
   min-height: 100vh;
-  padding: 40px;
+  padding: 20px;
+  background-color: #f0f8ff; /* Soft blue background */
 }
 
 /* Styled login box similar to about page */
@@ -201,35 +203,38 @@ body {
 
 /* Center the logo */
 .login-logo {
-  max-width: 180px;
+  max-width: 150px;
   display: block;
-  margin: 0 auto 10px;
+  margin: 0 auto 15px;
 }
 
 /* Form inputs */
 .form-control {
-  width: 100%;
-  border-radius: 6px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
 }
 
 /* Buttons */
 .btn-primary {
   font-size: 16px;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
   width: 100%;
 }
 
 .btn-link {
   text-decoration: none;
-  display: block;
-  text-align: center;
+  color: #007bff;
+  font-size: 14px;
 }
 
 /* Navbar adjustments */
 .navbar {
   margin-bottom: 20px;
+  white-space: nowrap; /* Prevents line breaks */
+  
+  
 }
 .nav-link {
   cursor: pointer;
@@ -251,28 +256,45 @@ body {
 
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .navbar {
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .login-logo {
+    max-width: 130px;
+  }
+
+  .form-control {
+    font-size: 14px;
     padding: 10px;
   }
 
-  .navbar ul li {
-    margin: 0 5px;
-  }
-
-  .navbar ul li a {
+  .btn-primary {
     font-size: 14px;
-    padding: 5px 8px;
+    padding: 10px;
   }
 
-  .btn {
-    font-size: 16px;
-    padding: 10px 16px;
-  }
-
-  .about-box, .login-box {
-    width: 95%;
-    padding: 20px;
+  .btn-link {
+    font-size: 12px;
   }
 }
 

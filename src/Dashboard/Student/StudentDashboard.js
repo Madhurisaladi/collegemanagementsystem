@@ -1,58 +1,53 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import StudentFeedback from "./StudentFeedback"; // Import Feedback Component
+import React from "react";
+import { Link } from "react-router-dom";
 import "./StudentDashboard.css";
 
 const StudentDashboard = () => {
-  const navigate = useNavigate();
-  const [showFeedback, setShowFeedback] = useState(false); // State to show/hide feedback
-
-  const handleLogout = () => {
-    alert("Logged out successfully!");
-    navigate("/login");
-  };
-
   return (
     <div className="dashboard-container">
-      {/* Logo */}
-      <div className="logo-container">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-          alt="College Logo"
-          className="logo"
-        />
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li>
+            <Link to="/student-dashboard">Home</Link>
+          </li>
+          <li>
+            <Link to="/view-attendance">View Attendance</Link>
+          </li>
+          <li>
+            <Link to="/student-notifications">Notifications</Link>
+          </li>
+          <li>
+            <Link to="/student-feedback">Give Feedback</Link>
+          </li>
+          <li>
+            <Link to="/student-profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/student-documents">Documents</Link>
+          </li>
+          <li>
+            <Link to="/" className="nav-logout">
+              Logout
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Main Content */}
+      <div className="content">
+        <div className="logo">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+            alt="College Logo"
+          />
+        </div>
+
+        <h1>Welcome to Student Dashboard</h1>
+        <p className="black-text">
+          Access your attendance, notifications, feedback, and documents with ease.
+        </p>
       </div>
-
-      {/* Header */}
-      <div className="dashboard-header">
-        <h1>Student Dashboard</h1>
-        <p>Welcome to your dashboard. Navigate through your options below.</p>
-      </div>
-
-      {/* Buttons Section */}
-      <div className="dashboard-buttons">
-        <button className="dashboard-btn attendence-btn" onClick={() => navigate("/view-attendance")}>
-          View Attendance
-        </button>
-        <button className="dashboard-btn profile-btn" onClick={() => navigate("/student-profile")}>
-          Profile
-        </button>
-        <button className="dashboard-btn notifications-btn" onClick={() => navigate("/StudentNotification")}>
-          Notifications
-        </button>
-        <button className="dashboard-btn feedback-btn" onClick={() => navigate("/student-feedback")}>
-          Give Feedback
-        </button>
-        <button className="dashboard-btn documents-btn" onClick={() => navigate("/student-documents")}>
-          View Documents
-        </button>
-      </div>
-
-      {/* Feedback Form (Toggles On/Off) */}
-      {showFeedback && <StudentFeedback />}
-
-      {/* Logout Button */}
-      <button className="logout-btn" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

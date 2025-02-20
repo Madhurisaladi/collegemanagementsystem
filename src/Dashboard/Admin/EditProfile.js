@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db, auth } from "../../firebase"; // Corrected import
-import { getAuth } from "firebase/auth";
+import { db, auth } from "../../firebase";
 import "./EditProfile.css";
 
 const EditProfile = () => {
@@ -12,14 +11,13 @@ const EditProfile = () => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    // Fetch the current user's profile data from Firestore
     const fetchProfile = async () => {
       try {
-        const userDocRef = doc(db, "users", user.uid); // Reference to user's Firestore document
+        const userDocRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          setName(userDoc.data().name); // Set the current name
-          setEmail(userDoc.data().email); // Set the current email (this will not be editable)
+          setName(userDoc.data().name);
+          setEmail(userDoc.data().email);
         } else {
           console.error("User profile not found in Firestore.");
         }
@@ -33,10 +31,10 @@ const EditProfile = () => {
 
   const handleSave = async () => {
     try {
-      const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
-      await updateDoc(userDocRef, { name }); // Update only the name field in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, { name });
       alert("Profile updated successfully!");
-      navigate("/admin-dashboard"); // Navigate to Admin Dashboard
+      navigate("/admin-dashboard");
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Failed to update profile. Please try again.");
@@ -45,6 +43,18 @@ const EditProfile = () => {
 
   return (
     <div className="edit-profile-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/admin-dashboard">Home</Link></li>
+          <li><Link to="/register">New Registration</Link></li>
+          <li><Link to="/AdminNotification">Send Notifications</Link></li>
+          <li><Link to="/admin-feedback">Feedback</Link></li>
+          <li><Link to="/edit-profile">Profile</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
+
       {/* Logo */}
       <div className="logo-container">
         <img
@@ -89,4 +99,3 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
-
