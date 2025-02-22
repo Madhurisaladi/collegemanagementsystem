@@ -19,7 +19,8 @@ import AdminFeedback from "./Dashboard/Admin/AdminFeedback";
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
 import Contact from "./components/Contact"; // Fixed import path
-
+import FacultyDocumentUpload from "./Dashboard/Faculty/FacultyDocumentUpload";
+import StudentDocuments from "./Dashboard/Student/StudentDocuments";
 function App() {
   return (
     <Router>
@@ -52,6 +53,9 @@ function App() {
         <Route path="/student-feedback" element={<StudentFeedback />} />
         <Route path="/faculty-feedback" element={<FacultyFeedback />} />
         <Route path="/admin-feedback" element={<AdminFeedback />} /> 
+        
+        <Route path="/faculty-documents" element={<FacultyDocumentUpload />} />
+        <Route path="/student-documents" element={<StudentDocuments />} />
       </Routes>
     </Router>
   );
