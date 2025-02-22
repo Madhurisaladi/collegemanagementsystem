@@ -71,10 +71,46 @@ body {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Logo */
-.logo img {
-  width: 150px;
-  height: auto;
+/* Login Box */
+.login-box {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-box h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-box .login-btn {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s;
+}
+
+.login-box .login-btn:hover {
+  background: darkgray;
 }
 
 /* Black Text */
@@ -181,6 +217,11 @@ body {
     width: 90%;
     padding: 25px;
   }
+
+  .login-box {
+    width: 90%;
+    padding: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -192,6 +233,11 @@ body {
   .content-container {
     width: 95%;
     padding: 20px;
+  }
+
+  .login-box {
+    width: 95%;
+    padding: 18px;
   }
 }
 
