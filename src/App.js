@@ -1,6 +1,6 @@
 import React from "react";
-import "animate.css"; // For animations
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from './auth/AuthContext';
 
 // Importing components
 import Login from "./components/Login"; 
@@ -9,7 +9,7 @@ import Register from "./components/register";
 import AboutPage from "./components/AboutPage"; 
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-import AdminDashboard from "./Dashboard/Admin/AdminDashboard.js";  
+import AdminDashboard from "../src/Dashboard/Admin/AdminDashboard";
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile";
 import StudentProfile from "./Dashboard/Student/StudentProfile"; 
 import EditProfile from "./Dashboard/Admin/EditProfile"; 

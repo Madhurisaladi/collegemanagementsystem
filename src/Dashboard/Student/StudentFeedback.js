@@ -1,48 +1,90 @@
-import { useState } from "react";
-import { db, auth } from "../../firebase"; // Ensure correct path
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { toast } from "react-toastify"; // Import toast for better notifications
-import "react-toastify/dist/ReactToastify.css"; // Toast styles
+import { useState, useEffect } from "react";
+import { db, auth } from "../../firebase";
+import { collection, doc, getDoc, addDoc, serverTimestamp } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentFeedback = () => {
-  const [message, setMessage] = useState(""); // Changed from feedback to message
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
+  const [studentDetails, setStudentDetails] = useState({
+    studentName: "Unknown",
+    studentId: "Unknown",
+    department: "Unknown",
+    year: "Unknown",
+    section: "Unknown",
+    semester: "Unknown",
+  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setStudentDetails({
+              studentName: data.name || "Unknown",
+              studentId: data.studentId || "Unknown",
+              department: data.department || "Unknown",
+              year: data.year || "Unknown",
+              section: data.section || "Unknown",
+              semester: data.semester || "Unknown",
+            });
+            console.log("Fetched student details:", data);
+          } else {
+            console.log("No user document found for UID:", user.uid);
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error);
+        }
+      } else {
+        console.log("No user is authenticated");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
+    if (!message.trim()) {
+      setError("Feedback cannot be empty.");
+      return;
+    }
+
+    const user = auth.currentUser;
+    if (!user) {
+      setError("User not authenticated.");
+      return;
+    }
+
+    setLoading(true);
     try {
-      if (!message.trim()) {
-        setError("Feedback cannot be empty.");
-        return;
-      }
-
-      const user = auth.currentUser;
-      console.log("Current User:", auth.currentUser);
- // Get logged-in user
-      if (!user) {
-        setError("User not authenticated.");
-        return;
-      }
-
-      setLoading(true); // Set loading state
-
       await addDoc(collection(db, "feedback"), {
         userId: user.uid,
-        studentName: user.displayName || "Unknown",
-        message: message, // ✅ Store feedback in 'message' field
+        studentName: studentDetails.studentName || "Unknown",
+        studentId: studentDetails.studentId || "Unknown",
+        department: studentDetails.department || "Unknown",
+        year: studentDetails.year || "Unknown",
+        section: studentDetails.section || "Unknown",
+        semester: studentDetails.semester || "Unknown",
+        message: message,
         createdAt: serverTimestamp(),
       });
 
-      setMessage(""); // Clear input
-      toast.success("Feedback submitted successfully!"); // Toast notification
+      setMessage("");
+      toast.success("Feedback submitted successfully!");
     } catch (error) {
       console.error("Error submitting feedback:", error);
       setError("Failed to submit feedback. Try again.");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -50,13 +92,12 @@ const StudentFeedback = () => {
     <div style={{ maxWidth: "500px", margin: "auto", padding: "20px" }}>
       <h2>Submit Feedback</h2>
       {error && <p style={{ color: "red" }} aria-live="assertive">{error}</p>}
-
       <form onSubmit={handleSubmit}>
         <label htmlFor="message">Your Feedback:</label>
         <textarea
           id="message"
-          value={message} // Changed to 'message'
-          onChange={(e) => setMessage(e.target.value)} // Changed state update
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           placeholder="Write your feedback here..."
           rows="5"
           style={{ width: "100%", padding: "10px", marginTop: "10px" }}

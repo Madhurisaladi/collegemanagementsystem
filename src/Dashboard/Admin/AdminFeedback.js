@@ -64,8 +64,13 @@ const AdminFeedback = () => {
 
         {currentFeedback.map((feedback) => (
           <div key={feedback.id} style={styles.feedbackItem}>
-            <strong>{feedback?.studentName ? feedback.studentName : "Unknown Student"}:</strong>
-            <p>{feedback.message || feedback.feedback}</p>
+            <strong>{feedback?.studentName || "Unknown Student"}:</strong>
+            <p>{feedback.message || "No message provided."}</p>
+            <small>
+              <em>
+                {feedback.department} - {feedback.year} Year, {feedback.semester} Sem, Section {feedback.section}
+              </em>
+            </small>
           </div>
         ))}
 
