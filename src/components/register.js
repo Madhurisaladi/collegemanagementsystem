@@ -50,6 +50,7 @@ const Register = () => {
       setSection("");
       setSemester("");
       setSuccess("User registered successfully!");
+      setTimeout(() => navigate("/admin-dashboard"), 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -57,7 +58,6 @@ const Register = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Navigation Bar */}
       <nav className="navbar">
         <ul>
           <li><Link to="/admin-dashboard">Home</Link></li>
@@ -70,9 +70,6 @@ const Register = () => {
 
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="card shadow p-4" style={{ maxWidth: "500px", width: "100%" }}>
-          <div className="text-center mb-4">
-            <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" alt="College Logo" style={{ width: "120px", height: "120px", borderRadius: "50%" }} />
-          </div>
           <h2 className="text-center mb-4">Register</h2>
           <form onSubmit={handleRegister}>
             <div className="mb-3">
@@ -84,18 +81,70 @@ const Register = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
+
             <div className="mb-3">
               <label htmlFor="name" className="form-label">Name</label>
               <input type="text" id="name" className="form-control" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} required />
             </div>
+
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email</label>
               <input type="email" id="email" className="form-control" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
+
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Password</label>
               <input type="password" id="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
+
+            {(role === "student" || role === "faculty") && (
+              <div className="mb-3">
+                <label htmlFor="department" className="form-label">Department</label>
+                <select id="department" className="form-select" value={department} onChange={(e) => setDepartment(e.target.value)} required>
+                  <option value="">Select Department</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="MECH">MECH</option>
+                  <option value="CIVIL">CIVIL</option>
+                </select>
+              </div>
+            )}
+
+            {role === "student" && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="year" className="form-label">Year</label>
+                  <select id="year" className="form-select" value={year} onChange={(e) => setYear(e.target.value)} required>
+                    <option value="">Select Year</option>
+                    <option value="1st">1st Year</option>
+                    <option value="2nd">2nd Year</option>
+                    <option value="3rd">3rd Year</option>
+                    <option value="4th">4th Year</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="section" className="form-label">Section</label>
+                  <select id="section" className="form-select" value={section} onChange={(e) => setSection(e.target.value)} required>
+                    <option value="">Select Section</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="semester" className="form-label">Semester</label>
+                  <select id="semester" className="form-select" value={semester} onChange={(e) => setSemester(e.target.value)} required>
+                    <option value="">Select Semester</option>
+                    <option value="1st">1st Semester</option>
+                    <option value="2nd">2nd Semester</option>
+                  </select>
+                </div>
+              </>
+            )}
+
             <div className="d-grid mb-3">
               <button type="submit" className="btn btn-primary">Register</button>
             </div>
