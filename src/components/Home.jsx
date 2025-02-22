@@ -1,45 +1,41 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
 function HomePage() {
-  const navigate = useNavigate();
-
-  const handleNavigation = (query) => {
-    window.location.href = `https://www.google.com/search?q=${query}`;
-  };
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <div className="home-container">
       {/* Navigation Bar */}
       <nav className="navbar">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li>
-            <button 
-              onClick={() => handleNavigation('nearby+pg+hostels+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
-              className="nav-link"
-            >
-              Accommodation
-            </button>
-          </li>
-          <li>
-            <span 
-              onClick={() => handleNavigation('nearby+restaurants+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
-              className="nav-link"
-            >
-              Food
-            </span>
+        <ul className="nav-list">
+          <li><Link to="/" className="nav-link">Home</Link></li>
+          <li><Link to="/about" className="nav-link">About</Link></li>
+          <li 
+            className="student-support dropdown"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <Link to="/student-support" className="nav-link">Student Support</Link>
+            {dropdownOpen && (
+              <ul className="dropdown-menu">
+                <li><Link to="/accommodation" className="dropdown-item small-item light-bg">🏠 Accommodation</Link></li>
+                <li><Link to="/food" className="dropdown-item small-item light-bg">🍽️ Food</Link></li>
+              </ul>
+            )}
           </li>
           <li>
             <a 
               href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" 
-              rel="noopener noreferrer"
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="nav-link"
             >
               Fees Payment
             </a>
           </li>
+          <li><Link to="/contact" className="nav-link">Contact</Link></li>
         </ul>
       </nav>
 
