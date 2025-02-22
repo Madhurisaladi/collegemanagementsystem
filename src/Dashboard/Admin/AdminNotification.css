@@ -1,0 +1,67 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .card {
+    border-radius: 12px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .form-label {
+    font-weight: 500;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .alert {
+    border-radius: 8px;
+  }
+  
+  .progress {
+    height: 8px;
+    border-radius: 8px;
+    background: #e9ecef;
+  }
+  
+  .progress-bar {
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+  

@@ -1,199 +1,336 @@
-/* Reset margins and paddings */
+/* Reset default styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-/* General styling for the body */
+/* Full-page background styling */
 body {
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Wrapper for content */
-.wrapper {
-  width: 100%;
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
-/* Logo styles */
-.logo {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-}
-
-/* Style the logo */
-.college-logo {
-  max-width: 250px;
-  height: auto;
-  margin-right: 15px;
-  vertical-align: middle;
-}
-
-/* Navigation container */
-.navigation {
-  display: flex;
-  justify-content: center; /* Centering items */
-  align-items: center;
-  height: 60px;
-  padding: 10px 20px;
-}
-
-/* Home button styling */
-.home-button {
-  text-decoration: none;
-  background: #068000;
-  color: #fff;
-  padding: 12px 30px;
-  font-size: 16px;
-  border-radius: 50px;
-  transition: 0.3s;
-  border: black;
-  cursor: pointer;
-  text-align: center;
-}
-
-.home-button:hover {
-  background: #003366;
-}
-
-/* Banner Area */
-.banner-area {
-  animation-name: animate;
-  animation-duration: 7s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  background: url('https://t3.ftcdn.net/jpg/09/22/09/48/360_F_922094842_5qov76BhvqazmwOcrvGseQsiAlmZ53K0.jpg') 
+  no-repeat center center/cover;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  color: black;
   text-align: center;
-  padding: 20px;
+  padding-top: 60px; /* Prevents content from overlapping with navbar */
 }
 
-/* Text area styling */
-.text-area {
-  text-align: center;
-  width: 90%;
-  max-width: 750px;
+/* Navigation Bar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(113, 64, 15, 0.7);
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between; /* Align items properly */
+  align-items: center;
+  z-index: 1000;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap; /* Ensures items stay in one line */
+  padding: 0;
   margin: 0 auto;
 }
 
-.text-area h2 img {
-  max-width: 180px;
+.navbar ul li {
+  margin: 0 10px; /* Reduced margin */
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px; /* Slightly smaller font */
+  padding: 6px 10px; /* Reduced padding */
+  border-radius: 5px;
+  transition: 0.3s;
+  white-space: nowrap; /* Ensures no text breaks */
+}
+
+.navbar ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Content Section */
+.content {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 20px;
+}
+
+.logo img {
+  width: 150px;
   height: auto;
 }
 
-.text-area h3 {
-  color: #fff;
-  text-transform: uppercase;
-  margin: 10px 0;
-  font-size: 28px;
-}
-
-.text-area h4 {
-  color: #fff;
-  font-size: 22px;
-}
-
-.text-area p {
-  font-size: 16px;
-  color: #fff;
-  width: 90%;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* Login Button */
-.login-button {
-  text-decoration: none;
-  background: #262626;
-  color: #fff;
-  padding: 12px 40px;
-  font-size: 16px;
-  display: inline-block;
-  margin-top: 20px;
-  border-radius: 50px;
-  transition: 0.3s;
-}
-
-.login-button:hover {
-  background: #444;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .text-area {
-    width: 100%;
-  }
-
-  .text-area h2 img {
-    max-width: 140px;
-  }
-
-  .text-area h3 {
-    font-size: 22px;
-  }
-
-  .text-area h4 {
-    font-size: 18px;
-  }
-
-  .text-area p {
-    font-size: 14px;
-  }
-
-  .login-button {
-    padding: 10px 30px;
-    font-size: 14px;
-  }
-
-  .home-button {
-    padding: 10px 25px;
-    font-size: 14px;
-  }
-}
-
-/* Keyframe animation for background */
-@keyframes animate {
-  0% {
-    background: #4cb66a;
-  }
-  25% {
-    background: #a37790;
-  }
-  50% {
-    background: #ad7c66;
-  }
-  75% {
-    background: #62878c;
-  }
-  100% {
-    background: #4c9ab6;
-  }
-}
-
-/* Footer */
-footer {
+.black-text {
+  color: black;
+  font-size: 18px;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 20px;
   text-align: center;
-  padding: 20px;
-  background-color: #f1f1f1;
-  margin-top: 20px;
 }
 
-footer p {
-  color: #7f8c8d;
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+  text-decoration: none;
+  min-width: 120px;
+  text-align: center;
+}
+
+.btn-login {
+  background: black;
+  color: white;
+}
+
+.btn-login:hover {
+  background: darkgray;
+}
+
+.btn-learn {
+  background: black;
+  color: white;
+}
+
+.btn-learn:hover {
+  background: darkgray;
+}
+
+/* About Page Styling */
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.about-box {
+  width: 90%;
+  max-width: 900px;
+  background-color: rgba(173, 216, 230, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  text-align: left;
+}
+
+.about-box h2 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-box h3 {
+  color: #333;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.about-box ol {
+  padding-left: 25px;
+}
+
+.about-box ol li {
+  margin-bottom: 10px;
+}
+
+.about-box ol li strong {
+  color: #333;
+}
+
+.about-box p {
+  color: #333;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Centering the entire login container */
+/* General Login Container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  max-width: 560px;
+  height: auto;
+  min-width: 300px;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f0f8ff; /* Soft blue background */
+}
+
+/* Styled login box similar to about page */
+.login-box {
+  width: 100%;
+  max-width: 400px; 
+  background-color: rgba(173, 216, 230, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  text-align: left;
+}
+
+/* Center the logo */
+.login-logo {
+  max-width: 150px;
+  display: block;
+  margin: 0 auto 15px;
+}
+
+/* Form inputs */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* Buttons */
+.btn-primary {
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.btn-link {
+  text-decoration: none;
+  color: #007bff;
   font-size: 14px;
 }
 
-/* Make footer responsive */
+/* Navbar adjustments */
+.navbar {
+  margin-bottom: 20px;
+  white-space: nowrap; /* Prevents line breaks */
+  
+  
+}
+.nav-link {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  height: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-link:hover {
+ color: rgb(255, 255, 255);
+ background-color: rgb(147, 147, 147,0.5);
+ height: 25px;
+  border-radius: 5px;
+ padding-left: 10px;
+ padding-right: 10px;
+}
+
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  footer {
-    padding: 15px;
+  .login-box {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .login-logo {
+    max-width: 130px;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-link {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .navbar ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .navbar ul li {
+    margin: 5px;
+  }
+
+  .navbar ul li a {
+    font-size: 14px;
+    padding: 5px 8px;
+  }
+
+  .about-box h2, .about-box h3 {
+    font-size: 1.5em;
+  }
+
+  .about-box p {
+    font-size: 1em;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
   }
 }

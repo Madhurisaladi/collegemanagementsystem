@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase"; // Adjust the path based on your project structure
-import { useAuth } from "../../auth/AuthContext"; // Import the useAuth hook
+import { db } from "../../firebase";
+import { getAuth } from "firebase/auth";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
   const navigate = useNavigate();
-  const { user } = useAuth(); // Get user from AuthContext
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  const [studentData, setStudentData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [department, setDepartment] = useState("");
+  const [section, setSection] = useState("");
+  const [year, setYear] = useState("");
+  const [semester, setSemester] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
 
@@ -18,35 +24,30 @@ const StudentProfile = () => {
     const fetchProfile = async () => {
       if (user) {
         try {
-          const userDocRef = doc(db, "students", user.uid);
+          const userDocRef = doc(db, "users", user.uid);
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
-            setStudentData(userDoc.data());
+            const userData = userDoc.data();
+            setName(userData.name);
+            setEmail(userData.email);
+            setStudentId(userData.studentId);
+            setDepartment(userData.department || "");
+            setSection(userData.section || "");
+            setYear(userData.year || "");
+            setSemester(userData.semester || "");
           } else {
-            setError("Student profile not found.");
+            setError("User profile not found.");
           }
         } catch (error) {
-          setError("Error fetching profile data.");
-          console.error("Error:", error);
-        } finally {
-          setLoading(false);
+          setError("Error fetching profile.");
         }
       } else {
         setError("No user is logged in.");
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, [user]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setStudentData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   const handleSave = async () => {
     if (!user) {
@@ -55,17 +56,17 @@ const StudentProfile = () => {
     }
 
     try {
-      const userDocRef = doc(db, "students", user.uid);
-
-      // Only update editable fields (avoid overwriting timestamp)
-      const { name, department, studentId, year, section, semester } = studentData;
-      await updateDoc(userDocRef, { name, department, studentId, year, section, semester });
-
-      setIsEditing(false);
-      alert("Profile updated successfully!");
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, {
+        department,
+        section,
+        year,
+        semester,
+      });
+      alert("Profile updated!");
+      navigate("/student-dashboard");
     } catch (error) {
-      console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      alert("Failed to update profile.");
     }
   };
 
@@ -74,7 +75,17 @@ const StudentProfile = () => {
 
   return (
     <div className="student-profile-container">
-      {/* Logo */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/student-dashboard">Home</Link></li>
+          <li><Link to="/view-attendance">View Attendance</Link></li>
+          <li><Link to="/student-notifications">Notifications</Link></li>
+          <li><Link to="/student-feedback">Give Feedback</Link></li>
+          <li><Link to="/student-documents">Documents</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
+
       <div className="logo-container">
         <img
           src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
@@ -83,46 +94,83 @@ const StudentProfile = () => {
         />
       </div>
 
-      <div className="profile-header">
-        <h1>Student Profile</h1>
-        <button
-          className={`edit-button ${isEditing ? "save" : "edit"}`}
-          onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-        >
-          {isEditing ? "Save Changes" : "Edit Profile"}
-        </button>
-      </div>
+      <h1>Student Profile</h1>
+      {error && <p className="error-message">{error}</p>}
 
-      <div className="profile-content">
-        {["name", "email", "role", "studentId", "department", "year", "section", "semester"].map((field) => (
-          <div key={field} className="form-group">
-            <label>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
-            {isEditing && field !== "email" && field !== "role" ? (
-              <input
-                type="text"
-                name={field}
-                value={studentData[field]}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            ) : (
-              <p className="info-text">{studentData[field]}</p>
-            )}
-          </div>
-        ))}
-
-        {/* Registration Date (Read-only) */}
+      <form onSubmit={(e) => e.preventDefault()} className="profile-form">
+        <h2>Personal Information</h2>
         <div className="form-group">
-          <label>Registration Date:</label>
-          <p className="info-text">
-            {studentData.timestamp ? studentData.timestamp.toDate().toLocaleString() : "N/A"}
-          </p>
+          <label>Name:</label>
+          <input type="text" value={name} className="form-input" disabled />
         </div>
-      </div>
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" value={email} className="form-input" disabled />
+        </div>
+        <div className="form-group">
+          <label>Student ID:</label>
+          <input type="text" value={studentId} className="form-input" disabled />
+        </div>
 
-      <button className="back-button" onClick={() => navigate("/student-dashboard")}>
-        Back to Dashboard
-      </button>
+        <h2>Academic Information</h2>
+        <div className="form-group">
+          <label>Department:</label>
+          <select
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            className="form-input"
+          >
+            <option value="">Select Department</option>
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="EEE">EEE</option>
+            <option value="MECH">MECH</option>
+            <option value="CIVIL">CIVIL</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Section:</label>
+          <select
+            value={section}
+            onChange={(e) => setSection(e.target.value)}
+            className="form-input"
+          >
+            <option value="">Select Section</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Year:</label>
+          <select
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="form-input"
+          >
+            <option value="">Select Year</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Semester:</label>
+          <select
+            value={semester}
+            onChange={(e) => setSemester(e.target.value)}
+            className="form-input"
+          >
+            <option value="">Select Semester</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+          </select>
+        </div>
+        <button type="button" onClick={handleSave} className="save-button">
+          Save Changes
+        </button>
+      </form>
     </div>
   );
 };

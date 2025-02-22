@@ -25,5 +25,5 @@ const db = getFirestore(app);
 const storage = getStorage(app); // Initialize Firebase Storage
 const messaging = getMessaging(app);
 
-// Export auth, db, and storage
-export { auth, db, storage ,messaging};
+// Export auth, db, storage, and messaging
+export { auth, db, storage, messaging };

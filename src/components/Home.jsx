@@ -1,48 +1,68 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './styles.css';
-import { Link } from 'react-router-dom';
 
 function HomePage() {
-  return (
-    <div>
-      {/* Banner Area */}
-      <div className="banner-area">
-        <div className="wrapper">
-          <div className="navigation">
-            <h1 className="logo">
-              {/* No logo here anymore */}
-            </h1>
-            <nav>
-              {/* Change Login link to Home and navigate to https://bullayyacollege.org/ */}
-              <a href="https://bullayyacollege.org/" target="_blank" rel="noopener noreferrer">Home</a>
-            </nav>
-          </div>
+  const navigate = useNavigate();
 
-          {/* Text area below the logo */}
-          <div className="banner-text">
-            <div className="text-area">
-              {/* New Image inside the <h2> */}
-              <h2>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-                  alt="New College Logo"
-                  className="college-logo"
-                />
-              </h2>
-              <h3>DLBC EduBridge</h3>
-              <h4>Where Knowledge Meets Excellence</h4>
-              <p>"A Place Where Curiosity is Sparked, Ideas Flourish, and Dreams Take Shape." </p>
-              {/* Replaced "Contact Me" with "Login" */}
-              <Link to="/login" className="login-button">Login</Link>
-            </div>
-          </div>
+  const handleNavigation = (query) => {
+    window.location.href = `https://www.google.com/search?q=${query}`;
+  };
+
+  return (
+    <div className="home-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li>
+            <button 
+              onClick={() => handleNavigation('nearby+pg+hostels+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
+              className="nav-link"
+            >
+              Accommodation
+            </button>
+          </li>
+          <li>
+            <span 
+              onClick={() => handleNavigation('nearby+restaurants+near+Dr.+Lankapalli+Bullayya+College+Vizag')} 
+              className="nav-link"
+            >
+              Food
+            </span>
+          </li>
+          <li>
+            <a 
+              href="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education" 
+              rel="noopener noreferrer"
+            >
+              Fees Payment
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Main Content */}
+      <div className="content">
+        <div className="logo">
+          <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" alt="Bullayya College Logo" />
+        </div>
+
+        <h1>Welcome to DLBC</h1>
+        <p className="black-text">Join us at Dr. Lankapalli Bullayya College of Engineering to gain the skills and knowledge that shape future leaders and problem-solvers.</p>
+
+        <div className="buttons">
+          <Link to="/login" className="btn btn-login">Login</Link>
+          <a 
+            href="https://bullayyacollege.org/" 
+            rel="noopener noreferrer" 
+            className="btn btn-learn"
+          >
+            Learn More
+          </a>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer>
-        <p>&copy; 2025 DLBCE EduBridge. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
