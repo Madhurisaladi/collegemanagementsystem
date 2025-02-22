@@ -18,7 +18,8 @@ const StudentProfile = () => {
   const [year, setYear] = useState("");
   const [semester, setSemester] = useState("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
+  const [step, setStep] = useState(1); // For Next & Previous buttons
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -43,8 +44,8 @@ const StudentProfile = () => {
         }
       } else {
         setError("No user is logged in.");
-        setLoading(false);
       }
+      setLoading(false);
     };
     fetchProfile();
   }, [user]);
@@ -54,12 +55,9 @@ const StudentProfile = () => {
       setError("User not authenticated.");
       return;
     }
-
     try {
       const userDocRef = doc(db, "users", user.uid);
       await updateDoc(userDocRef, {
-        department,
-        section,
         year,
         semester,
       });
@@ -86,91 +84,82 @@ const StudentProfile = () => {
         </ul>
       </nav>
 
-      <div className="logo-container">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-          alt="College Logo"
-          className="logo"
-        />
+      <div className="profile-wrapper">
+        {/* ✅ Smaller, properly aligned logo */}
+        <div className="logo-container">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+            alt="College Logo"
+            className="logo"
+          />
+        </div>
+
+        {/* ✅ Profile Form with Next & Previous buttons */}
+        <form onSubmit={(e) => e.preventDefault()} className="profile-form">
+          {step === 1 && (
+            <>
+              <h2>Personal Information</h2>
+              <div className="form-group">
+                <label>Name:</label>
+                <input type="text" value={name} className="form-input" disabled />
+              </div>
+              <div className="form-group">
+                <label>Email:</label>
+                <input type="email" value={email} className="form-input" disabled />
+              </div>
+              <div className="form-group">
+                <label>Student ID:</label>
+                <input type="text" value={studentId} className="form-input" disabled />
+              </div>
+
+              <button type="button" className="next-button" onClick={() => setStep(2)}>
+                Next
+              </button>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <h2>Academic Information</h2>
+              <div className="form-group">
+                <label>Department:</label>
+                <input type="text" value={department} className="form-input" disabled />
+              </div>
+              <div className="form-group">
+                <label>Section:</label>
+                <input type="text" value={section} className="form-input" disabled />
+              </div>
+              <div className="form-group">
+                <label>Year:</label>
+                <select value={year} onChange={(e) => setYear(e.target.value)} className="form-input">
+                  <option value="">Select Year</option>
+                  <option value="1st">1st</option>
+                  <option value="2nd">2nd</option>
+                  <option value="3rd">3rd</option>
+                  <option value="4th">4th</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Semester:</label>
+                <select value={semester} onChange={(e) => setSemester(e.target.value)} className="form-input">
+                  <option value="">Select Semester</option>
+                  <option value="1st">1st</option>
+                  <option value="2nd">2nd</option>
+                </select>
+              </div>
+
+              <div className="button-group">
+                <button type="button" className="prev-button" onClick={() => setStep(1)}>
+                  Previous
+                </button>
+                <button type="button" className="save-button" onClick={handleSave}>
+                  Save Changes
+                </button>
+              </div>
+            </>
+          )}
+        </form>
       </div>
-
-      <h1>Student Profile</h1>
-      {error && <p className="error-message">{error}</p>}
-
-      <form onSubmit={(e) => e.preventDefault()} className="profile-form">
-        <h2>Personal Information</h2>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" value={name} className="form-input" disabled />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input type="email" value={email} className="form-input" disabled />
-        </div>
-        <div className="form-group">
-          <label>Student ID:</label>
-          <input type="text" value={studentId} className="form-input" disabled />
-        </div>
-
-        <h2>Academic Information</h2>
-        <div className="form-group">
-          <label>Department:</label>
-          <select
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            className="form-input"
-          >
-            <option value="">Select Department</option>
-            <option value="CSE">CSE</option>
-            <option value="ECE">ECE</option>
-            <option value="EEE">EEE</option>
-            <option value="MECH">MECH</option>
-            <option value="CIVIL">CIVIL</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Section:</label>
-          <select
-            value={section}
-            onChange={(e) => setSection(e.target.value)}
-            className="form-input"
-          >
-            <option value="">Select Section</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Year:</label>
-          <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            className="form-input"
-          >
-            <option value="">Select Year</option>
-            <option value="1st">1st</option>
-            <option value="2nd">2nd</option>
-            <option value="3rd">3rd</option>
-            <option value="4th">4th</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Semester:</label>
-          <select
-            value={semester}
-            onChange={(e) => setSemester(e.target.value)}
-            className="form-input"
-          >
-            <option value="">Select Semester</option>
-            <option value="1st">1st</option>
-            <option value="2nd">2nd</option>
-          </select>
-        </div>
-        <button type="button" onClick={handleSave} className="save-button">
-          Save Changes
-        </button>
-      </form>
     </div>
   );
 };

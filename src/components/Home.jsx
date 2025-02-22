@@ -39,26 +39,25 @@ function HomePage() {
         </ul>
       </nav>
 
-      {/* Main Content */}
-      <div className="content">
-        <div className="logo">
-          <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" alt="Bullayya College Logo" />
-        </div>
+      {/* Centered Box */}
+      <div className="content-container">
+  <div className="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png" alt="Bullayya College Logo" />
+  </div>
 
-        <h1>Welcome to DLBC</h1>
-        <p className="black-text">Join us at Dr. Lankapalli Bullayya College of Engineering to gain the skills and knowledge that shape future leaders and problem-solvers.</p>
+  <h1>Welcome to DLBC</h1>
+  <p className="black-text">
+    Join us at Dr. Lankapalli Bullayya College of Engineering to gain the skills and knowledge that shape future leaders and problem-solvers.
+  </p>
 
-        <div className="buttons">
-          <Link to="/login" className="btn btn-login">Login</Link>
-          <a 
-            href="https://bullayyacollege.org/" 
-            rel="noopener noreferrer" 
-            className="btn btn-learn"
-          >
-            Learn More
-          </a>
-        </div>
-      </div>
+  <div className="buttons">
+    <Link to="/login" className="btn btn-login">Login</Link>
+    <a href="https://bullayyacollege.org/" rel="noopener noreferrer" className="btn btn-learn">
+      Learn More
+    </a>
+  </div>
+</div>
+
     </div>
   );
 }
