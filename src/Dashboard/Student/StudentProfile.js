@@ -18,6 +18,7 @@ const StudentProfile = () => {
   const [year, setYear] = useState("");
   const [semester, setSemester] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -42,12 +43,18 @@ const StudentProfile = () => {
         }
       } else {
         setError("No user is logged in.");
+        setLoading(false);
       }
     };
     fetchProfile();
   }, [user]);
 
   const handleSave = async () => {
+    if (!user) {
+      setError("User not authenticated.");
+      return;
+    }
+
     try {
       const userDocRef = doc(db, "users", user.uid);
       await updateDoc(userDocRef, {
@@ -62,6 +69,9 @@ const StudentProfile = () => {
       alert("Failed to update profile.");
     }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <div className="student-profile-container">
