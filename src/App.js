@@ -18,9 +18,14 @@ import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback";
 import AdminFeedback from "./Dashboard/Admin/AdminFeedback";  
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
-import Contact from "./components/Contact"; // Fixed import path
+import Contact from "./components/Contact"; 
 import FacultyDocumentUpload from "./Dashboard/Faculty/FacultyDocumentUpload";
 import StudentDocuments from "./Dashboard/Student/StudentDocuments";
+
+// Import Accommodation & Food Components
+import Accommodation from "./components/Accommodation";
+import Food from "./components/Food";
+
 function App() {
   return (
     <Router>
@@ -29,11 +34,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
-        {/* About Page Route */}
+        {/* About & Contact Pages */}
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* Role-Based Dashboard Routes */}
+        {/* Role-Based Dashboards */}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -54,8 +59,13 @@ function App() {
         <Route path="/faculty-feedback" element={<FacultyFeedback />} />
         <Route path="/admin-feedback" element={<AdminFeedback />} /> 
         
+        {/* Document Upload */}
         <Route path="/faculty-documents" element={<FacultyDocumentUpload />} />
         <Route path="/student-documents" element={<StudentDocuments />} />
+
+        {/* Accommodation & Food Routes */}
+        <Route path="/accommodation" element={<Accommodation />} />
+        <Route path="/food" element={<Food />} />
       </Routes>
     </Router>
   );
