@@ -51,8 +51,8 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         
         {/* Notification Routes */}
-        <Route path="/admin-notification" element={<AdminNotification />} />
-        <Route path="/student-notification" element={<StudentNotification />} />
+        <Route path="/AdminNotification" element={<AdminNotification />} />
+        <Route path="/student-notifications" element={<StudentNotification />} />
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />
