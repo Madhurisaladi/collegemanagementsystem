@@ -18,7 +18,7 @@ import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback";
 import AdminFeedback from "./Dashboard/Admin/AdminFeedback";  
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
-import Contact from "./components/Contact"; // Fixed import path
+import Contact from "./components/Contact"; 
 import FacultyDocumentUpload from "./Dashboard/Faculty/FacultyDocumentUpload";
 import StudentDocuments from "./Dashboard/Student/StudentDocuments";
 function App() {
@@ -46,8 +46,8 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         
         {/* Notification Routes */}
-        <Route path="/admin-notification" element={<AdminNotification />} />
-        <Route path="/student-notification" element={<StudentNotification />} />
+        <Route path="/AdminNotification" element={<AdminNotification />} />
+        <Route path="/student-notifications" element={<StudentNotification />} />
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />
