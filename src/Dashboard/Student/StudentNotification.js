@@ -1,18 +1,68 @@
 // StudentViewNotifications.js
 import React, { useEffect, useState } from 'react';
-import { db } from '../../firebase';
-import { collection, query, orderBy, onSnapshot, where } from 'firebase/firestore';
+import { db, auth } from '../../firebase';
+import { collection, query, orderBy, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 
 const StudentNotifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedType, setSelectedType] = useState("All");
+  const [studentDetails, setStudentDetails] = useState({
+    department: "",
+    year: "",
+    section: ""
+  });
 
   useEffect(() => {
+    const fetchStudentDetails = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const data = userDocSnap.data();
+            setStudentDetails({
+              department: data.department || "",
+              year: data.year || "",
+              section: data.section || ""
+            });
+          } else {
+            console.error("User document does not exist");
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error);
+          setError("Failed to load student details.");
+        }
+      }
+    };
+
+    fetchStudentDetails();
+  }, []);
+
+  useEffect(() => {
+    if (!studentDetails.department || !studentDetails.year || !studentDetails.section) {
+      setLoading(false);
+      return;
+    }
+
     const q = selectedType === "All"
-      ? query(collection(db, 'notifications'), orderBy('createdAt', 'desc'))
-      : query(collection(db, 'notifications'), where('notificationType', '==', selectedType), orderBy('createdAt', 'desc'));
+      ? query(
+          collection(db, 'notifications'),
+          where('department', '==', studentDetails.department),
+          where('year', '==', studentDetails.year),
+          where('section', '==', studentDetails.section),
+          orderBy('createdAt', 'desc')
+        )
+      : query(
+          collection(db, 'notifications'),
+          where('notificationType', '==', selectedType),
+          where('department', '==', studentDetails.department),
+          where('year', '==', studentDetails.year),
+          where('section', '==', studentDetails.section),
+          orderBy('createdAt', 'desc')
+        );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({
@@ -28,7 +78,7 @@ const StudentNotifications = () => {
     });
 
     return () => unsubscribe();
-  }, [selectedType]);
+  }, [selectedType, studentDetails]);
 
   const notificationTypes = ["All", "General", "Attendance", "Placement", "Sports", "Result", "Fees", "Time Table", "Holidays"];
 
