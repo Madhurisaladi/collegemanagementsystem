@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { getAuth } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import { toast } from "react-toastify";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
@@ -17,6 +19,7 @@ const StudentProfile = () => {
   const [section, setSection] = useState("");
   const [year, setYear] = useState("");
   const [semester, setSemester] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1); // For Next & Previous buttons
@@ -36,6 +39,7 @@ const StudentProfile = () => {
             setSection(userData.section || "");
             setYear(userData.year || "");
             setSemester(userData.semester || "");
+            setProfilePhoto(userData.profilePhoto || "");
           } else {
             setError("User profile not found.");
           }
@@ -49,6 +53,55 @@ const StudentProfile = () => {
     };
     fetchProfile();
   }, [user]);
+
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setLoading(true);
+    // Updated storage path: profile -> department -> year -> section -> user.uid_filename
+    const storageRef = ref(
+      storage,
+      `profile/${department}/${year}/${section}/${user.uid}_${file.name}`
+    );
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      null,
+      (error) => {
+        console.error("Upload error:", error);
+        setError("Failed to upload profile photo.");
+        setLoading(false);
+      },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        try {
+          // Delete old profile photo if it exists, ignoring error if file not found
+          if (profilePhoto) {
+            try {
+              const oldPhotoRef = ref(storage, profilePhoto);
+              await deleteObject(oldPhotoRef);
+            } catch (error) {
+              if (error.code !== "storage/object-not-found") {
+                console.error("Error deleting old photo:", error);
+              }
+            }
+          }
+
+          // Update Firestore with new profile photo URL
+          const userDocRef = doc(db, "users", user.uid);
+          await updateDoc(userDocRef, { profilePhoto: downloadURL });
+          setProfilePhoto(downloadURL);
+          toast.success("Profile photo updated successfully!");
+        } catch (error) {
+          console.error("Error updating profile photo:", error);
+          setError("Failed to update profile photo.");
+        }
+        setLoading(false);
+      }
+    );
+  };
 
   const handleSave = async () => {
     if (!user) {
@@ -75,26 +128,42 @@ const StudentProfile = () => {
     <div className="student-profile-container">
       <nav className="navbar">
         <ul>
-          <li><Link to="/student-dashboard">Home</Link></li>
-          <li><Link to="/view-attendance">View Attendance</Link></li>
-          <li><Link to="/student-notifications">Notifications</Link></li>
-          <li><Link to="/student-feedback">Give Feedback</Link></li>
-          <li><Link to="/student-documents">Documents</Link></li>
-          <li><Link to="/" className="nav-logout">Logout</Link></li>
+          <li>
+            <Link to="/student-dashboard">Home</Link>
+          </li>
+          <li>
+            <Link to="/view-attendance">View Attendance</Link>
+          </li>
+          <li>
+            <Link to="/student-notifications">Notifications</Link>
+          </li>
+          <li>
+            <Link to="/student-feedback">Give Feedback</Link>
+          </li>
+          <li>
+            <Link to="/student-documents">Documents</Link>
+          </li>
+          <li>
+            <Link to="/" className="nav-logout">
+              Logout
+            </Link>
+          </li>
         </ul>
       </nav>
 
       <div className="profile-wrapper">
-        {/* ✅ Smaller, properly aligned logo */}
         <div className="logo-container">
           <img
-            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-            alt="College Logo"
+            src={
+              profilePhoto ||
+              "https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+            }
+            alt="Profile"
             className="logo"
           />
+          <input type="file" onChange={handlePhotoChange} className="photo-input" />
         </div>
 
-        {/* ✅ Profile Form with Next & Previous buttons */}
         <form onSubmit={(e) => e.preventDefault()} className="profile-form">
           {step === 1 && (
             <>
@@ -141,7 +210,11 @@ const StudentProfile = () => {
               </div>
               <div className="form-group">
                 <label>Semester:</label>
-                <select value={semester} onChange={(e) => setSemester(e.target.value)} className="form-input">
+                <select
+                  value={semester}
+                  onChange={(e) => setSemester(e.target.value)}
+                  className="form-input"
+                >
                   <option value="">Select Semester</option>
                   <option value="1st">1st</option>
                   <option value="2nd">2nd</option>

@@ -15,6 +15,7 @@ const FacultyDocumentUpload = () => {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [confirmation, setConfirmation] = useState(""); // New state for confirmation message
 
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
@@ -24,6 +25,7 @@ const FacultyDocumentUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setConfirmation(""); // Clear any previous confirmation
     if (!file || !title || !department || !year || !section) {
       toast.error("Please fill in all required fields and select a file");
       return;
@@ -60,6 +62,7 @@ const FacultyDocumentUpload = () => {
             createdAt: serverTimestamp(),
           });
           toast.success("Document uploaded successfully!");
+          setConfirmation("Document uploaded successfully!"); // Set confirmation message
           // Reset form fields
           setTitle("");
           setDescription("");
@@ -68,6 +71,7 @@ const FacultyDocumentUpload = () => {
           setSection("");
           setFile(null);
           setUploadProgress(0);
+          document.getElementById("fileInput").value = null; // Reset file input field
         } catch (err) {
           console.error("Error saving document metadata:", err);
           toast.error("Failed to save document details.");
@@ -146,7 +150,7 @@ const FacultyDocumentUpload = () => {
         </div>
         <div>
           <label>Choose File:</label>
-          <input type="file" onChange={handleFileChange} required style={{ margin: "8px 0" }} />
+          <input id="fileInput" type="file" onChange={handleFileChange} required style={{ margin: "8px 0" }} />
         </div>
         {uploadProgress > 0 && (
           <div>
@@ -158,6 +162,11 @@ const FacultyDocumentUpload = () => {
           {loading ? "Uploading..." : "Upload Document"}
         </button>
       </form>
+      {confirmation && (
+        <div style={{ marginTop: "10px", padding: "10px", backgroundColor: "#e6ffe6", color: "green", borderRadius: "4px" }}>
+          {confirmation}
+        </div>
+      )}
     </div>
   );
 };

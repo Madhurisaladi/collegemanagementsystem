@@ -33,6 +33,7 @@ const StudentDocuments = () => {
           }
         } catch (error) {
           console.error("Error fetching student details:", error);
+          setError("Failed to load student details.");
         }
       }
     };
@@ -74,11 +75,13 @@ const StudentDocuments = () => {
       }
     };
 
-    fetchDocuments();
+    if (studentDetails.department && studentDetails.year && studentDetails.section) {
+      fetchDocuments();
+    }
   }, [studentDetails]);
 
   return (
-    <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
+    <div style={{backgroundColor:"white" ,maxWidth: "800px", margin: "auto", padding: "20px" }}>
       <h2>Available Documents</h2>
       {loading && <p>Loading documents...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

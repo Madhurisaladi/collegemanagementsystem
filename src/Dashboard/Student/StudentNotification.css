@@ -1,0 +1,106 @@
+/* Container and layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Left sidebar (notification types) */
+.col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 10px;
+}
+
+/* Right content area (notifications list) */
+.col-md-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    padding: 10px;
+}
+
+/* List group styling */
+.list-group {
+    width: 100%;
+}
+
+.list-group-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+.list-group-item.active,
+.list-group-item:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+/* Notification cards */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* No notifications styling */
+.no-notifications {
+    text-align: center;
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    background-color: #fefefe;
+    color: #555;
+    margin-top: 20px;
+    margin-left: 120px;
+}

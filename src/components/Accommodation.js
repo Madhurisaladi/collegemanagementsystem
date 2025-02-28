@@ -9,7 +9,6 @@ function Accommodation() {
         Here are some accommodation options available for students near the college.
       </p>
 
-      <div className="accommodation-list">
         <div className="accommodation-item">
           <h2>🏡 Gogreen Boys Hostel</h2>
           <p>
@@ -26,7 +25,6 @@ function Accommodation() {
             </a>
           </p>
         </div>
-      </div>
     </div>
   );
 }

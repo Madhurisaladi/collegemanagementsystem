@@ -1,7 +1,7 @@
-// StudentViewNotifications.js
 import React, { useEffect, useState } from 'react';
 import { db, auth } from '../../firebase';
 import { collection, query, orderBy, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
+import "./StudentNotification.css";
 
 const StudentNotifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -102,7 +102,11 @@ const StudentNotifications = () => {
           <h2 className='text-center mb-4'>Notifications</h2>
           {loading && <p>Loading notifications...</p>}
           {error && <p className='text-danger'>{error}</p>}
-          {notifications.length === 0 && !loading && <p>No notifications found.</p>}
+          {!loading && notifications.length === 0 && (
+            <div className="no-notifications">
+              <p>No notifications found.</p>
+            </div>
+          )}
           {notifications.map(notification => (
             <div key={notification.id} className='card mb-3'>
               <div className='card-body'>

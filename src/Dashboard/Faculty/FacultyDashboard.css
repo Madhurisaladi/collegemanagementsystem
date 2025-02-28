@@ -9,7 +9,9 @@
     align-items: center;
     font-family: 'Arial', sans-serif;
   }
-  
+  .navbar{
+    
+  }
   /* Logo and Title */
   .logo-container {
     text-align: center;
