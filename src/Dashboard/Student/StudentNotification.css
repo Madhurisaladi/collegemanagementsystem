@@ -1,0 +1,74 @@
+.notification-header {
+  background-color: #a4bcd6;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-card {
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+}
+
+.notification-title-box {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.list-group-item {
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 17px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.list-group-item:hover {
+  background-color: #0056b3;
+  color: white;
+  transform: scale(1.05);
+}
+
+.list-group-item.active {
+  background-color: #393da9;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+.notification-header {
+  background: #3276ae;
+ 
+}
+
+.notification-title-box {
+  background: #007bff;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.notification-card {
+  border-left: 5px solid #007bff;
+}

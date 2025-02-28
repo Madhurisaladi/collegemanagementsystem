@@ -1,0 +1,84 @@
+/* Student Documents Styling */
+.documents-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .documents-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .loading-message {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .error-message {
+    text-align: center;
+    font-size: 18px;
+    color: red;
+  }
+  
+  .no-documents {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .document-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+   
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .document-title {
+    font-size: 20px;
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  
+  .document-description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .document-details {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+  }
+  
+  .download-link {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .download-link:hover {
+    background: #0056b3;
+  }
+  
