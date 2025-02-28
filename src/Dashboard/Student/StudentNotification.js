@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db, auth } from '../../firebase';
 import { collection, query, orderBy, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
-import './StudentNotification.css';
+import "./StudentNotification.css";
 
 const StudentNotifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -84,67 +84,46 @@ const StudentNotifications = () => {
   const notificationTypes = ["All", "General", "Attendance", "Placement", "Sports", "Result", "Fees", "Time Table", "Holidays"];
 
   return (
-    <div className="dashboard-container">
-      {/* Navigation Bar */}
-      <nav className="navbar">
-        <ul>
-          <li><Link to="/student-dashboard">Home</Link></li>
-          
-          <li><Link to="/student-feedback">Give Feedback</Link></li>
-          <li><Link to="/student-profile">Profile</Link></li>
-          <li><Link to="/student-documents">Documents</Link></li>
-        </ul>
-      </nav>
-      
-      {/* Main Content */}
-      <div className='container mt-4'>
-        <div className='row'>
-          {/* Sidebar Filter */}
-          <div className='col-md-3'>
-            <div className='list-group'>
-              {notificationTypes.map(type => (
-                <button
-                  key={type}
-                  className={`list-group-item list-group-item-action ${selectedType === type ? 'active' : ''}`}
-                  onClick={() => setSelectedType(type)}
-                >
-                  {type}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Notifications Section */}
-          <div className='col-md-9'>
-            <div className='notification-header'>
-              <h2> Notifications</h2>
-            </div>
-
-            {loading && <p>Loading notifications...</p>}
-            {error && <p className='text-danger'>{error}</p>}
-            {notifications.length === 0 && !loading && <p>No notifications found.</p>}
-
-            {notifications.map(notification => (
-              <div key={notification.id} className='card notification-card'>
-                <div className='card-body'>
-                  <div className='notification-title-box'>
-                    <h5 className='card-title'>{notification.title}</h5>
-                  </div>
-                  <p className='card-text'>{notification.message}</p>
-                  <p className='card-text'>
-                    <small className='text-muted'>
-                      {notification.department} - Year {notification.year} - Section {notification.section}
-                    </small>
-                  </p>
-                  {notification.fileURL && (
-                    <a href={notification.fileURL} target='_blank' rel='noopener noreferrer' className='btn btn-primary'>
-                      View Attachment
-                    </a>
-                  )}
-                </div>
-              </div>
+    <div className='container mt-4'>
+      <div className='row'>
+        <div className='col-md-3'>
+          <div className='list-group'>
+            {notificationTypes.map(type => (
+              <button
+                key={type}
+                className={`list-group-item list-group-item-action ${selectedType === type ? 'active' : ''}`}
+                onClick={() => setSelectedType(type)}
+              >
+                {type}
+              </button>
             ))}
           </div>
+        </div>
+        <div className='col-md-9'>
+          <h2 className='text-center mb-4'>Notifications</h2>
+          {loading && <p>Loading notifications...</p>}
+          {error && <p className='text-danger'>{error}</p>}
+          {!loading && notifications.length === 0 && (
+            <div className="no-notifications">
+              <p>No notifications found.</p>
+            </div>
+          )}
+          {notifications.map(notification => (
+            <div key={notification.id} className='card mb-3'>
+              <div className='card-body'>
+                <h5 className='card-title'>{notification.title}</h5>
+                <p className='card-text'>{notification.message}</p>
+                <p className='card-text'>
+                  <small className='text-muted'>{notification.department} - Year {notification.year} - Section {notification.section}</small>
+                </p>
+                {notification.fileURL && (
+                  <a href={notification.fileURL} target='_blank' rel='noopener noreferrer' className='btn btn-primary'>
+                    View Attachment
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
