@@ -100,13 +100,13 @@ const AdminFeedback = () => {
 // ✅ Improved Styling
 const styles = {
   container: {
-    maxWidth: "600px",
-    margin: "auto",
+    maxWidth: "380px", // Reduced width slightly to make it smaller
+    margin: "80px auto", // Increased top margin for more space between navbar and container
     padding: "20px",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "rgba(255, 255, 255, 0.85)", // Slightly increased opacity for better background blend
     borderRadius: "10px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    backdropFilter: "blur(5px)",
+    backdropFilter: "blur(6px)",
   },
   heading: {
     textAlign: "center",
@@ -125,17 +125,17 @@ const styles = {
     color: "#555",
   },
   feedbackItem: {
-    padding: "10px",
+    padding: "12px",
     borderBottom: "1px solid #ddd",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255, 255, 255, 0.95)", // Increased opacity for better readability
     borderRadius: "5px",
-    marginBottom: "10px",
+    marginBottom: "12px",
   },
   pagination: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: "20px",
+    marginTop: "30px", // Added more space above pagination
   },
   button: {
     padding: "8px 15px",
@@ -151,5 +151,4 @@ const styles = {
     fontWeight: "bold",
   },
 };
-
 export default AdminFeedback;
