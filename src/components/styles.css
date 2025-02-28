@@ -225,6 +225,9 @@ body {
     font-size: 14px;
     padding: 8px 12px;
   }
+  .nav-spacing {
+    margin-top: 50px;
+  }
 
   .content-container {
     width: 90%;
@@ -273,14 +276,16 @@ body {
   padding: 20px;
   text-align: center;
 }
-
 .accommodation-heading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #2c3e50;
+  font-size: 1.8rem; /* Decreased size for a more compact look */
+  font-weight: 600; /* Slightly lighter for better readability */
+  color: #1b1d1f; /* Maintained good contrast */
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Default spacing */
+  letter-spacing: 0.5px; /* Slightly reduced spacing */
+  text-align: center; /* Keeps it structured */
 }
+
 
 .accommodation-grid {
   display: flex;
@@ -344,4 +349,82 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(240, 238, 238, 0.804);
   margin-bottom: 10px;
+}
+.food-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.food-heading {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  background-color: rgba(255, 255, 255, 0.7); /* Transparent white */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  font-weight: bold;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.food-box {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
+}
+
+.food-box:hover {
+  transform: scale(1.02);
+}
+
+.food-box h2 {
+  color: #34495e;
+  font-size: 1.5rem;
+}
+
+.food-box p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.food-box a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.food-box a:hover {
+  text-decoration: underline;
+}
+
+.more-places {
+  margin-top: 20px;
+}
+
+.more-places-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  background-color: #3498db;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.more-places-btn:hover {
+  background-color: #217dbb;
 }
