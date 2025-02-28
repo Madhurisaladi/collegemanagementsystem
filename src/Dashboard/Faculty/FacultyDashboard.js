@@ -11,7 +11,7 @@ const FacultyDashboard = () => {
       <nav className="navbar">
         <ul>
           <li><Link to="/faculty-dashboard">Home</Link></li>
-          <li><Link to="/faculty-attendance">Attendance</Link></li>
+          
           <li><Link to="/faculty-notifications">Send Notifications</Link></li>
           <li><Link to="/faculty-feedback">Feedback</Link></li>
           <li><Link to="/faculty-profile">Profile</Link></li>

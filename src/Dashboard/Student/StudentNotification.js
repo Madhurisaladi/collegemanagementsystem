@@ -85,6 +85,19 @@ const StudentNotifications = () => {
 
   return (
     <div className='container mt-4'>
+
+      {/* ✅ Navigation Bar Added */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/student-dashboard">Home</Link></li>
+          
+          
+          <li><Link to="/student-documents">Documents</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
+      <div style={{ height: "30px" }}></div>
+
       <div className='row'>
         <div className='col-md-3'>
           <div className='list-group'>

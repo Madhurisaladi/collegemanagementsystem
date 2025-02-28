@@ -7,22 +7,33 @@ import Login from "./components/Login";
 import Home from "./components/Home"; 
 import Register from "./components/register";  
 import AboutPage from "./components/AboutPage"; 
+import Contact from "./components/Contact"; 
+
+// Dashboards
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
 import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
-import AdminDashboard from "../src/Dashboard/Admin/AdminDashboard";
+import AdminDashboard from "./Dashboard/Admin/AdminDashboard";
+
+// Profiles
 import FacultyProfile from "./Dashboard/Faculty/FacultyProfile";
 import StudentProfile from "./Dashboard/Student/StudentProfile"; 
 import EditProfile from "./Dashboard/Admin/EditProfile"; 
+
+// Feedback Pages
 import StudentFeedback from "./Dashboard/Student/StudentFeedback"; 
 import FacultyFeedback from "./Dashboard/Faculty/FacultyFeedback"; 
 import AdminFeedback from "./Dashboard/Admin/AdminFeedback";  
+
+// Notifications
 import StudentNotification from "./Dashboard/Student/StudentNotification";
 import AdminNotification from "./Dashboard/Admin/AdminNotification";
-import Contact from "./components/Contact"; 
+import FacultyNotification from "./Dashboard/Faculty/FacultyNotification";  // ✅ Added this import
+
+// Documents
 import FacultyDocumentUpload from "./Dashboard/Faculty/FacultyDocumentUpload";
 import StudentDocuments from "./Dashboard/Student/StudentDocuments";
 
-// Import Accommodation & Food Components
+// Accommodation & Food
 import Accommodation from "./components/Accommodation";
 import Food from "./components/Food";
 
@@ -51,8 +62,9 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         
         {/* Notification Routes */}
-        <Route path="/AdminNotification" element={<AdminNotification />} />
+        <Route path="/admin-notifications" element={<AdminNotification />} />
         <Route path="/student-notifications" element={<StudentNotification />} />
+        <Route path="/faculty-notifications" element={<FacultyNotification />} />  {/* ✅ Added Faculty Notifications */}
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />
