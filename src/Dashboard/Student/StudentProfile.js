@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase";
@@ -11,6 +11,7 @@ const StudentProfile = () => {
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
+  const fileInputRef = useRef(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -88,7 +89,6 @@ const StudentProfile = () => {
               }
             }
           }
-
           // Update Firestore with new profile photo URL
           const userDocRef = doc(db, "users", user.uid);
           await updateDoc(userDocRef, { profilePhoto: downloadURL });
@@ -153,15 +153,28 @@ const StudentProfile = () => {
 
       <div className="profile-wrapper">
         <div className="logo-container">
-          <img
-            src={
-              profilePhoto ||
-              "https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-            }
-            alt="Profile"
-            className="logo"
+          <div className="profile-photo-wrapper">
+            <img
+              src={
+                profilePhoto ||
+                "https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
+              }
+              alt="Profile"
+              className="logo"
+            />
+            <div
+              className="edit-icon"
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
+            >
+              &#128247;
+            </div>
+          </div>
+          <input
+            type="file"
+            onChange={handlePhotoChange}
+            ref={fileInputRef}
+            style={{ display: "none" }}
           />
-          <input type="file" onChange={handlePhotoChange} className="photo-input" />
         </div>
 
         <form onSubmit={(e) => e.preventDefault()} className="profile-form">

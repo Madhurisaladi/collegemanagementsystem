@@ -10,15 +10,56 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Logo Styles */
-.logo-container {
-  margin-bottom: 20px; /* Space below the logo */
+
+
+/* Profile Photo Section */
+.profile-photo-section {
+  text-align: center;
+  margin-bottom: 20px;
+  border-top: 4px solid #00796b;
+  padding-top: 20px;
 }
 
-.logo {
-  max-width: 150px; /* Adjust size of the logo */
-  height: auto;
-  display: block;
+.profile-photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Progress Bar Styles */
+.progress {
+  width: 150px;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  margin: 10px auto 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #00796b;
+  color: white;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: center;
 }
 
 /* Form Styles */
@@ -27,6 +68,14 @@
   flex-direction: column;
   width: 100%;
   max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.profile-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -47,6 +96,7 @@ label {
   border-radius: 8px;
 }
 
+/* Save Button */
 .save-button {
   padding: 10px 20px;
   font-size: 16px;
@@ -61,4 +111,3 @@ label {
 .save-button:hover {
   background-color: #00574b;
 }
-
