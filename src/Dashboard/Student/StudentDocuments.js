@@ -11,31 +11,31 @@ const StudentDocuments = () => {
   const [studentDetails, setStudentDetails] = useState({
     department: "",
     year: "",
-    section: ""
+    section: "",
   });
 
   // Fetch student's details from Firestore
   useEffect(() => {
     const fetchStudentDetails = async () => {
       const user = auth.currentUser;
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            const data = userDocSnap.data();
-            setStudentDetails({
-              department: data.department || "",
-              year: data.year || "",
-              section: data.section || ""
-            });
-          } else {
-            console.error("User document does not exist");
-          }
-        } catch (error) {
-          console.error("Error fetching student details:", error);
-          setError("Failed to load student details.");
+      if (!user) return;
+
+      try {
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const data = userDocSnap.data();
+          setStudentDetails({
+            department: data.department || "",
+            year: data.year || "",
+            section: data.section || "",
+          });
+        } else {
+          console.error("User document does not exist");
         }
+      } catch (error) {
+        console.error("Error fetching student details:", error);
+        setError("Failed to load student details.");
       }
     };
 
@@ -65,7 +65,7 @@ const StudentDocuments = () => {
         const querySnapshot = await getDocs(q);
         const docs = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
 
         setDocuments(docs);
@@ -83,23 +83,41 @@ const StudentDocuments = () => {
   }, [studentDetails]);
 
   return (
-    <div style={{backgroundColor:"white" ,maxWidth: "800px", margin: "auto", padding: "20px" }}>
-      <h2>Available Documents</h2>
-      {loading && <p>Loading documents...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {documents.length === 0 && !loading && <p>No documents found.</p>}
-      {documents.map((doc) => (
-        <div key={doc.id} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px", borderRadius: "5px" }}>
-          <h3>{doc.title}</h3>
-          <p>{doc.description}</p>
-          <p>
-            <strong>Department:</strong> {doc.department} | <strong>Year:</strong> {doc.year} | <strong>Section:</strong> {doc.section}
-          </p>
-          <a href={doc.fileURL} target="_blank" rel="noopener noreferrer" style={{ color: "blue", textDecoration: "underline" }}>
-            Download Document
-          </a>
-        </div>
-      ))}
+    <div className="documents-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/student-dashboard">Home</Link></li>
+          <li><Link to="/student-notifications">Notifications</Link></li>
+        </ul>
+      </nav>
+      <div style={{ height: "30px" }}></div>
+
+      {/* Page Header */}
+      <div className="page-header">
+        <h2>Available Documents</h2>
+      </div>
+
+      {/* Display Messages */}
+      {loading && <p className="loading-message">Loading documents...</p>}
+      {error && <p className="error-message">{error}</p>}
+      {!loading && documents.length === 0 && <p className="no-documents">No documents found.</p>}
+
+      {/* Document List */}
+      <div className="documents-list">
+        {documents.map((doc) => (
+          <div key={doc.id} className="document-card">
+            <h3 className="document-title">{doc.title}</h3>
+            <p className="document-description">{doc.description}</p>
+            <p className="document-details">
+              <strong>Department:</strong> {doc.department} | <strong>Year:</strong> {doc.year} | <strong>Section:</strong> {doc.section}
+            </p>
+            <a href={doc.fileURL} target="_blank" rel="noopener noreferrer" className="download-link">
+              Download Document
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

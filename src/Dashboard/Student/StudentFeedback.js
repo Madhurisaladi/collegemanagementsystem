@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { db, auth } from "../../firebase";
 import { collection, doc, getDoc, addDoc, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./StudentFeedback.css"; // You can define styles in this file
 
 const StudentFeedback = () => {
   const [message, setMessage] = useState("");
@@ -34,15 +36,12 @@ const StudentFeedback = () => {
               section: data.section || "Unknown",
               semester: data.semester || "Unknown",
             });
-            console.log("Fetched student details:", data);
           } else {
             console.log("No user document found for UID:", user.uid);
           }
         } catch (error) {
           console.error("Error fetching student details:", error);
         }
-      } else {
-        console.log("No user is authenticated");
       }
     });
 
@@ -89,24 +88,39 @@ const StudentFeedback = () => {
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "auto", padding: "20px" }}>
-      <h2>Submit Feedback</h2>
-      {error && <p style={{ color: "red" }} aria-live="assertive">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="message">Your Feedback:</label>
-        <textarea
-          id="message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Write your feedback here..."
-          rows="5"
-          style={{ width: "100%", padding: "10px", marginTop: "10px" }}
-          required
-        />
-        <button type="submit" disabled={loading} style={{ marginTop: "10px" }}>
-          {loading ? "Submitting..." : "Submit"}
-        </button>
-      </form>
+    <div className="feedback-container">
+      {/* ✅ Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/student-dashboard">Home</Link></li>
+          
+          <li><Link to="/student-notifications">Notifications</Link></li>
+          <li><Link to="/student-documents">Documents</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
+      <div style={{ height: "50px" }}></div>
+
+      <div className="feedback-box">
+        <h2 className="feedback-title">Submit Your Feedback</h2>
+        {error && <p className="error-message">{error}</p>}
+        
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="message" className="feedback-label">Your Feedback:</label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Write your feedback here..."
+            rows="5"
+            className="feedback-textarea"
+            required
+          />
+          <button type="submit" className="feedback-button" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

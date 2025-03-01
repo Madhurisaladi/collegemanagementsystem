@@ -131,9 +131,7 @@ const StudentProfile = () => {
           <li>
             <Link to="/student-dashboard">Home</Link>
           </li>
-          <li>
-            <Link to="/view-attendance">View Attendance</Link>
-          </li>
+          
           <li>
             <Link to="/student-notifications">Notifications</Link>
           </li>
