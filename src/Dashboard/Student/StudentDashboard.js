@@ -11,7 +11,6 @@ const StudentDashboard = () => {
           <li>
             <Link to="/student-dashboard">Home</Link>
           </li>
-          
           <li>
             <Link to="/student-notifications">Notifications</Link>
           </li>
@@ -20,6 +19,11 @@ const StudentDashboard = () => {
           </li>
           <li>
             <Link to="/student-profile">Profile</Link>
+          </li>
+          <li>
+            <a href="https://lbce.edu.in/engcollege/login" target="_blank" rel="noopener noreferrer">
+              Digital Library
+            </a>
           </li>
           <li>
             <Link to="/student-documents">Documents</Link>

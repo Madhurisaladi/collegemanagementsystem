@@ -4,53 +4,55 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./NotificationForm.css"; // Import CSS
 
 const NotificationForm = () => {
-  const [title, setTitle] = useState("");
-  const [message, setMessage] = useState("");
-  const [notificationType, setNotificationType] = useState("");
-  const [department, setDepartment] = useState("");
-  const [year, setYear] = useState("");
-  const [section, setSection] = useState("");
-  const [semester, setSemester] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    message: "",
+    notificationType: "",
+    department: "",
+    year: "",
+    section: "",
+    semester: "",
+  });
+
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // File validation and state update
+  // Handle Input Change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // File Validation
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
-    if (selectedFile && !allowedTypes.includes(selectedFile.type)) {
+
+    if (!selectedFile) return;
+    if (!allowedTypes.includes(selectedFile.type)) {
       toast.error("Only PDF, JPEG, and PNG files are allowed.");
-      setFile(null);
-    } else if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
-      toast.error("File size should be less than 5MB.");
-      setFile(null);
-    } else {
-      setFile(selectedFile);
+      return;
     }
+    if (selectedFile.size > 5 * 1024 * 1024) {
+      toast.error("File size should be less than 5MB.");
+      return;
+    }
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !title ||
-      !message ||
-      !notificationType ||
-      !department ||
-      !year ||
-      !section ||
-      !semester
-    ) {
+    if (Object.values(formData).some((value) => !value)) {
       toast.error("Please fill in all fields.");
       return;
     }
-    setLoading(true);
 
+    setLoading(true);
     let fileURL = null;
 
-    // Upload file if selected
     if (file) {
       const storageRef = ref(storage, `notifications/${Date.now()}_${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -58,12 +60,9 @@ const NotificationForm = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(progress);
-          console.log("Upload is " + progress + "% done");
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         },
         (error) => {
-          console.error("Error uploading file:", error);
           toast.error("Failed to upload file.");
           setLoading(false);
         },
@@ -73,7 +72,6 @@ const NotificationForm = () => {
         }
       );
     } else {
-      // If no file is selected, save the notification
       saveNotification(fileURL);
     }
   };
@@ -81,156 +79,112 @@ const NotificationForm = () => {
   const saveNotification = async (fileURL) => {
     try {
       await addDoc(collection(db, "notifications"), {
-        title,
-        message,
-        notificationType,
-        department,
-        year,
-        section,
-        semester,
+        ...formData,
         fileURL,
         facultyId: auth.currentUser.uid,
         createdAt: serverTimestamp(),
       });
+
       toast.success("Notification sent successfully!");
-      setTitle("");
-      setMessage("");
-      setNotificationType("");
-      setDepartment("");
-      setYear("");
-      setSection("");
-      setSemester("");
+      setFormData({
+        title: "",
+        message: "",
+        notificationType: "",
+        department: "",
+        year: "",
+        section: "",
+        semester: "",
+      });
       setFile(null);
       setProgress(0);
     } catch (err) {
-      console.error("Error sending notification:", err);
       toast.error("Failed to send notification.");
     }
     setLoading(false);
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
-      <h2>Send Notification</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Notification Type:</label>
-          <select
-            value={notificationType}
-            onChange={(e) => setNotificationType(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          >
-            <option value="">Select Notification Type</option>
-            <option value="General">General</option>
-            <option value="Attendance">Attendance</option>
-            <option value="Placement">Placement</option>
-            <option value="Sports">Sports</option>
-            <option value="Result">Result</option>
-            <option value="Fees">Fees</option>
-            <option value="Time Table">Time Table</option>
-            <option value="Holidays">Holidays</option>
-          </select>
-        </div>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-        </div>
-        <div>
-          <label>Message:</label>
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-        </div>
-        <div>
-          <label>Department:</label>
-          <select
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          >
-            <option value="">Select Department</option>
-            <option value="ALL">All Departments</option>
-            <option value="CSE">CSE</option>
-            <option value="ECE">ECE</option>
-            <option value="EEE">EEE</option>
-            <option value="MECH">MECH</option>
-            <option value="CIVIL">CIVIL</option>
-          </select>
-        </div>
-        <div>
-          <label>Year:</label>
-          <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          >
-            <option value="">Select Year</option>
-            <option value="1st">1st</option>
-            <option value="2nd">2nd</option>
-            <option value="3rd">3rd</option>
-            <option value="4th">4th</option>
-          </select>
-        </div>
-        <div>
-          <label>Section:</label>
-          <select
-            value={section}
-            onChange={(e) => setSection(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          >
-            <option value="">Select Section</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-          </select>
-        </div>
-        <div>
-          <label>Semester:</label>
-          <select
-            value={semester}
-            onChange={(e) => setSemester(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          >
-            <option value="">Select Semester</option>
-            <option value="1st">1st</option>
-            <option value="2nd">2nd</option>
-          </select>
-        </div>
-        <div>
-          <label>Attach File:</label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            style={{ width: "100%", margin: "8px 0" }}
-          />
-        </div>
-        {file && (
-          <div style={{ margin: "10px 0" }}>
-            <progress value={progress} max="100" style={{ width: "100%" }} />
-            <span>{Math.round(progress)}%</span>
+    <div className="notification-container">
+      <div className="notification-card">
+        <h2 className="notification-header">Send Notification</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Notification Type:</label>
+            <select name="notificationType" value={formData.notificationType} onChange={handleChange} required>
+              <option value="">Select Notification Type</option>
+              {["General", "Attendance", "Placement", "Sports", "Result", "Fees", "Time Table", "Holidays"].map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
           </div>
-        )}
-        <button
-          type="submit"
-          disabled={loading}
-          style={{ marginTop: "10px", padding: "10px 20px" }}
-        >
-          {loading ? "Sending..." : "Send Notification"}
-        </button>
-      </form>
+
+          <div className="form-group">
+            <label>Title:</label>
+            <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+          </div>
+
+          <div className="form-group">
+            <label>Message:</label>
+            <textarea name="message" value={formData.message} onChange={handleChange} required />
+          </div>
+
+          <div className="form-group">
+            <label>Department:</label>
+            <select name="department" value={formData.department} onChange={handleChange} required>
+              <option value="">Select Department</option>
+              {["ALL", "CSE", "ECE", "EEE", "MECH", "CIVIL"].map((dept) => (
+                <option key={dept} value={dept}>{dept}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Year:</label>
+            <select name="year" value={formData.year} onChange={handleChange} required>
+              <option value="">Select Year</option>
+              {["1st", "2nd", "3rd", "4th"].map((year) => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Section:</label>
+            <select name="section" value={formData.section} onChange={handleChange} required>
+              <option value="">Select Section</option>
+              {["A", "B"].map((sec) => (
+                <option key={sec} value={sec}>{sec}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Semester:</label>
+            <select name="semester" value={formData.semester} onChange={handleChange} required>
+              <option value="">Select Semester</option>
+              {["1st", "2nd"].map((sem) => (
+                <option key={sem} value={sem}>{sem}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Attach File:</label>
+            <input type="file" onChange={handleFileChange} />
+          </div>
+
+          {file && (
+            <div className="progress-bar">
+              <progress value={progress} max="100" />
+              <span>{Math.round(progress)}%</span>
+            </div>
+          )}
+
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Sending..." : "Send Notification"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

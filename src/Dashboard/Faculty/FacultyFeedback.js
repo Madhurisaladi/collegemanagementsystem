@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; 
 import { db } from "../../firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import "./NotificationForm.css";
 
 const AdminFeedback = () => {
   const [feedbackList, setFeedbackList] = useState([]);
@@ -46,10 +47,10 @@ const AdminFeedback = () => {
       {/* ✅ Navbar */}
       <nav className="navbar">
         <ul>
-          <li><Link to="/admin-dashboard">Home</Link></li>
-          <li><Link to="/register">New Registration</Link></li>
-          <li><Link to="/AdminNotification">Send Notifications</Link></li>
-          <li><Link to="/admin-feedback">Feedback</Link></li>
+          <li><Link to="/faculty-dashboard">Home</Link></li>
+          
+          <li><Link to="/faculty-notifications">Send Notifications</Link></li>
+          
           <li><Link to="/edit-profile">Profile</Link></li>
           <li><Link to="/" className="nav-logout">Logout</Link></li>
         </ul>
