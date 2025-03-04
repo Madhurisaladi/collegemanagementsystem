@@ -112,7 +112,7 @@ const StudentFeedback = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Write your feedback here..."
-            rows="5"
++            rows="5"
             className="feedback-textarea"
             required
           />
