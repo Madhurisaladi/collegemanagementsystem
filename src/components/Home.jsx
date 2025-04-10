@@ -47,7 +47,8 @@ function HomePage() {
 
   <h1>Welcome to DLBC</h1>
   <p className="black-text">
-    Join us at Dr. Lankapalli Bullayya College of Engineering to gain the skills and knowledge that shape future leaders and problem-solvers.
+    Join us at Dr. Lankapalli Bullayya College of Engineering to gain 
+    the skills and knowledge that shape future leaders and problem-solvers.
   </p>
 
   <div className="buttons">

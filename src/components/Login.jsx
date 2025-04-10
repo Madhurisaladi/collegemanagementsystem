@@ -86,7 +86,7 @@ const Login = () => {
         <li className="nav-item"><Link className="nav-link" to="/food">Food</Link></li>
         <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
         <li className="nav-item">
-          <Link
+         <Link
             className="nav-link fees-payment"
             to="https://formbuilder.ccavenue.com/live/the-society-for-collegiate-education"
             target="_blank"

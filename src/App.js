@@ -64,7 +64,8 @@ function App() {
         {/* Notification Routes */}
         <Route path="/admin-notifications" element={<AdminNotification />} />
         <Route path="/student-notifications" element={<StudentNotification />} />
-        <Route path="/faculty-notifications" element={<FacultyNotification />} />  {/* ✅ Added Faculty Notifications */}
+        <Route path="/faculty-notifications" element={<FacultyNotification />} /> 
+         {/* ✅ Added Faculty Notifications */}
 
         {/* Feedback Pages */}
         <Route path="/student-feedback" element={<StudentFeedback />} />

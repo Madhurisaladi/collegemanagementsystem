@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage"; // Import Firebase Storage
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-// Your web app's Firebase configuration
+// web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAMXrMouOMfUK1GTE9-7I2FCyeSpr1zop4",
   authDomain: "college-management-proje-70ee7.firebaseapp.com",
