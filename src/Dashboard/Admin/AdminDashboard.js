@@ -12,7 +12,7 @@ const AdminDashboard = () => {
         <ul>
           <li><Link to="/admin-dashboard">Home</Link></li>
           <li><Link to="/register">New Registration</Link></li>
-          <li><Link to="/AdminNotification">Send Notifications</Link></li>
+          <li><Link to="/admin-notifications">Send Notifications</Link></li>
           <li><Link to="/admin-feedback">Feedback</Link></li>
           <li><Link to="/edit-profile">Profile</Link></li>
           <li><Link to="/" className="nav-logout">Logout</Link></li>
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
           />
         </div>
 
-        <h1>Welcome to DLBC EduBridge</h1>
+        <h1>Welcome to Student Mate</h1>
         <p className="black-text">Empowering administrators with tools to manage users, notifications, and feedback efficiently.</p>
 
         {/* Learn More Button */}

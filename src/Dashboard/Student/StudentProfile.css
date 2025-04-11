@@ -1,112 +1,244 @@
-/* Student Profile Container */
 .student-profile-container {
-  padding: 20px;
-  background-color: #e0f7fa; /* Light cyan background */
   min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #dfe7f5 100%);
+  padding: 80px 20px 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Arial', sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 30px;
 }
 
-/* Profile Wrapper */
-.profile-wrapper {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-/* Logo Container: Fixed circular container */
+/* Profile Photo Section */
 .logo-container {
   position: relative;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Ensures the image stays within the circle */
 }
 
-/* Profile Photo Wrapper */
 .profile-photo-wrapper {
-  position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Photo: Fill the container without stretching */
 .logo {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Edit Icon Overlay: Always at bottom-right */
 .edit-icon {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  padding: 5px;
+  bottom: 10px;
+  right: 10px;
+  background: #4299e1;
+  color: white;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 18px;
-  z-index: 2;
-  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
 }
 
-/* Hidden File Input */
-.photo-input {
-  display: none;
+.edit-icon:hover:not(.uploading) {
+  background: #3182ce;
+  transform: scale(1.1);
 }
 
-/* Form Styles */
+.edit-icon.uploading {
+  background: #FF9800;
+  cursor: not-allowed;
+}
+
+.progress-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: #4299e1;
+  transition: width 0.3s ease;
+}
+
+.progress-container span {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+/* Profile Form */
 .profile-form {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 25px;
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
   border-radius: 12px;
-  width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profile-form h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-label {
+.form-group label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .form-input {
   width: 100%;
-  padding: 8px;
-  margin: 8px 0;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Button Group */
+.form-input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.form-input:disabled {
+  background: #f8fafc;
+  color: #718096;
+}
+
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+/* Buttons */
 .button-group {
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
 }
 
 .next-button,
 .prev-button,
 .save-button {
-  background: #00796b;
-  color: white;
-  padding: 10px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.2s;
 }
 
-.next-button:hover,
-.prev-button:hover,
-.save-button:hover {
-  background: #00574b;
+.next-button {
+  background: #4299e1;
+  color: white;
+}
+
+.prev-button {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.save-button {
+  background: #38a169;
+  color: white;
+}
+
+.next-button:hover:not(:disabled),
+.prev-button:hover:not(:disabled),
+.save-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.next-button:hover:not(:disabled) {
+  background: #3182ce;
+}
+
+.prev-button:hover:not(:disabled) {
+  background: #cbd5e0;
+}
+
+.save-button:hover:not(:disabled) {
+  background: #2f855a;
+}
+
+.next-button:disabled,
+.prev-button:disabled,
+.save-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-form {
+    padding: 25px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .next-button,
+  .prev-button,
+  .save-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-profile-container {
+    padding: 70px 15px 30px;
+  }
+  
+  .profile-form {
+    padding: 20px 15px;
+  }
+  
+  .logo-container {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .edit-icon {
+    width: 30px;
+    height: 30px;
+    bottom: 5px;
+    right: 5px;
+  }
 }

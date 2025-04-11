@@ -1,84 +1,140 @@
-/* Student Documents Styling */
 .documents-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+  max-width: 800px;
+  margin: 80px auto 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+/* Status Messages */
+.loading-message,
+.error-message,
+.no-documents {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1rem;
+}
+
+.loading-message {
+  background-color: #ebf8ff;
+  color: #3182ce;
+}
+
+.error-message {
+  background-color: #fff5f5;
+  color: #e53e3e;
+}
+
+.no-documents {
+  background-color: #f7fafc;
+  color: #718096;
+}
+
+/* Documents Grid */
+.documents-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.document-card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #4299e1;
+  transition: transform 0.2s ease;
+}
+
+.document-card:hover {
+  transform: translateX(5px);
+}
+
+.document-title {
+  color: #2b6cb0;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.document-description {
+  color: #4a5568;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.document-details {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.document-details strong {
+  font-weight: 600;
+}
+
+.download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #4299e1;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.download-link:hover {
+  background: #3182ce;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .documents-container {
+    padding: 25px 20px;
+    margin: 80px 20px 40px;
   }
   
-  .documents-title {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 20px;
+  .page-header h2 {
+    font-size: 1.5rem;
   }
-  
-  .loading-message {
-    text-align: center;
-    font-size: 18px;
-    color: #555;
-  }
-  
-  .error-message {
-    text-align: center;
-    font-size: 18px;
-    color: red;
-  }
-  
-  .no-documents {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .documents-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+}
+
+@media (max-width: 480px) {
+  .documents-container {
+    padding: 20px 15px;
+    margin: 70px 15px 30px;
   }
   
   .document-card {
-    background: #f9f9f9;
     padding: 15px;
-    border-radius: 8px;
-   
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .document-title {
-    font-size: 20px;
-    color: #007bff;
-    margin-bottom: 5px;
-  }
-  
-  .document-description {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .document-details {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 10px;
+    font-size: 1.1rem;
   }
   
   .download-link {
-    display: inline-block;
-    background: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    transition: 0.3s;
+    width: 100%;
+    justify-content: center;
   }
-  
-  .download-link:hover {
-    background: #0056b3;
-  }
-  
+}

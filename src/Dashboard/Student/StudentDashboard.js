@@ -45,7 +45,7 @@ const StudentDashboard = () => {
           />
         </div>
 
-        <h1>Welcome to Student Dashboard</h1>
+        <h1 className="greet">Welcome to Student Dashboard</h1>
         <p className="black-text">
           Access your attendance, notifications, feedback, and documents with ease.
         </p>

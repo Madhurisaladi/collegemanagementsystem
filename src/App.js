@@ -26,7 +26,7 @@ import AdminFeedback from "./Dashboard/Admin/AdminFeedback";
 
 // Notifications
 import StudentNotification from "./Dashboard/Student/StudentNotification";
-import AdminNotification from "./Dashboard/Admin/AdminNotification";
+import AdminNotification from "./Dashboard/Admin/AdmNotification";
 import FacultyNotification from "./Dashboard/Faculty/FacultyNotification";  // ✅ Added this import
 
 // Documents

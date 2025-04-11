@@ -1,0 +1,177 @@
+/* Base Styles */
+.feedback-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #dfe7f5 100%);
+    padding-top: 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+  }
+  
+  .navbar li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-logout {
+    background: rgba(231, 76, 60, 0.2);
+  }
+  
+  .nav-logout:hover {
+    background: rgba(231, 76, 60, 0.3);
+  }
+  
+  /* Feedback List */
+  .feedback-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  
+  .feedback-title {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  
+  /* Feedback Items */
+  .feedback-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #4299e1;
+  }
+  
+  .feedback-meta {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .feedback-message {
+    color: #4a5568;
+    line-height: 1.6;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .pagination-button {
+    padding: 8px 16px;
+    background: #4299e1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .pagination-button:hover:not(:disabled) {
+    background: #3182ce;
+  }
+  
+  .pagination-button:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+  }
+  
+  .page-number {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #4a5568;
+  }
+  
+  /* Status Messages */
+  .loading-message,
+  .error-message,
+  .no-feedback {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  
+  .loading-message {
+    color: #3182ce;
+    background: #ebf8ff;
+  }
+  
+  .error-message {
+    color: #e53e3e;
+    background: #fff5f5;
+  }
+  
+  .no-feedback {
+    color: #718096;
+    background: #f8fafc;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .feedback-list-container {
+      padding: 20px;
+    }
+    
+    .feedback-title {
+      font-size: 1.5rem;
+    }
+    
+    .feedback-item {
+      padding: 15px;
+    }
+    
+    .pagination {
+      flex-wrap: wrap;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .feedback-container {
+      padding-top: 70px;
+    }
+    
+    .navbar ul {
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+  }
