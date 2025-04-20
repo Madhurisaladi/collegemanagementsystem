@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { db, auth, storage } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify"; // Add ToastContainer
 import "react-toastify/dist/ReactToastify.css";
 import "./NotificationForm.css"; // Import CSS
 
 const NotificationForm = () => {
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     title: "",
     message: "",
     notificationType: "",
@@ -15,8 +15,9 @@ const NotificationForm = () => {
     year: "",
     section: "",
     semester: "",
-  });
+  };
 
+  const [formData, setFormData] = useState(initialFormState);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -41,6 +42,12 @@ const NotificationForm = () => {
       return;
     }
     setFile(selectedFile);
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormState);
+    setFile(null);
+    setProgress(0);
   };
 
   const handleSubmit = async (e) => {
@@ -85,26 +92,47 @@ const NotificationForm = () => {
         createdAt: serverTimestamp(),
       });
 
-      toast.success("Notification sent successfully!");
-      setFormData({
-        title: "",
-        message: "",
-        notificationType: "",
-        department: "",
-        year: "",
-        section: "",
-        semester: "",
+      toast.success("Notification sent successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: {
+          background: "#4caf50",
+          color: "#ffffff",
+          fontSize: "16px",
+          fontWeight: "500",
+          borderRadius: "8px",
+          padding: "16px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+        },
       });
-      setFile(null);
-      setProgress(0);
+      
+      resetForm();
     } catch (err) {
-      toast.error("Failed to send notification.");
+      console.error("Error saving notification:", err);
+      toast.error("Failed to send notification.", {
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          background: "#f44336",
+          color: "#ffffff",
+          fontSize: "16px",
+          fontWeight: "500",
+          borderRadius: "8px",
+          padding: "16px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+        },
+      });
     }
     setLoading(false);
   };
 
   return (
     <div className="notification-container">
+      <ToastContainer /> {/* Add ToastContainer component */}
       <div className="notification-card">
         <h2 className="notification-header">Send Notification</h2>
         <form onSubmit={handleSubmit}>
@@ -120,7 +148,13 @@ const NotificationForm = () => {
 
           <div className="form-group">
             <label>Title:</label>
-            <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+            <input 
+              type="text" 
+              name="title" 
+              value={formData.title} 
+              onChange={handleChange}
+              required 
+            />
           </div>
 
           <div className="form-group">

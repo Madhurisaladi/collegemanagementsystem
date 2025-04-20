@@ -124,8 +124,8 @@ const FacultyProfile = () => {
   return (
     <div className="faculty-profile-container">
       <ToastContainer position="top-center" autoClose={3000} />
-      
-      {/* Logo and Profile Photo Section */}
+
+      {/* Centered Header Section */}
       <div className="profile-header">
         <div className="logo-container">
           <img
@@ -134,7 +134,8 @@ const FacultyProfile = () => {
             className="logo"
           />
         </div>
-        
+
+        {/* Profile Photo Section */}
         <div className="profile-photo-section">
           <div className="profile-photo-wrapper">
             <img
@@ -153,12 +154,12 @@ const FacultyProfile = () => {
               />
             </label>
           </div>
-          
+
           {uploadProgress > 0 && uploadProgress < 100 && (
             <div className="progress-container">
               <div className="progress-bar">
-                <div 
-                  className="progress" 
+                <div
+                  className="progress"
                   style={{ width: `${uploadProgress}%` }}
                 ></div>
               </div>
@@ -170,11 +171,11 @@ const FacultyProfile = () => {
 
       {/* Edit Profile Header */}
       <h1 className="profile-title">Faculty Profile</h1>
-      
+
       {/* Profile Form */}
       <form onSubmit={(e) => e.preventDefault()} className="profile-form">
         {error && <p className="error-message">{error}</p>}
-        
+
         <div className="form-group">
           <label>Name:</label>
           <input
@@ -215,9 +216,9 @@ const FacultyProfile = () => {
           />
         </div>
 
-        <button 
-          type="button" 
-          onClick={handleSave} 
+        <button
+          type="button"
+          onClick={handleSave}
           className="save-button"
           disabled={isUploading}
         >

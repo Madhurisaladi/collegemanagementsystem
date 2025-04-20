@@ -12,7 +12,7 @@
 /* Profile Header */
 .profile-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 800px;
@@ -20,8 +20,8 @@
 }
 
 .logo-container {
-  flex: 1;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .logo {
@@ -30,17 +30,18 @@
 
 /* Profile Photo Section */
 .profile-photo-section {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 }
 
+/* FacultyProfile.css */
 .profile-photo-wrapper {
   position: relative;
   width: 150px;
   height: 150px;
-  margin-bottom: 15px;
+  margin-bottom: 25px; /* Added more space below */
 }
 
 .profile-photo {
@@ -54,8 +55,8 @@
 
 .edit-icon {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 5px;
+  right: 5px;
   background: #4299e1;
   color: white;
   width: 36px;
@@ -67,44 +68,59 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
+  transform: translate(25%, 25%); /* Pushes icon outside the circle */
 }
 
 .edit-icon:hover:not(.uploading) {
   background: #3182ce;
-  transform: scale(1.1);
+  transform: translate(25%, 25%) scale(1.1); /* Maintain position while scaling */
 }
 
 .edit-icon.uploading {
   background: #FF9800;
   cursor: not-allowed;
+  transform: translate(25%, 25%);
+}
+
+.edit-icon:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.edit-icon input {
+  display: none;
+}
+
+.uploading {
+  font-size: 16px; /* Smaller text size when uploading */
 }
 
 .progress-container {
   width: 100%;
-  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
-  text-align: center;
 }
 
 .progress-bar {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
   height: 8px;
-  background: #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
+  margin-right: 5px;
 }
 
 .progress {
   height: 100%;
-  background: #4299e1;
-  transition: width 0.3s ease;
+  background-color: #4A90E2;
+  border-radius: 5px;
 }
 
 .progress-container span {
-  display: inline-block;
-  margin-top: 5px;
   font-size: 14px;
-  color: #4a5568;
+  color: #4A90E2;
 }
+
 
 /* Profile Title */
 .profile-title {
