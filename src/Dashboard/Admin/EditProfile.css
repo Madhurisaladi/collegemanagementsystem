@@ -1,23 +1,20 @@
 /* Edit Profile Container */
 .edit-profile-container {
-  padding: 20px;
-  background-color: #e0f7fa; /* Light cyan background */
+  padding: 40px 20px;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
 
 /* Profile Photo Section */
 .profile-photo-section {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-top: 4px solid #00796b;
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 .profile-photo-wrapper {
@@ -26,88 +23,118 @@
 }
 
 .profile-photo {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.03);
 }
 
 .edit-icon {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 8px;
+  right: 8px;
+  background-color: #00796b;
   color: #fff;
-  padding: 5px;
+  padding: 8px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 18px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.edit-icon:hover {
+  background-color: #004d40;
 }
 
 /* Progress Bar Styles */
 .progress {
-  width: 150px;
-  background-color: #f3f3f3;
-  border-radius: 4px;
+  width: 160px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
   margin: 10px auto 0;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
   height: 20px;
   background-color: #00796b;
   color: white;
-  line-height: 20px;
-  font-size: 12px;
+  font-weight: 500;
   text-align: center;
+  line-height: 20px;
+  font-size: 13px;
+  transition: width 0.4s ease;
 }
 
 /* Form Styles */
 .profile-form {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  max-width: 400px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+  max-width: 480px;
+  background-color: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .profile-form h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #00796b;
 }
 
+/* Form Group */
 .form-group {
   margin-bottom: 20px;
 }
 
 label {
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
   display: block;
+  color: #333;
 }
 
 .form-input {
-  padding: 10px;
-  font-size: 16px;
+  padding: 12px 14px;
+  font-size: 15px;
   width: 100%;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 10px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #00796b;
+  box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.2);
 }
 
 /* Save Button */
 .save-button {
-  padding: 10px 20px;
+  padding: 12px;
   font-size: 16px;
   background-color: #00796b;
   color: white;
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
 }
 
 .save-button:hover {
-  background-color: #00574b;
+  background-color: #004d40;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
 }

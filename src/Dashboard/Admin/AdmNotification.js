@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { db, auth, storage } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -42,7 +43,6 @@ const NotificationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate required fields
     if (!title || !message || !notificationType || !department || !year || !section || !semester) {
       toast.error("Please fill in all required fields.");
       return;
@@ -54,14 +54,12 @@ const NotificationForm = () => {
     try {
       let fileURL = null;
       
-      // Upload file if selected
       if (file) {
         const storageRef = ref(storage, `notifications/${Date.now()}_${file.name}`);
         const task = uploadBytesResumable(storageRef, file);
         setUploadTask(task);
 
-        // Set up upload progress tracking
-        const unsubscribe = task.on(
+        task.on(
           "state_changed",
           (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -109,7 +107,6 @@ const NotificationForm = () => {
       
       toast.success("Notification sent successfully!");
       
-      // Reset form
       setTitle("");
       setMessage("");
       setNotificationType("");
@@ -128,170 +125,148 @@ const NotificationForm = () => {
   };
 
   return (
-    <div className="notification-form-container">
-      <ToastContainer 
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      
-      <div className="notification-form">
-        <h2 className="form-title">Send Notification</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label">Notification Type:</label>
-            <select
-              className="form-select"
-              value={notificationType}
-              onChange={(e) => setNotificationType(e.target.value)}
-              required
-            >
-              <option value="">Select Notification Type</option>
-              <option value="General">General</option>
-              <option value="Attendance">Attendance</option>
-              <option value="Placement">Placement</option>
-              <option value="Sports">Sports</option>
-              <option value="Result">Result</option>
-              <option value="Fees">Fees</option>
-              <option value="Time Table">Time Table</option>
-              <option value="Holidays">Holidays</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Title:</label>
-            <input
-              type="text"
-              className="form-input"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Message:</label>
-            <textarea
-              className="form-textarea"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Department:</label>
-            <select
-              className="form-select"
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-              required
-            >
-              <option value="">Select Department</option>
-              <option value="ALL">All Departments</option>
-              <option value="CSE">CSE</option>
-              <option value="ECE">ECE</option>
-              <option value="EEE">EEE</option>
-              <option value="MECH">MECH</option>
-              <option value="CIVIL">CIVIL</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Year:</label>
-            <select
-              className="form-select"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              required
-            >
-              <option value="">Select Year</option>
-              <option value="1st">1st</option>
-              <option value="2nd">2nd</option>
-              <option value="3rd">3rd</option>
-              <option value="4th">4th</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Section:</label>
-            <select
-              className="form-select"
-              value={section}
-              onChange={(e) => setSection(e.target.value)}
-              required
-            >
-              <option value="">Select Section</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Semester:</label>
-            <select
-              className="form-select"
-              value={semester}
-              onChange={(e) => setSemester(e.target.value)}
-              required
-            >
-              <option value="">Select Semester</option>
-              <option value="1st">1st</option>
-              <option value="2nd">2nd</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Attach File:</label>
-            <input
-              type="file"
-              className="file-input"
-              onChange={handleFileChange}
-              disabled={loading}
-            />
-            {file && (
-              <div className="file-info">
-                <span>{file.name}</span>
-                <span>{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+    <>
+      {/* ✅ Admin Navbar */}
+      <div>
+        <nav className="navbar">
+          <ul>
+            <li><Link to="/admin-dashboard">Home</Link></li>
+            <li><Link to="/register">New Registration</Link></li>
+            
+            
+            <li><Link to="/" className="nav-logout">Logout</Link></li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* ✅ Notification Form */}
+      <div className="notification-form-container">
+        <ToastContainer 
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        
+        <div className="notification-form">
+          <h2 className="form-title">Send Notification</h2>
+          <form onSubmit={handleSubmit}>
+            {/* Notification Type */}
+            <div className="form-group">
+              <label className="form-label">Notification Type:</label>
+              <select className="form-select" value={notificationType} onChange={(e) => setNotificationType(e.target.value)} required>
+                <option value="">Select Notification Type</option>
+                <option value="General">General</option>
+                <option value="Attendance">Attendance</option>
+                <option value="Placement">Placement</option>
+                <option value="Sports">Sports</option>
+                <option value="Result">Result</option>
+                <option value="Fees">Fees</option>
+                <option value="Time Table">Time Table</option>
+                <option value="Holidays">Holidays</option>
+              </select>
+            </div>
+
+            {/* Title */}
+            <div className="form-group">
+              <label className="form-label">Title:</label>
+              <input type="text" className="form-input" value={title} onChange={(e) => setTitle(e.target.value)} required />
+            </div>
+
+            {/* Message */}
+            <div className="form-group">
+              <label className="form-label">Message:</label>
+              <textarea className="form-textarea" value={message} onChange={(e) => setMessage(e.target.value)} required />
+            </div>
+
+            {/* Department */}
+            <div className="form-group">
+              <label className="form-label">Department:</label>
+              <select className="form-select" value={department} onChange={(e) => setDepartment(e.target.value)} required>
+                <option value="">Select Department</option>
+                <option value="ALL">All Departments</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
+              </select>
+            </div>
+
+            {/* Year */}
+            <div className="form-group">
+              <label className="form-label">Year:</label>
+              <select className="form-select" value={year} onChange={(e) => setYear(e.target.value)} required>
+                <option value="">Select Year</option>
+                <option value="1st">1st</option>
+                <option value="2nd">2nd</option>
+                <option value="3rd">3rd</option>
+                <option value="4th">4th</option>
+              </select>
+            </div>
+
+            {/* Section */}
+            <div className="form-group">
+              <label className="form-label">Section:</label>
+              <select className="form-select" value={section} onChange={(e) => setSection(e.target.value)} required>
+                <option value="">Select Section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+              </select>
+            </div>
+
+            {/* Semester */}
+            <div className="form-group">
+              <label className="form-label">Semester:</label>
+              <select className="form-select" value={semester} onChange={(e) => setSemester(e.target.value)} required>
+                <option value="">Select Semester</option>
+                <option value="1st">1st</option>
+                <option value="2nd">2nd</option>
+              </select>
+            </div>
+
+            {/* File Upload */}
+            <div className="form-group">
+              <label className="form-label">Attach File:</label>
+              <input type="file" className="file-input" onChange={handleFileChange} disabled={loading} />
+              {file && (
+                <div className="file-info">
+                  <span>{file.name}</span>
+                  <span>{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                </div>
+              )}
+            </div>
+
+            {/* Upload Progress */}
+            {(progress > 0 && progress < 100) && (
+              <div className="form-group">
+                <div className="progress-container">
+                  <div className="progress-bar">
+                    <div className="progress" style={{ width: `${progress}%` }}></div>
+                  </div>
+                  <span>{Math.round(progress)}% uploaded</span>
+                </div>
               </div>
             )}
-          </div>
-          
-          {(progress > 0 && progress < 100) && (
-            <div className="form-group">
-              <div className="progress-container">
-                <div className="progress-bar">
-                  <div 
-                    className="progress" 
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
-                <span>{Math.round(progress)}% uploaded</span>
-              </div>
-            </div>
-          )}
-          
-          <button
-            type="submit"
-            className="submit-button"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <span className="spinner"></span>
-                {uploadTask ? "Uploading..." : "Sending..."}
-              </>
-            ) : "Send Notification"}
-          </button>
-        </form>
+
+            {/* Submit Button */}
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  {uploadTask ? "Uploading..." : "Sending..."}
+                </>
+              ) : "Send Notification"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
