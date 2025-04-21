@@ -1,7 +1,8 @@
 /* Edit Profile Container */
 .edit-profile-container {
   padding: 40px 20px;
-  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  background: url('https://t3.ftcdn.net/jpg/09/22/09/48/360_F_922094842_5qov76BhvqazmwOcrvGseQsiAlmZ53K0.jpg') no-repeat center center fixed;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
