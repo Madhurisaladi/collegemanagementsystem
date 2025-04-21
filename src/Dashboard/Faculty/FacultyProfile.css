@@ -1,12 +1,14 @@
 /* Base Container */
 .faculty-profile-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #dfe7f5 100%);
-  padding: 80px 20px 40px;
+  background:url('https://t3.ftcdn.net/jpg/09/22/09/48/360_F_922094842_5qov76BhvqazmwOcrvGseQsiAlmZ53K0.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 40px 20px 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 750px;
 }
 
 /* Profile Header */
@@ -16,17 +18,9 @@
   align-items: center;
   width: 100%;
   max-width: 800px;
-  margin-bottom: 30px;
+  
 }
 
-.logo-container {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.logo {
-  max-height: 120px;
-}
 
 /* Profile Photo Section */
 .profile-photo-section {
@@ -41,7 +35,7 @@
   position: relative;
   width: 150px;
   height: 150px;
-  margin-bottom: 25px; /* Added more space below */
+   /* Added more space below */
 }
 
 .profile-photo {
@@ -55,8 +49,7 @@
 
 .edit-icon {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  
   background: #4299e1;
   color: white;
   width: 36px;
@@ -68,12 +61,20 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
-  transform: translate(25%, 25%); /* Pushes icon outside the circle */
+  margin: 0px;
+  padding: 0px;
 }
-
+div.edit-icon{
+  top:100px;
+  left: 100px;
+}
+label.edit-icon{
+ top: 100px;
+ left: 100px;
+}
 .edit-icon:hover:not(.uploading) {
   background: #3182ce;
-  transform: translate(25%, 25%) scale(1.1); /* Maintain position while scaling */
+   /* Maintain position while scaling */
 }
 
 .edit-icon.uploading {

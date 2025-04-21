@@ -38,8 +38,8 @@
 
 .edit-icon {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 15px;
+  right: 15px;
   background: #4299e1;
   color: white;
   width: 36px;
@@ -51,11 +51,17 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
+  top:90px;
+  left: 90px;
 }
-
+div.edit-icon{
+  top:90px;
+  left: 90px;
+}
 .edit-icon:hover:not(.uploading) {
   background: #3182ce;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
+  transition: background 1s ease;
 }
 
 .edit-icon.uploading {

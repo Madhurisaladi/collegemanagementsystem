@@ -61,7 +61,6 @@ const Register = () => {
       <nav className="navbar">
         <ul>
           <li><Link to="/admin-dashboard">Home</Link></li>
-          <li><Link to="/AdminNotification">Send Notifications</Link></li>
           <li><Link to="/admin-feedback">Feedback</Link></li>
           <li><Link to="/edit-profile">Profile</Link></li>
           <li><Link to="/" className="nav-logout">Logout</Link></li>

@@ -17,7 +17,8 @@ function HomePage() {
             onMouseEnter={() => setDropdownOpen(true)}
             onMouseLeave={() => setDropdownOpen(false)}
           >
-            <Link to="/student-support" className="nav-link">Student Support</Link>
+            {/* <Link to="/student-support" className="nav-link">Student Support</Link> */}
+            Student Support
             {dropdownOpen && (
               <ul className="dropdown-menu">
                 <li><Link to="/accommodation" className="dropdown-item small-item light-bg">🏠 Accommodation</Link></li>

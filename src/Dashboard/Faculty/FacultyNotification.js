@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { db, auth, storage } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { toast, ToastContainer } from "react-toastify"; // Add ToastContainer
+import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "./NotificationForm.css"; // Import CSS
+import "./NotificationForm.css";
 
 const NotificationForm = () => {
   const initialFormState = {
@@ -22,12 +23,10 @@ const NotificationForm = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Handle Input Change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // File Validation
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
@@ -109,7 +108,7 @@ const NotificationForm = () => {
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
         },
       });
-      
+
       resetForm();
     } catch (err) {
       console.error("Error saving notification:", err);
@@ -131,93 +130,103 @@ const NotificationForm = () => {
   };
 
   return (
-    <div className="notification-container">
-      <ToastContainer /> {/* Add ToastContainer component */}
-      <div className="notification-card">
-        <h2 className="notification-header">Send Notification</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Notification Type:</label>
-            <select name="notificationType" value={formData.notificationType} onChange={handleChange} required>
-              <option value="">Select Notification Type</option>
-              {["General", "Attendance", "Placement", "Sports", "Result", "Fees", "Time Table", "Holidays"].map((type) => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
-          </div>
+    <div className="dashboard-container">
+      <ToastContainer />
+      
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/faculty-dashboard">Home</Link></li>
+          <li><Link to="/faculty-notifications">Send Notifications</Link></li>
+          <li><Link to="/faculty-feedback">Feedback</Link></li>
+          <li><Link to="/faculty-profile">Profile</Link></li>
+          <li><Link to="/faculty-documents">Documents</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
 
-          <div className="form-group">
-            <label>Title:</label>
-            <input 
-              type="text" 
-              name="title" 
-              value={formData.title} 
-              onChange={handleChange}
-              required 
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Message:</label>
-            <textarea name="message" value={formData.message} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Department:</label>
-            <select name="department" value={formData.department} onChange={handleChange} required>
-              <option value="">Select Department</option>
-              {["ALL", "CSE", "ECE", "EEE", "MECH", "CIVIL"].map((dept) => (
-                <option key={dept} value={dept}>{dept}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Year:</label>
-            <select name="year" value={formData.year} onChange={handleChange} required>
-              <option value="">Select Year</option>
-              {["1st", "2nd", "3rd", "4th"].map((year) => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Section:</label>
-            <select name="section" value={formData.section} onChange={handleChange} required>
-              <option value="">Select Section</option>
-              {["A", "B"].map((sec) => (
-                <option key={sec} value={sec}>{sec}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Semester:</label>
-            <select name="semester" value={formData.semester} onChange={handleChange} required>
-              <option value="">Select Semester</option>
-              {["1st", "2nd"].map((sem) => (
-                <option key={sem} value={sem}>{sem}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Attach File:</label>
-            <input type="file" onChange={handleFileChange} />
-          </div>
-
-          {file && (
-            <div className="progress-bar">
-              <progress value={progress} max="100" />
-              <span>{Math.round(progress)}%</span>
+      {/* Notification Form */}
+      <div className="notification-container">
+        <div className="notification-card">
+          <h2 className="notification-header">Send Notification</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Notification Type:</label>
+              <select name="notificationType" value={formData.notificationType} onChange={handleChange} required>
+                <option value="">Select Notification Type</option>
+                {["General", "Attendance", "Placement", "Sports", "Result", "Fees", "Time Table", "Holidays"].map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
             </div>
-          )}
 
-          <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? "Sending..." : "Send Notification"}
-          </button>
-        </form>
+            <div className="form-group">
+              <label>Title:</label>
+              <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+            </div>
+
+            <div className="form-group">
+              <label>Message:</label>
+              <textarea name="message" value={formData.message} onChange={handleChange} required />
+            </div>
+
+            <div className="form-group">
+              <label>Department:</label>
+              <select name="department" value={formData.department} onChange={handleChange} required>
+                <option value="">Select Department</option>
+                {["ALL", "CSE", "ECE", "EEE", "MECH", "CIVIL"].map((dept) => (
+                  <option key={dept} value={dept}>{dept}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Year:</label>
+              <select name="year" value={formData.year} onChange={handleChange} required>
+                <option value="">Select Year</option>
+                {["1st", "2nd", "3rd", "4th"].map((year) => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Section:</label>
+              <select name="section" value={formData.section} onChange={handleChange} required>
+                <option value="">Select Section</option>
+                {["A", "B"].map((sec) => (
+                  <option key={sec} value={sec}>{sec}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Semester:</label>
+              <select name="semester" value={formData.semester} onChange={handleChange} required>
+                <option value="">Select Semester</option>
+                {["1st", "2nd"].map((sem) => (
+                  <option key={sem} value={sem}>{sem}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Attach File:</label>
+              <input type="file" onChange={handleFileChange} />
+            </div>
+
+            {file && (
+              <div className="progress-bar">
+                <progress value={progress} max="100" />
+                <span>{Math.round(progress)}%</span>
+              </div>
+            )}
+
+            <button type="submit" className="submit-btn" disabled={loading}>
+              {loading ? "Sending..." : "Send Notification"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

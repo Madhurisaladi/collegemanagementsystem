@@ -90,7 +90,7 @@ const FacultyDocumentUpload = () => {
       </nav>
       <div style={{ height: "30px" }}></div>
 
-      <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+      <div style={{ Width: "600px", margin: "auto", padding: "20px" ,background:"white"}} className="upload-document">
         <h2>Upload Document</h2>
         <form onSubmit={handleSubmit}>
           <div>

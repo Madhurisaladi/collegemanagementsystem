@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase";
 import { getAuth } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./FacultyProfile.css";
@@ -73,7 +78,6 @@ const FacultyProfile = () => {
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           try {
-            // Delete old profile photo if it exists
             if (profilePhoto) {
               try {
                 const oldPhotoRef = ref(storage, profilePhoto);
@@ -84,8 +88,7 @@ const FacultyProfile = () => {
                 }
               }
             }
-            
-            // Update Firestore with new profile photo URL
+
             const userDocRef = doc(db, "users", user.uid);
             await updateDoc(userDocRef, { profilePhoto: downloadURL });
             setProfilePhoto(downloadURL);
@@ -111,7 +114,7 @@ const FacultyProfile = () => {
       await updateDoc(userDocRef, {
         name,
         department,
-        facultyId
+        facultyId,
       });
       toast.success("Profile updated successfully!");
       navigate("/faculty-dashboard");
@@ -122,109 +125,111 @@ const FacultyProfile = () => {
   };
 
   return (
-    <div className="faculty-profile-container">
-      <ToastContainer position="top-center" autoClose={3000} />
+    <div className="dashboard-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/faculty-dashboard">Home</Link></li>
+          <li><Link to="/faculty-notifications">Send Notifications</Link></li>
+          <li><Link to="/faculty-feedback">Feedback</Link></li>
+          <li><Link to="/faculty-profile">Profile</Link></li>
+          <li><Link to="/faculty-documents">Documents</Link></li>
+          <li><Link to="/" className="nav-logout">Logout</Link></li>
+        </ul>
+      </nav>
 
-      {/* Centered Header Section */}
-      <div className="profile-header">
-        <div className="logo-container">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/5/54/Bullayya_College_logo.png"
-            alt="College Logo"
-            className="logo"
-          />
+      <div className="faculty-profile-container">
+        <ToastContainer position="top-center" autoClose={3000} />
+
+        <div className="profile-header">
+          <div className="profile-photo-section">
+            <div className="profile-photo-wrapper">
+              <img
+                src={profilePhoto || "https://via.placeholder.com/150"}
+                alt="Profile"
+                className="profile-photo"
+              />
+              <label className={`edit-icon  ${isUploading ? "uploading" : ""}`}>
+                {isUploading ? "⏳" : "✏️"}
+                <input
+                  type="file"
+                  onChange={handlePhotoChange}
+                  style={{ display: "none" }}
+                  accept="image/*"
+                  disabled={isUploading}
+                />
+              </label>
+            </div>
+
+            {uploadProgress > 0 && uploadProgress < 100 && (
+              <div className="progress-container">
+                <div className="progress-bar">
+                  <div
+                    className="progress"
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
+                </div>
+                <span>{Math.round(uploadProgress)}%</span>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Profile Photo Section */}
-        <div className="profile-photo-section">
-          <div className="profile-photo-wrapper">
-            <img
-              src={profilePhoto || "https://via.placeholder.com/150"}
-              alt="Profile"
-              className="profile-photo"
+        <h1 className="profile-title">Faculty Profile</h1>
+
+        <form onSubmit={(e) => e.preventDefault()} className="profile-form">
+          {error && <p className="error-message">{error}</p>}
+
+          <div className="form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="form-input"
             />
-            <label className={`edit-icon ${isUploading ? 'uploading' : ''}`}>
-              {isUploading ? '⏳' : '✏️'}
-              <input
-                type="file"
-                onChange={handlePhotoChange}
-                style={{ display: "none" }}
-                accept="image/*"
-                disabled={isUploading}
-              />
-            </label>
           </div>
 
-          {uploadProgress > 0 && uploadProgress < 100 && (
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div
-                  className="progress"
-                  style={{ width: `${uploadProgress}%` }}
-                ></div>
-              </div>
-              <span>{Math.round(uploadProgress)}%</span>
-            </div>
-          )}
-        </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              className="form-input"
+              disabled
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Department:</label>
+            <input
+              type="text"
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Faculty ID:</label>
+            <input
+              type="text"
+              value={facultyId}
+              onChange={(e) => setFacultyId(e.target.value)}
+              className="form-input"
+            />
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSave}
+            className="save-button"
+            disabled={isUploading}
+          >
+            Save Changes
+          </button>
+        </form>
       </div>
-
-      {/* Edit Profile Header */}
-      <h1 className="profile-title">Faculty Profile</h1>
-
-      {/* Profile Form */}
-      <form onSubmit={(e) => e.preventDefault()} className="profile-form">
-        {error && <p className="error-message">{error}</p>}
-
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            className="form-input"
-            disabled
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Department:</label>
-          <input
-            type="text"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Faculty ID:</label>
-          <input
-            type="text"
-            value={facultyId}
-            onChange={(e) => setFacultyId(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <button
-          type="button"
-          onClick={handleSave}
-          className="save-button"
-          disabled={isUploading}
-        >
-          Save Changes
-        </button>
-      </form>
     </div>
   );
 };

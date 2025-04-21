@@ -36,10 +36,10 @@
   transform: scale(1.03);
 }
 
-.edit-icon {
+.edit-icon{
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 5px;
+  right: 5px;
   background-color: #00796b;
   color: #fff;
   padding: 8px;
@@ -49,8 +49,17 @@
   border: 2px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s;
+  transform: translate(25%, 25%) scale(1.1);
+  top:90px;
+  left: 90px;
 }
-
+div.edit-icon{
+  top:100px;
+  left: 100px;
+}
+.pro{
+overflow: visible;
+}
 .edit-icon:hover {
   background-color: #004d40;
 }

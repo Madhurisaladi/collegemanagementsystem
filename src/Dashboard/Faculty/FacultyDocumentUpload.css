@@ -1,5 +1,5 @@
 .container {
-  max-width: 400px; /* Adjust width to match the login box */
+  max-width: 600px;
   margin: auto;
   padding: 30px;
   background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */

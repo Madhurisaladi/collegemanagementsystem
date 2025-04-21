@@ -186,13 +186,14 @@ body {
   transform: translateY(10px);
   transition: all 0.3s ease;
 }
-
+.student-support{
+  color: white;
+}
 .student-support:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-
 .dropdown-item {
   padding: 12px 20px;
   color: white;

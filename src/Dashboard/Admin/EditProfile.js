@@ -115,7 +115,8 @@ const EditProfile = () => {
             className="edit-icon"
             onClick={() => fileInputRef.current && fileInputRef.current.click()}
           >
-            &#128247;
+            {/* &#128247; */}
+            ✏️
           </div>
         </div>
         <input
