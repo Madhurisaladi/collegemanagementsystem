@@ -1,6 +1,7 @@
 .student-profile-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #dfe7f5 100%);
+  background: url('https://t3.ftcdn.net/jpg/09/22/09/48/360_F_922094842_5qov76BhvqazmwOcrvGseQsiAlmZ53K0.jpg') no-repeat center center fixed;
+  background-size: cover;
   padding: 80px 20px 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

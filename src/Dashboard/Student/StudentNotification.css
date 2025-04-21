@@ -51,7 +51,9 @@
   /* Main Content Layout */
   .notifications-container {
     display: flex;
-    max-width: 1200px;
+    background: url('https://t3.ftcdn.net/jpg/09/22/09/48/360_F_922094842_5qov76BhvqazmwOcrvGseQsiAlmZ53K0.jpg') no-repeat center center fixed;
+  background-size: cover;
+    
     margin: 0 auto;
     padding: 20px;
     gap: 30px;
